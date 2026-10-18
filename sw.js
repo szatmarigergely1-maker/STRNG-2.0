@@ -1,4 +1,4 @@
-const C = 'strng-training-v4';
+const C = 'strng-training-v6';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', (e) => {
