@@ -14,228 +14,221 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="icon-192.png">
 <style>
-:root {
-  color-scheme: dark;
-  --bg: #000000;
-  --card: #121214;
-  --card-sub: #18181b;
-  --card-elevated: #1f1f23;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-light: rgba(255, 255, 255, 0.15);
-  --text: #ffffff;
-  --mut: #a1a1aa;
-  --dim: #71717a;
-  --em: #30d158;
-  --em-dim: rgba(48, 209, 88, 0.12);
-  --sky: #0a84ff;
-  --sky-dim: rgba(10, 132, 255, 0.12);
-  --amb: #ff9f0a;
-  --amb-dim: rgba(255, 159, 10, 0.12);
-  --red: #ff453a;
-  --red-dim: rgba(255, 69, 58, 0.12);
+:root{
+  color-scheme:dark;
+  --bg:#000000;
+  --card:#111113;
+  --card-sub:#18181b;
+  --line:rgba(255,255,255,0.08);
+  --line-strong:rgba(255,255,255,0.16);
+  --text:#ffffff;
+  --mut:#a1a1aa;
+  --dim:#71717a;
+  --em:#30d158;
+  --em-dim:rgba(48,209,88,0.12);
+  --sky:#0a84ff;
+  --sky-dim:rgba(10,132,255,0.12);
+  --amb:#ff9f0a;
+  --amb-dim:rgba(255,159,10,0.12);
+  --red:#ff453a;
+  --red-dim:rgba(255,69,58,0.12);
 }
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; background: var(--bg); color: var(--text); }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
-  font-size: 14px;
-  line-height: 1.45;
-  overscroll-behavior-y: none;
-  padding-bottom: calc(90px + env(safe-area-inset-bottom));
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",system-ui,sans-serif;
+  font-size:14px;
+  line-height:1.45;
+  overscroll-behavior-y:none;
+  padding-bottom:calc(92px + env(safe-area-inset-bottom));
 }
-button { font: inherit; color: inherit; touch-action: manipulation; cursor: pointer; border: 0; background: none; }
-.hidden { display: none !important; }
+button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer;border:0;background:none}
+.hidden{display:none!important}
 
-/* Apple Top Navigation */
-.top {
-  position: sticky; top: 0; z-index: 25;
-  background: rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-  border-bottom: 1px solid var(--line);
-  padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
-  display: flex; justify-content: space-between; align-items: center;
+/* Apple Header */
+.top{
+  position:sticky;top:0;z-index:25;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--line);
+  padding:calc(12px + env(safe-area-inset-top)) 16px 12px;
+  display:flex;justify-content:space-between;align-items:center;
 }
-.brand { display: flex; align-items: baseline; gap: 8px; }
-.brand b { font-size: 20px; font-weight: 900; letter-spacing: -0.04em; }
-.brand span {
-  font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--mut); border-left: 1px solid var(--line); padding-left: 8px;
+.brand{display:flex;align-items:baseline;gap:8px}
+.brand b{font-size:20px;font-weight:900;letter-spacing:-0.04em}
+.brand span{
+  font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--mut);border-left:1px solid var(--line);padding-left:8px;
 }
-.pill {
-  font-size: 11px; font-weight: 800; color: var(--em);
-  background: var(--em-dim); border: 1px solid rgba(48, 209, 88, 0.25);
-  border-radius: 999px; padding: 4px 10px; white-space: nowrap; letter-spacing: 0.04em;
+.pill{
+  font-size:11px;font-weight:800;color:var(--em);
+  background:var(--em-dim);border:1px solid rgba(48,209,88,0.25);
+  border-radius:999px;padding:4px 10px;white-space:nowrap;letter-spacing:0.04em;
 }
 
-/* Layout & Cards */
-.wrap { max-width: 540px; margin: 0 auto; padding: 16px; display: grid; gap: 14px; }
-.card {
-  background: var(--card); border: 1px solid var(--line);
-  border-radius: 20px; padding: 18px; display: grid; gap: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+/* Layout & Kártyák */
+.wrap{max-width:540px;margin:0 auto;padding:16px;display:grid;gap:14px}
+.card{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:20px;padding:18px;display:grid;gap:12px;
 }
-.row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 
-/* Typo */
-.h { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mut); }
-.h.em { color: var(--em); }
-.h.sky { color: var(--sky); }
-.h.amb { color: var(--amb); }
-h2 { margin: 0; font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
-h3 { margin: 0; font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
-p { margin: 0; }
-.mut { color: var(--mut); }
-.dim { color: var(--dim); }
-.small { font-size: 12.5px; }
-.tiny { font-size: 10.5px; }
-.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric: tabular-nums; }
+/* Tipográfia */
+.h{font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--mut)}
+.h.em{color:var(--em)}
+.h.sky{color:var(--sky)}
+.h.amb{color:var(--amb)}
+h2{margin:0;font-size:19px;font-weight:800;letter-spacing:-0.02em}
+h3{margin:0;font-size:16px;font-weight:800;letter-spacing:-0.01em}
+p{margin:0}
+.mut{color:var(--mut)}
+.dim{color:var(--dim)}
+.small{font-size:12.5px}
+.tiny{font-size:10.5px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
 
-/* Tags */
-.tag {
-  display: inline-flex; align-items: center; border: 1px solid var(--line);
-  background: var(--card-sub); color: var(--mut); border-radius: 999px;
-  padding: 4px 9px; font-size: 10px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+/* Címkék */
+.tag{
+  display:inline-flex;align-items:center;border:1px solid var(--line);
+  background:var(--card-sub);color:var(--mut);border-radius:999px;
+  padding:4px 9px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;
 }
-.tag.em { color: var(--em); border-color: rgba(48,209,88,0.25); background: var(--em-dim); }
-.tag.sky { color: var(--sky); border-color: rgba(10,132,255,0.25); background: var(--sky-dim); }
-.tag.amb { color: var(--amb); border-color: rgba(255,159,10,0.25); background: var(--amb-dim); }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag.em{color:var(--em);border-color:rgba(48,209,88,0.25);background:var(--em-dim)}
+.tag.sky{color:var(--sky);border-color:rgba(10,132,255,0.25);background:var(--sky-dim)}
+.tag.amb{color:var(--amb);border-color:rgba(255,159,10,0.25);background:var(--amb-dim)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
 
-/* Apple Action Buttons */
-.btn {
-  width: 100%; border: 1px solid var(--line); background: var(--card-sub);
-  border-radius: 14px; padding: 13px 16px; font-weight: 800; font-size: 12px;
-  letter-spacing: 0.04em; text-transform: uppercase; text-align: center;
-  transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.12s ease;
+/* Apple Gombok */
+.btn{
+  width:100%;border:1px solid var(--line);background:var(--card-sub);
+  border-radius:14px;padding:13px 16px;font-weight:800;font-size:12px;
+  letter-spacing:0.04em;text-transform:uppercase;text-align:center;
+  transition:transform 0.1s ease;
 }
-.btn:active { transform: scale(0.97); }
-.btn.pri { background: var(--em); color: #000; border-color: var(--em); font-weight: 900; }
-.btn.sky { background: var(--sky); color: #fff; border-color: var(--sky); font-weight: 900; }
-.btn.white { background: #fff; color: #000; border-color: #fff; font-weight: 900; }
-.btn.sm { width: auto; padding: 7px 12px; font-size: 11px; border-radius: 10px; }
-.btn.danger { color: var(--red); border-color: rgba(255,69,58,0.2); background: var(--red-dim); }
+.btn:active{transform:scale(0.97)}
+.btn.pri{background:var(--em);color:#000;border-color:var(--em);font-weight:900}
+.btn.sky{background:var(--sky);color:#fff;border-color:var(--sky);font-weight:900}
+.btn.white{background:#fff;color:#000;border-color:#fff;font-weight:900}
+.btn.sm{width:auto;padding:7px 12px;font-size:11px;border-radius:10px}
+.btn.danger{color:var(--red);border-color:rgba(255,69,58,0.2);background:var(--red-dim)}
 
-/* Inputs */
-.field {
-  width: 100%; background: var(--card-sub); border: 1px solid var(--line);
-  border-radius: 14px; padding: 12px 14px; color: #fff; font: inherit; font-size: 15px; outline: none;
-  transition: border-color 0.15s ease;
+/* Mezők */
+.field{
+  width:100%;background:var(--card-sub);border:1px solid var(--line);
+  border-radius:14px;padding:12px 14px;color:#fff;font:inherit;font-size:15px;outline:none;
 }
-.field:focus { border-color: var(--em); }
-textarea.field { resize: vertical; min-height: 72px; }
-.time { text-align: center; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: 0.06em; font-weight: 800; }
-.lbl { display: block; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); margin-bottom: 5px; }
+.field:focus{border-color:var(--em)}
+textarea.field{resize:vertical;min-height:72px}
+.time{text-align:center;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:0.06em;font-weight:800}
+.lbl{display:block;font-size:10px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
 
-/* Notice Callouts */
-.notice {
-  border: 1px solid rgba(255, 159, 10, 0.25); background: var(--amb-dim);
-  border-radius: 16px; padding: 14px; display: grid; gap: 6px;
+/* Dobozok */
+.notice{
+  border:1px solid rgba(255,159,10,0.25);background:var(--amb-dim);
+  border-radius:16px;padding:14px;display:grid;gap:6px;
 }
-.notice h4 { margin: 0; font-size: 12.5px; font-weight: 800; color: #fcd34d; }
-.notice p { font-size: 12px; color: #e4e4e7; }
-.notice.sky { border-color: rgba(10, 132, 255, 0.25); background: var(--sky-dim); }
-.notice.sky h4 { color: #7dd3fc; }
-.notice.em { border-color: rgba(48, 209, 88, 0.25); background: var(--em-dim); }
-.notice.em h4 { color: #86efac; }
+.notice h4{margin:0;font-size:12.5px;font-weight:800;color:#fcd34d}
+.notice p{font-size:12px;color:#e4e4e7}
+.notice.sky{border-color:rgba(10,132,255,0.25);background:var(--sky-dim)}
+.notice.sky h4{color:#7dd3fc}
+.notice.em{border-color:rgba(48,209,88,0.25);background:var(--em-dim)}
+.notice.em h4{color:#86efac}
 
-/* Horizontal Calendar Strip */
-.strip {
-  display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px;
-  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+/* Vízszintes naptár */
+.strip{display:flex;gap:8px;overflow-x:auto;padding:4px 2px;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.day{
+  min-width:58px;padding:9px 6px;border:1px solid var(--line);
+  background:var(--card);border-radius:15px;text-align:center;flex:0 0 auto;
+  transition:all 0.15s ease;
 }
-.strip::-webkit-scrollbar { display: none; }
-.day {
-  min-width: 58px; padding: 9px 6px; border: 1px solid var(--line);
-  background: var(--card); border-radius: 15px; text-align: center; flex: 0 0 auto;
-  transition: all 0.15s ease;
-}
-.day:active { transform: scale(0.95); }
-.day small { display: block; font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--dim); }
-.day strong { display: block; font-size: 16px; font-weight: 900; margin: 1px 0; }
-.day em { display: block; font-style: normal; font-size: 8px; font-weight: 900; letter-spacing: 0.04em; color: var(--dim); }
-.day.on { background: #fff; border-color: #fff; color: #000; box-shadow: 0 4px 14px rgba(255,255,255,0.2); }
-.day.on small, .day.on em { color: #000; }
-.day.done em { color: var(--em); }
-.day.on.done em { color: #000; }
+.day:active{transform:scale(0.95)}
+.day small{display:block;font-size:9px;font-weight:800;text-transform:uppercase;color:var(--dim)}
+.day strong{display:block;font-size:16px;font-weight:900;margin:1px 0}
+.day em{display:block;font-style:normal;font-size:8px;font-weight:900;letter-spacing:0.04em;color:var(--dim)}
+.day.on{background:#fff;border-color:#fff;color:#000}
+.day.on small,.day.on em{color:#000}
+.day.done em{color:var(--em)}
+.day.on.done em{color:#000}
 
-/* Set & Item Rows */
-.setrow {
-  display: flex; justify-content: space-between; align-items: center; gap: 10px;
-  border-bottom: 1px solid var(--line); padding: 9px 0;
+/* Elemek és sorok */
+.setrow{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  border-bottom:1px solid var(--line);padding:9px 0;
 }
-.setrow:last-child { border: 0; padding-bottom: 0; }
-.setrow b { font-size: 15px; font-weight: 800; }
-.setrow span { font-size: 11px; color: var(--dim); }
-.step { display: grid; gap: 3px; padding: 6px 0; border-bottom: 1px solid var(--line); }
-.step:last-child { border: 0; }
-.step b { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--sky); }
-.item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; align-items: baseline; }
-.item:last-child { border: 0; }
-.item i { font-style: normal; font-weight: 800; color: var(--em); font-size: 11px; width: 16px; text-align: right; flex-shrink: 0; }
+.setrow:last-child{border:0;padding-bottom:0}
+.setrow b{font-size:15px;font-weight:800}
+.setrow span{font-size:11px;color:var(--dim)}
+.step{display:grid;gap:3px;padding:6px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border:0}
+.step b{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--sky)}
+.item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;align-items:baseline}
+.item:last-child{border:0}
+.item i{font-style:normal;font-weight:800;color:var(--em);font-size:11px;width:16px;text-align:right;flex-shrink:0}
 
-/* In-Workout Interactive Checklist & Timer */
-.timerbox {
-  border: 1px solid var(--line-light); background: #070709;
-  border-radius: 18px; padding: 16px; display: grid; gap: 12px;
+/* Időmérő és interaktív feladatlista */
+.timerbox{
+  border:1px solid var(--line-strong);background:#070709;
+  border-radius:18px;padding:16px;display:grid;gap:12px;
 }
-.timerdisplay {
-  font: 900 48px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-  letter-spacing: 0.02em; text-align: center; font-variant-numeric: tabular-nums;
+.timerdisplay{
+  font:900 48px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:0.02em;text-align:center;font-variant-numeric:tabular-nums;
 }
-.timerstatus { text-align: center; font-size: 10px; color: var(--mut); font-weight: 900; text-transform: uppercase; letter-spacing: 0.12em; }
-.progress-track { height: 6px; background: #27272a; border-radius: 999px; overflow: hidden; }
-.progress-fill { height: 100%; width: 0; background: var(--em); transition: width 0.2s ease; }
-.movement-check {
-  display: flex; align-items: flex-start; gap: 10px; padding: 9px 0;
-  border-bottom: 1px solid var(--line); font-size: 12.5px; cursor: pointer;
+.timerstatus{text-align:center;font-size:10px;color:var(--mut);font-weight:900;text-transform:uppercase;letter-spacing:0.12em}
+.progress-track{height:6px;background:#27272a;border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--em);transition:width 0.2s ease}
+.movement-check{
+  display:flex;align-items:flex-start;gap:10px;padding:9px 0;
+  border-bottom:1px solid var(--line);font-size:12.5px;cursor:pointer;
 }
-.movement-check:last-child { border-bottom: 0; }
-.movement-check input { accent-color: var(--em); width: 19px; height: 19px; flex-shrink: 0; margin: 0; }
-.movement-check.done span { text-decoration: line-through; color: var(--dim); }
+.movement-check:last-child{border-bottom:0}
+.movement-check input{accent-color:var(--em);width:19px;height:19px;flex-shrink:0;margin:0}
+.movement-check.done span{text-decoration:line-through;color:var(--dim)}
 
-/* Bottom Tab Bar (Apple Style) */
-nav {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 35;
-  background: rgba(10, 10, 12, 0.82);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-  border-top: 1px solid var(--line);
-  padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
+/* Apple Alsó Menüsáv */
+nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:35;
+  background:rgba(10,10,12,0.85);
+  backdrop-filter:blur(25px) saturate(180%);
+  -webkit-backdrop-filter:blur(25px) saturate(180%);
+  border-top:1px solid var(--line);
+  padding:8px 12px calc(8px + env(safe-area-inset-bottom));
+  display:grid;grid-template-columns:repeat(4,1fr);gap:4px;
 }
-nav button {
-  background: none; border: 0; border-radius: 14px; padding: 6px 4px;
-  color: var(--dim); font-size: 10px; font-weight: 800; letter-spacing: 0.02em;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  transition: all 0.15s ease;
+nav button{
+  border-radius:14px;padding:8px 4px;
+  color:var(--dim);font-size:10px;font-weight:800;letter-spacing:0.02em;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  transition:all 0.15s ease;
 }
-nav button svg { width: 22px; height: 22px; fill: currentColor; }
-nav button.on { color: #fff; background: rgba(255, 255, 255, 0.08); }
+nav button b{font-size:18px;line-height:1}
+nav button.on{color:#fff;background:rgba(255,255,255,0.08)}
 
-/* Modal & Toasts */
-.modal {
-  position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  overflow-y: auto; padding: calc(16px + env(safe-area-inset-top)) 14px calc(28px + env(safe-area-inset-bottom));
+/* Modal & Toast */
+.modal{
+  position:fixed;inset:0;z-index:50;background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  overflow-y:auto;padding:calc(16px + env(safe-area-inset-top)) 14px calc(28px + env(safe-area-inset-bottom));
 }
-.panel {
-  max-width: 520px; margin: 0 auto; background: var(--card); border: 1px solid var(--line-light);
-  border-radius: 24px; padding: 20px; display: grid; gap: 14px;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.8);
+.panel{
+  max-width:520px;margin:0 auto;background:var(--card);border:1px solid var(--line-strong);
+  border-radius:24px;padding:20px;display:grid;gap:14px;
 }
-.toast {
-  position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom));
-  transform: translateX(-50%); z-index: 60; background: #fff; color: #000;
-  padding: 10px 18px; border-radius: 999px; font-size: 12px; font-weight: 800;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 90vw; text-align: center;
+.toast{
+  position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));
+  transform:translateX(-50%);z-index:60;background:#fff;color:#000;
+  padding:10px 18px;border-radius:999px;font-size:12px;font-weight:800;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);max-width:90vw;text-align:center;
 }
-.toast.err { background: var(--red); color: #fff; }
-.view { animation: in 0.18s cubic-bezier(0.2, 0.8, 0.2, 1); }
-@keyframes in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .view { animation: none; } }
+.toast.err{background:var(--red);color:#fff}
+.view{animation:in 0.18s cubic-bezier(0.2,0.8,0.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view{animation:none}}
 </style>
 </head>
 <body>
@@ -285,7 +278,7 @@ function normalizeTime(raw){
 const toSec=t=>{const m=/^(\d{1,2}):([0-5]\d)$/.exec(String(t||'').trim());return m?(+m[1])*60+(+m[2]):null};
 const fmtPace=s=>{s=Math.round(s);return `${Math.floor(s/60)}:${pad(s%60)}`};
 
-/* ============ ERŐEMELŐ FORGÓ ============ */
+/* ============ ERŐ GYAKORLATOK ============ */
 const LIFTS=[
   {key:'sq',name:'Guggolás (Squat)',upper:false},
   {key:'bp',name:'Fekvenyomás (Bench Press)',upper:true},
@@ -294,33 +287,33 @@ const LIFTS=[
 ];
 const LIFT=Object.fromEntries(LIFTS.map(l=>[l.key,l]));
 const ROT=[
- {key:'bp',short:'BENCH',accessory:'DB egykezes evezés 3×10/oldal, majd 3×10 fekvőtámasz.',tip:'Zárd a lapockáidat a padon, a talpad végig stabilan támasszon. Engedd a rudat kontrolláltan a szegycsonthoz, majd robbanékonyan nyomd vissza.'},
- {key:'sq',short:'SQUAT',accessory:'TRX/gyűrűs evezés 3×12, majd saját testsúlyos kitörés 3×8/oldal.',tip:'Mély hasi levegővétel (bracing), a törzs feszes, a testsúly a teljes talpon oszlik el. Csak tiszta, fájdalommentes mélységbe guggolj.'},
- {key:'ohp',short:'OHP',accessory:'TRX/gyűrűs evezés 3×12, majd oldalsó plank 3×30 mp/oldal.',tip:'Feszítsd meg a farizmodat és a hasadat, kerüld a derék túlzott homorítását. A rudat függőleges vonalban nyomd a fejed fölé.'},
- {key:'dl',short:'DEADLIFT',accessory:'Goblet squat 3×10 közepes súllyal, majd dead bug 3×10/oldal.',tip:'A rúd végig a sípcsont és a comb közvetlen közelében mozog. A talaj eltolásával indítsd a mozgást, ne derékból rántsd meg a súlyt.'}
+ {key:'bp',short:'BENCH',accessory:'DB egykezes evezés 3×10 oldalanként, majd 3×10 fekvőtámasz.',tip:'Zárd a lapockáidat a padon, a talpad végig stabilan támasszon. Engedd a rudat kontrolláltan a szegycsonthoz, majd nyomd ki.'},
+ {key:'sq',short:'SQUAT',accessory:'TRX/gyűrűs evezés 3×12, majd saját testsúlyos kitörés 3×8 oldalanként.',tip:'Mély hasi levegővétel (bracing), a törzs feszes, a testsúly a teljes talpon oszlik el. Csak tiszta, fájdalommentes mélységbe menj.'},
+ {key:'ohp',short:'OHP',accessory:'TRX/gyűrűs evezés 3×12, majd oldalsó plank 3×30 mp oldalanként.',tip:'Feszítsd meg a farizmodat és a hasadat, kerüld a derék túlzott homorítását. A rudat függőleges vonalban nyomd a fejed fölé.'},
+ {key:'dl',short:'DEADLIFT',accessory:'Goblet squat 3×10 közepes súllyal, majd dead bug 3×10 oldalanként.',tip:'A rúd végig a tested közvetlen közelében mozog. A talaj eltolásával indítsd a mozgást, ne derékból rántsd meg a súlyt.'}
 ];
 const SCHEMES={1:[[.65,'5'],[.75,'5'],[.85,'5+']],2:[[.70,'3'],[.80,'3'],[.90,'3+']],3:[[.75,'5'],[.85,'3'],[.95,'1+']],4:[[.40,'5'],[.50,'5'],[.60,'5']]};
 const WARMUP=[[.40,5],[.50,5],[.60,3]];
 
-/* ============ 15 KONDÍCIÓS EDZÉS (METCON KÖNYVTÁR) ============ */
+/* ============ 15 KONDÍCIÓS EDZÉS (METCON) ============ */
 const METCONS=[
 {id:"engine-ladder",title:"Engine Ladder",subtitle:"Aerob kapacitás & ritmus",category:"Kondíció",duration:"Cap 20:00",rpe:"8.5/10",target:"Célidő: 16:30 – 18:30",format:"5 kör időre",
  blocks:[{title:"5 kör időre (For Time)",items:["500 m Evezés (Row)","15 Burpee over rower (evezőn átugró burpee)","20 Wall Ball shot (9/6 kg)"]}],
  stimulus:"Klasszikus aerob motor teszt. A pulzus stabilan a 85-90%-os zónában marad.",
- strategy:"Az evezésen tartsd a 2k-s tempód +5-7 másodperccel lassabban (kb. 1:55-2:00/500m). A burpeenél folyamatos lépkedős ritmust válassz, a fali labdát 12+8-as bontásban végezd.",
+ strategy:"Az evezésen tartsd a 2k-s tempód +5-7 másodperccel lassabban (kb. 1:55-2:00/500m). A burpeenél lépkedős ritmust válassz, a fali labdát 12+8-as bontásban végezd.",
  tips:[["Evezés","Ne rántsd el az első 500 métert. Tarts egyenletes csapásszámot (26-28 s/m)."],["Burpee","Ne állj meg fújni: lépj fel és lépj le egyenletesen."],["Wall Ball","A labdát a mellkasnál fogd, ne engedd le a combodra a guggolás alján."]]},
 
 {id:"echo-chipper",title:"Echo Chipper",subtitle:"Erő-állóképesség",category:"Chipper",duration:"Cap 22:00",rpe:"9/10",target:"Célidő: 17:00 – 19:30",format:"Időre (For Time)",
  blocks:[{title:"Chipper feladatsor",items:["40 Cal Echo Bike","30 Dumbbell Snatch (22.5 / 15 kg)","30 Box Jump Over (60 / 50 cm)","30 Dumbbell Thruster (2×15 / 2×10 kg)","40 Cal Echo Bike"]}],
  stimulus:"Magas metabolikus savasodás és láb-állóképesség.",
- strategy:"Az első Echo Bike-on 60-65 RPM körül tekerj (70-75% effort). A thruster a kulcs: 3×10 ismétlésre bontsd tudatosan.",
- tips:[["Echo Bike","Egyenletes watt-leadás; ne égesd el magad az első 40 kalórián."],["DB Thruster","A felső holtponton vegyél egy mély levegőt, a csípőddel indítsd a lökést."],["Box Jump Over","Lépkedj le a dobozról az achilles és a pulzus kímélése érdekében."]]},
+ strategy:"Az első Echo Bike-on 60-65 RPM körül tekerj. A thruster a kulcs: 3×10 ismétlésre bontsd tudatosan.",
+ tips:[["Echo Bike","Egyenletes watt-leadás; ne égesd el magad az elején."],["DB Thruster","A felső holtponton vegyél egy mély levegőt, a csípőddel indítsd a lökést."],["Box Jump Over","Lépkedj le a dobozról az achilles és a pulzus kímélése érdekében."]]},
 
 {id:"tri-erg-aerobic",title:"Tri-Erg Aerobic Capacity",subtitle:"Tiszta aerob motor",category:"Kardió",duration:"34:00 (3 kör)",rpe:"8/10",target:"Cél: egyenletes köridők (28-31 perc)",format:"3 kör · körök közt 2:00 pihenő",
  blocks:[{title:"Minden körben teljesítendő",items:["1000 m SkiErg","1500 m Evezés (Row)","2500 m Echo Bike / C2 Bike"],note:"A körök között pontosan 2:00 pihenő kötelező."}],
  stimulus:"Tiszta zóna 2-3 aerob fejlesztés, zsírégető és mitokondriális bázisépítés.",
  strategy:"Fix watt/split tartása mindhárom gépen. A körök közötti szórás ne legyen több 3-5 másodpercnél.",
- tips:[["SkiErg","Dolgozz törzsből, a karok laza ostorként kövessék a mozdulatot."],["Pihenő","A 2 percben sétálj és kortyolj vizet, tilos a földre feküdni."]]},
+ tips:[["SkiErg","Dolgozz törzsből, a karok laza ostorként kövessék a mozdulatot."],["Pihenő","A 2 percben sétálj és kortyolj vizet, ne feküdj le a földre."]]},
 
 {id:"kettlebell-shuttle",title:"Kettlebell & Shuttle Grinder",subtitle:"Középtávú állóképesség",category:"Kondíció",duration:"Cap 20:00",rpe:"8.5/10",target:"Célidő: 15:30 – 18:00",format:"4 kör időre",
  blocks:[{title:"4 kör időre",items:["400 m Futás (vagy 25 Cal Evezés)","24 Kettlebell Swing (24 / 16 kg)","16 KB Goblet Guggolás (24 / 16 kg)","12 Burpee Box Jump Over (60 / 50 cm)"]}],
@@ -331,7 +324,7 @@ const METCONS=[
 {id:"cardio-monster-emom",title:"Cardio Monster EMOM 24",subtitle:"Magas intenzitású intervallum",category:"Intervallum",duration:"24:00 fix",rpe:"9/10",target:"Minden feladat 45-48 mp alatt",format:"EMOM 24 perc (6 teljes kör)",
  blocks:[{title:"Minden perc új állomás",items:["1. perc: 18/14 Cal Evezés","2. perc: 15 Burpee","3. perc: 16/12 Cal Echo Bike","4. perc: 50 Double Unders (vagy 75 szimpla)"]}],
  stimulus:"Percenkénti laktátküszöb terhelés garantált 12-15 mp pihenővel.",
- strategy:"Ha valamelyik percben 52 másodperc fölé csúszol, a következő körben vegyél vissza 2 kalóriát/ismétlést.",
+ strategy:"Ha valamelyik percben 52 másodperc fölé csúszol, a következő körben vegyél vissza 2 ismétlést.",
  tips:[["Légzés","Az evezőn és a bringán hangold össze a légzésed a mozdulat ritmusával."],["Kötél","Laza vállak, csuklóból pörgess."]]},
 
 {id:"lactate-tolerance",title:"Lactate Tolerance Chipper",subtitle:"Küszöb feletti ellenállás",category:"Kondíció",duration:"Cap 22:00",rpe:"9/10",target:"Célidő: 17:30 – 19:30",format:"3 kör időre",
@@ -395,7 +388,7 @@ const METCONS=[
  tips:[["Wall Ball","Nagy, egyenletes szettek."],["Echo Bike","Zárd le maximális erőbedobással."]]}
 ];
 
-/* ============ 15 FUTÓEDZÉS ZÓNÁKKAL ============ */
+/* ============ 15 FUTÓEDZÉS ============ */
 const RUNS=[
 {zone:'interval',title:'Intervallum: 5 × 800 m',dist:'5 × 800 m',steps:[['Bemelegítés','1 km nagyon könnyű kocogás @E + dinamikus nyújtás.'],['Fő rész','5 × 800 m @2k tempóban. Minden résztáv után pontosan 2:00 séta/könnyű kocogás.'],['Levezetés','1 km laza levezető kocogás @E.']],tip:'Tartsd a céltempót végig egyenletesen. Ne kezdd gyorsabban az első kört!'},
 {zone:'tempo',title:'Tempófutás: 20 perc küszöb',dist:'20 perc @T',steps:[['Bemelegítés','1.5 km könnyű futás @E + 3 × 60 m repülő.'],['Fő rész','20 perc folyamatos küszöbfutás @T zónában.'],['Levezetés','1 km laza kocogás @E.']],tip:'A @T tempó kontrolláltan nehéz. Beszélni csak szavakban tudsz, de stabilan bírnod kell 20 percen át.'},
@@ -423,14 +416,20 @@ const ZONES={
  progression:{name:'Progresszív közép',range:p=>[p.p5+15,p.p5+35]}
 };
 
-/* ============ ÁLLAPOT ÉS MENTÉS ============ */
+/* ============ BIZTONSÁGOS ADATTÁROLÁS ============ */
 const baseState=()=>({programStart:DEFAULT_START,tm:{sq:120,bp:90,dl:150,ohp:60},runTimes:{t2:'08:30',t5:'24:00'},logs:[],cycleApplied:1,tmHistory:[],runHistory:[],lastBackup:0});
+
 function sanitize(s){
-  const b=baseState();if(!s||typeof s!=='object')return b;
+  const b=baseState();
+  if(!s||typeof s!=='object')return b;
   if(/^\d{4}-\d{2}-\d{2}$/.test(String(s.programStart||'')))b.programStart=s.programStart;
-  for(const l of LIFTS){const n=Number(s.tm?.[l.key]);if(Number.isFinite(n)&&n>0)b.tm[l.key]=round25(n);}
+  for(const l of LIFTS){
+    const n=Number(s.tm?.[l.key]);
+    if(Number.isFinite(n)&&n>0)b.tm[l.key]=round25(n);
+  }
   const r=s.runTimes||{};
-  if(r.t2)b.runTimes.t2=r.t2;if(r.t5)b.runTimes.t5=r.t5;
+  if(r.t2)b.runTimes.t2=r.t2;
+  if(r.t5)b.runTimes.t5=r.t5;
   if(Array.isArray(s.logs))b.logs=s.logs.filter(x=>x&&x.id&&x.date);
   if(Array.isArray(s.tmHistory))b.tmHistory=s.tmHistory;
   if(Array.isArray(s.runHistory))b.runHistory=s.runHistory;
@@ -438,6 +437,7 @@ function sanitize(s){
   b.lastBackup=Number(s.lastBackup)||0;
   return b;
 }
+
 function load(){
   try{
     const v3=localStorage.getItem(KEY);if(v3)return sanitize(JSON.parse(v3));
@@ -445,17 +445,21 @@ function load(){
   }catch(e){}
   return baseState();
 }
+
 let state=load(),tab='program',selectedDate='';
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('Mentési hiba!',true)}}
 let tt;function toast(m,err){const t=$('#toast');t.textContent=m;t.className='toast'+(err?' err':'');clearTimeout(tt);tt=setTimeout(()=>t.classList.add('hidden'),2600)}
 
-/* ============ PROGRAM LOGIKA ============ */
+/* ============ DÁTUM ÉS NAPI LOGIKA ============ */
+const clampDate=d=>d<state.programStart?state.programStart:d;
 const dayIndex=date=>{
   const[y,m,d]=date.split('-').map(Number),[a,b,c]=state.programStart.split('-').map(Number);
   return Math.round((Date.UTC(y,m-1,d)-Date.UTC(a,b-1,c))/864e5);
 };
+
 function planFor(date){
-  const i=dayIndex(date);if(i<0)return{kind:'before'};
+  const i=dayIndex(date);
+  if(i<0)return{kind:'before'};
   if(i%2===0){
     const n=i/2;
     return{kind:'strength',lift:ROT[n%4],week:Math.floor(n/4)%4+1,metcon:METCONS[n%METCONS.length],parts:['wendler','metcon']};
@@ -463,6 +467,7 @@ function planFor(date){
   const n=(i-1)/2;
   return{kind:'run',run:RUNS[n%RUNS.length],parts:['run']};
 }
+
 const cycleNow=()=>{const i=dayIndex(today());return i<0?1:Math.floor(i/30)+1};
 const logsOn=d=>state.logs.filter(l=>l.date===d);
 const partLog=(d,p)=>state.logs.find(l=>l.date===d&&l.part===p);
@@ -491,16 +496,8 @@ function runTarget(run,P){
   }
 }
 
-/* ============ APPLE STÍLUSÚ IKONOK (SVG) ============ */
-const ICONS={
- program:`<svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>`,
- metcon:`<svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM12 20c-3.31 0-6-2.69-6-6 0-1.53.58-2.92 1.53-3.98.24 2.87 2.45 5.16 5.37 5.16.59 0 1.15-.1 1.68-.28-.39 2.92-2.88 5.1-5.58 5.1z"/></svg>`,
- profile:`<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>`,
- log:`<svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>`
-};
-
 const TITLES={program:'Mai terv',metcon:'Metcon',profile:'Beállítások',log:'Napló'};
-const NAV=[['program','program','PROGRAM'],['metcon','metcon','METCON'],['profile','profile','PROFIL'],['log','log','NAPLÓ']];
+const NAV=[['program','📅','PROGRAM'],['metcon','🔥','METCON'],['profile','⚙️','PROFIL'],['log','📖','NAPLÓ']];
 
 function render(){
   $('#title').textContent=TITLES[tab];
@@ -508,11 +505,12 @@ function render(){
   $('#badge').textContent=i<0?'INDUL: '+fmtDate(state.programStart).toUpperCase():`${cycleNow()}. CIKLUS`;
   $('#nav').innerHTML=NAV.map(([k,ic,l])=>`
     <button data-a="tab" data-t="${k}" class="${tab===k?'on':''}">
-      ${ICONS[ic]}
+      <b>${ic}</b>
       <span>${l}</span>
     </button>
   `).join('');
-  const v=$('#view');v.innerHTML=({program:vProgram,metcon:vMetcon,profile:vProfile,log:vLog})[tab]();
+  const v=$('#view');
+  v.innerHTML=({program:vProgram,metcon:vMetcon,profile:vProfile,log:vLog})[tab]();
   const on=v.querySelector('.day.on');if(on)on.scrollIntoView({block:'nearest',inline:'center'});
 }
 
@@ -534,7 +532,7 @@ function loggedBox(date,part){
   </div>`;
 }
 
-/* ============ NÉZET: NAPI PROGRAM ============ */
+/* ============ NÉZET: PROGRAM ============ */
 function vProgram(){
   const date=selectedDate,p=planFor(date),start=pd(state.programStart);
   let st=pd(date);st.setDate(st.getDate()-4);if(st<start)st=new Date(start);
@@ -561,7 +559,6 @@ function vProgram(){
     if(p.kind==='strength'){
       const key=p.lift.key,ss=sets(key,p.week),has=!!state.tm[key],w=p.metcon;
       body+=`
-      <!-- ERŐRÉSZ -->
       <section class="card">
         <div class="row">
           <div class="tags">
@@ -624,7 +621,6 @@ function vProgram(){
         `}
       </section>
 
-      <!-- METCON RÉSZ -->
       <section class="card">
         <div class="row">
           <div class="tags">
@@ -724,9 +720,9 @@ function vMetcon(){
   <section class="card">
     <div class="h em">STRNG Workout Library</div>
     <h2>Metcon Könyvtár</h2>
-    <p class="small mut">15 precízen felépített CrossFit / Kondíciós edzés beépített időmérővel és technikával.</p>
-    <div class="searchrow">
-      <input class="field" id="metcon-search" type="search" placeholder="Keresés: burpee, thruster, bike..." autocomplete="off">
+    <p class="small mut">15 precízen felépített CrossFit és kondíciós edzés beépített időmérővel.</p>
+    <div class="grid2">
+      <input class="field" id="metcon-search" type="search" placeholder="Keresés: burpee, thruster..." autocomplete="off">
       <select class="field" id="metcon-filter">
         <option value="all">Minden kategória</option>
         ${[...new Set(METCONS.map(w=>w.category))].sort().map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('')}
@@ -764,7 +760,7 @@ function filterMetcons(){
  $('#metcon-empty')?.classList.toggle('hidden',visible>0);
 }
 
-/* ============ NÉZET: PROFIL & BEÁLLÍTÁSOK ============ */
+/* ============ NÉZET: PROFIL ============ */
 function vProfile(){
   const P=runProfile(),i=dayIndex(today()),t=state.runTimes;
   return`
@@ -922,7 +918,7 @@ function timerDisplay(){
  status.textContent=workoutTimer.running?'FUT':(workoutTimer.elapsed>0?'MEGÁLLÍTVA':'KÉSZEN ÁLL');
  const b=$('#timer-start');if(b)b.textContent=workoutTimer.running?'Szünet':'Indítás';
 }
-function timerToggle(){
+function runTimerToggle(){
   if(workoutTimer.running){
     timerStopInterval();
     timerDisplay();
@@ -945,7 +941,7 @@ function timerToggle(){
     timerDisplay();
   }
 }
-function timerReset(){
+function runTimerReset(){
   timerStopInterval();
   const mins=Math.max(1,Math.min(60,Number($('#timer-minutes')?.value)||10));
   const mode=$('#timer-mode')?.value||'amrap';
@@ -987,7 +983,6 @@ function openMetcon(id){
     </div>
   </div>
 
-  <!-- BEÉPÍTETT TIMER -->
   <div class="timerbox">
     <div class="row"><div class="h em">Edzésóra</div><span class="tiny dim">${esc(w.format)}</span></div>
     <div id="timer-display" class="timerdisplay">10:00</div>
@@ -1012,7 +1007,6 @@ function openMetcon(id){
     </div>
   </div>
 
-  <!-- INTERAKTÍV FELADATLISTA -->
   <div>
     <div class="row">
       <div class="h">Feladatsor (Koppints ha kész)</div>
@@ -1050,7 +1044,6 @@ function openMetcon(id){
     </div>
   </div>
 
-  <!-- GYORS NAPLÓZÁS -->
   <div style="background:var(--card-sub);padding:14px;border-radius:16px;border:1px solid var(--line);display:grid;gap:8px">
     <div class="h">Eredmény rögzítése erre a napra (${esc(fmtDate(selectedDate))})</div>
     <input class="field" id="mscore" placeholder="Elért idő / körök száma">
@@ -1059,10 +1052,10 @@ function openMetcon(id){
     <button class="btn pri" data-a="logLibrary" data-id="${w.id}">Mentés a Naplóba</button>
   </div>
   `);
-  timerReset();
+  runTimerReset();
 }
 
-/* ============ MODAL SEGÉDEK ============ */
+/* ============ MODAL KEZELŐK ============ */
 const modal=html=>{const m=$('#modal');m.innerHTML=`<div class="panel">${html}</div>`;m.classList.remove('hidden');document.body.style.overflow='hidden'};
 const closeModal=()=>{timerStopInterval();$('#modal').classList.add('hidden');$('#modal').innerHTML='';document.body.style.overflow=''};
 
@@ -1083,18 +1076,18 @@ function logForm(l){
   `);
 }
 
-/* ============ ESEMÉNYKEZELÉS ============ */
 function addLog(o){state.logs.push({id:uid(),createdAt:Date.now(),details:'',...o});save()}
 
+/* ============ GOMB MŰVELETEK ============ */
 const A={
  tab(d){tab=d.t;closeModal();render();window.scrollTo(0,0)},
  date(d){selectedDate=d.d;render()},
- jumpToday(){selectedDate=today();render()},
+ jumpToday(){selectedDate=clampDate(today());render()},
  jumpStart(){selectedDate=state.programStart;render()},
  closeModal,
  openMetcon(d){openMetcon(d.id)},
- timerToggle(){timerToggle()},
- timerReset(){timerReset()},
+ timerToggle(){runTimerToggle()},
+ timerReset(){runTimerReset()},
  logLibrary(d){
    const w=METCONS.find(x=>x.id===d.id);if(!w)return;
    const score=($('#mscore')?.value||'').trim(),load=($('#mload')?.value\vert{}\vert{}'').trim(),notes=($('#mnotes')?.value||'').trim();
@@ -1170,6 +1163,7 @@ document.addEventListener('click',e=>{
   if(e.target.id==='modal'){closeModal();return}
   const el=e.target.closest('[data-a]');if(el&&A[el.dataset.a])A[el.dataset.a](el.dataset,el);
 });
+
 document.addEventListener('input',e=>{
   const t=e.target;
   if(t.id==='rt2'||t.id==='rt5'){const v=liveTime(t.value);if(t.value!==v){t.value=v;}}
@@ -1183,11 +1177,13 @@ document.addEventListener('input',e=>{
   }
   const m=/^orm-(\w+)$/.exec(t.id\vert{}\vert{}'');if(m){const n=Number(t.value),tm=$('#tm-'+m[1]);if(tm)tm.value=n>0?round25(n*.9):''}
 });
+
 document.addEventListener('focusout',e=>{const t=e.target;if(t.id==='rt2'||t.id==='rt5')t.value=normalizeTime(t.value)});
+
 document.addEventListener('change',e=>{
   if(e.target.matches('[data-movement-check]'))updateMovementProgress();
   if(e.target.id==='metcon-filter')filterMetcons();
-  if(e.target.id==='timer-mode'||e.target.id==='timer-minutes')timerReset();
+  if(e.target.id==='timer-mode'||e.target.id==='timer-minutes')runTimerReset();
   if(e.target.id==='restoreFile'){
     const f=e.target.files&&e.target.files[0];if(!f)return;
     const r=new FileReader();
@@ -1200,10 +1196,15 @@ document.addEventListener('change',e=>{
     r.readAsText(f);
   }
 });
+
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
-selectedDate=today();
+selectedDate=clampDate(today());
 render();
+
+if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
 })();
 </script>
 </body>
