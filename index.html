@@ -1,28 +1,1221 @@
-const C = 'strng-training-v5';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './apple-touch-icon.png'];
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="STRNG">
+<meta name="robots" content="noindex, nofollow">
+<title>STRNG Training</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#000000;
+  --card:#121214;
+  --card-sub:#18181b;
+  --line:rgba(255,255,255,0.08);
+  --line-strong:rgba(255,255,255,0.16);
+  --text:#ffffff;
+  --mut:#a1a1aa;
+  --dim:#71717a;
+  --em:#30d158;
+  --em-dim:rgba(48,209,88,0.12);
+  --sky:#0a84ff;
+  --sky-dim:rgba(10,132,255,0.12);
+  --amb:#ff9f0a;
+  --amb-dim:rgba(255,159,10,0.12);
+  --red:#ff453a;
+  --red-dim:rgba(255,69,58,0.12);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text)}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",system-ui,sans-serif;
+  font-size:14px;
+  line-height:1.45;
+  overscroll-behavior-y:none;
+  padding-bottom:calc(92px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer;border:0;background:none}
+.hidden{display:none!important}
 
-self.addEventListener('install', (e) => {
-  self.skipWaiting();
-  e.waitUntil(caches.open(C).then(c => c.addAll(SHELL)).catch(() => {}));
+/* Apple Fejléc */
+.top{
+  position:sticky;top:0;z-index:25;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--line);
+  padding:calc(12px + env(safe-area-inset-top)) 16px 12px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.brand{display:flex;align-items:baseline;gap:8px}
+.brand b{font-size:20px;font-weight:900;letter-spacing:-0.04em}
+.brand span{
+  font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--mut);border-left:1px solid var(--line);padding-left:8px;
+}
+.pill{
+  font-size:11px;font-weight:800;color:var(--em);
+  background:var(--em-dim);border:1px solid rgba(48,209,88,0.25);
+  border-radius:999px;padding:4px 10px;white-space:nowrap;letter-spacing:0.04em;
+}
+
+/* Elrendezés és Kártyák */
+.wrap{max-width:540px;margin:0 auto;padding:16px;display:grid;gap:14px}
+.card{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:20px;padding:18px;display:grid;gap:12px;
+}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+
+/* Tipográfia */
+.h{font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--mut)}
+.h.em{color:var(--em)}
+.h.sky{color:var(--sky)}
+.h.amb{color:var(--amb)}
+h2{margin:0;font-size:19px;font-weight:800;letter-spacing:-0.02em}
+h3{margin:0;font-size:16px;font-weight:800;letter-spacing:-0.01em}
+p{margin:0}
+.mut{color:var(--mut)}
+.dim{color:var(--dim)}
+.small{font-size:12.5px}
+.tiny{font-size:10.5px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+
+/* Címkék */
+.tag{
+  display:inline-flex;align-items:center;border:1px solid var(--line);
+  background:var(--card-sub);color:var(--mut);border-radius:999px;
+  padding:4px 9px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;
+}
+.tag.em{color:var(--em);border-color:rgba(48,209,88,0.25);background:var(--em-dim)}
+.tag.sky{color:var(--sky);border-color:rgba(10,132,255,0.25);background:var(--sky-dim)}
+.tag.amb{color:var(--amb);border-color:rgba(255,159,10,0.25);background:var(--amb-dim)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+
+/* Gombok */
+.btn{
+  width:100%;border:1px solid var(--line);background:var(--card-sub);
+  border-radius:14px;padding:13px 16px;font-weight:800;font-size:12px;
+  letter-spacing:0.04em;text-transform:uppercase;text-align:center;
+  transition:transform 0.1s ease;
+}
+.btn:active{transform:scale(0.97)}
+.btn.pri{background:var(--em);color:#000;border-color:var(--em);font-weight:900}
+.btn.sky{background:var(--sky);color:#fff;border-color:var(--sky);font-weight:900}
+.btn.white{background:#fff;color:#000;border-color:#fff;font-weight:900}
+.btn.sm{width:auto;padding:7px 12px;font-size:11px;border-radius:10px}
+.btn.danger{color:var(--red);border-color:rgba(255,69,58,0.2);background:var(--red-dim)}
+
+/* Mezők */
+.field{
+  width:100%;background:var(--card-sub);border:1px solid var(--line);
+  border-radius:14px;padding:12px 14px;color:#fff;font:inherit;font-size:15px;outline:none;
+}
+.field:focus{border-color:var(--em)}
+textarea.field{resize:vertical;min-height:72px}
+.time{text-align:center;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:0.06em;font-weight:800}
+.lbl{display:block;font-size:10px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+
+/* Értesítő dobozok */
+.notice{
+  border:1px solid rgba(255,159,10,0.25);background:var(--amb-dim);
+  border-radius:16px;padding:14px;display:grid;gap:6px;
+}
+.notice h4{margin:0;font-size:12.5px;font-weight:800;color:#fcd34d}
+.notice p{font-size:12px;color:#e4e4e7}
+.notice.sky{border-color:rgba(10,132,255,0.25);background:var(--sky-dim)}
+.notice.sky h4{color:#7dd3fc}
+.notice.em{border-color:rgba(48,209,88,0.25);background:var(--em-dim)}
+.notice.em h4{color:#86efac}
+
+/* Vízszintes naptár */
+.strip{display:flex;gap:8px;overflow-x:auto;padding:4px 2px;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.day{
+  min-width:58px;padding:9px 6px;border:1px solid var(--line);
+  background:var(--card);border-radius:15px;text-align:center;flex:0 0 auto;
+  transition:all 0.15s ease;
+}
+.day:active{transform:scale(0.95)}
+.day small{display:block;font-size:9px;font-weight:800;text-transform:uppercase;color:var(--dim)}
+.day strong{display:block;font-size:16px;font-weight:900;margin:1px 0}
+.day em{display:block;font-style:normal;font-size:8px;font-weight:900;letter-spacing:0.04em;color:var(--dim)}
+.day.on{background:#fff;border-color:#fff;color:#000}
+.day.on small,.day.on em{color:#000}
+.day.done em{color:var(--em)}
+.day.on.done em{color:#000}
+
+/* Elemek és sorok */
+.setrow{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  border-bottom:1px solid var(--line);padding:9px 0;
+}
+.setrow:last-child{border:0;padding-bottom:0}
+.setrow b{font-size:15px;font-weight:800}
+.setrow span{font-size:11px;color:var(--dim)}
+.step{display:grid;gap:3px;padding:6px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border:0}
+.step b{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--sky)}
+.item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;align-items:baseline}
+.item:last-child{border:0}
+.item i{font-style:normal;font-weight:800;color:var(--em);font-size:11px;width:16px;text-align:right;flex-shrink:0}
+
+/* Időmérő és lista */
+.timerbox{
+  border:1px solid var(--line-strong);background:#070709;
+  border-radius:18px;padding:16px;display:grid;gap:12px;
+}
+.timerdisplay{
+  font:900 48px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:0.02em;text-align:center;font-variant-numeric:tabular-nums;
+}
+.timerstatus{text-align:center;font-size:10px;color:var(--mut);font-weight:900;text-transform:uppercase;letter-spacing:0.12em}
+.progress-track{height:6px;background:#27272a;border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--em);transition:width 0.2s ease}
+.movement-check{
+  display:flex;align-items:flex-start;gap:10px;padding:9px 0;
+  border-bottom:1px solid var(--line);font-size:12.5px;cursor:pointer;
+}
+.movement-check:last-child{border-bottom:0}
+.movement-check input{accent-color:var(--em);width:19px;height:19px;flex-shrink:0;margin:0}
+.movement-check.done span{text-decoration:line-through;color:var(--dim)}
+
+/* Alsó navigációs sáv */
+nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:35;
+  background:rgba(10,10,12,0.85);
+  backdrop-filter:blur(25px) saturate(180%);
+  -webkit-backdrop-filter:blur(25px) saturate(180%);
+  border-top:1px solid var(--line);
+  padding:8px 12px calc(8px + env(safe-area-inset-bottom));
+  display:grid;grid-template-columns:repeat(4,1fr);gap:4px;
+}
+nav button{
+  border-radius:14px;padding:8px 4px;
+  color:var(--dim);font-size:10px;font-weight:800;letter-spacing:0.02em;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  transition:all 0.15s ease;
+}
+nav button b{font-size:18px;line-height:1}
+nav button.on{color:#fff;background:rgba(255,255,255,0.08)}
+
+/* Modal & Toast */
+.modal{
+  position:fixed;inset:0;z-index:50;background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  overflow-y:auto;padding:calc(16px + env(safe-area-inset-top)) 14px calc(28px + env(safe-area-inset-bottom));
+}
+.panel{
+  max-width:520px;margin:0 auto;background:var(--card);border:1px solid var(--line-strong);
+  border-radius:24px;padding:20px;display:grid;gap:14px;
+}
+.toast{
+  position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));
+  transform:translateX(-50%);z-index:60;background:#fff;color:#000;
+  padding:10px 18px;border-radius:999px;font-size:12px;font-weight:800;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);max-width:90vw;text-align:center;
+}
+.toast.err{background:var(--red);color:#fff}
+.view{animation:in 0.18s cubic-bezier(0.2,0.8,0.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><b>STRNG</b><span id="title">Mai terv</span></div>
+  <div class="pill" id="badge">1. CIKLUS</div>
+</header>
+
+<main id="view" class="wrap view"></main>
+<nav id="nav"></nav>
+<div id="modal" class="modal hidden"></div>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script>
+(()=>{'use strict';
+
+const KEY='strng_training_system_v3',OLD_KEY='strng_training_system_v2';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const today=()=>ymd(new Date());
+const pd=s=>new Date(s+'T12:00:00');
+const fmtDate=s=>pd(s).toLocaleDateString('hu-HU',{weekday:'short',month:'short',day:'numeric'});
+const uid=()=>(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(16).slice(2));
+const kgFmt=n=>String(n).replace('.',',');
+const round25=n=>Math.round(n/2.5)*2.5;
+
+function liveTime(raw){
+  const idx=raw.search(/\D/),all=raw.replace(/\D/g,'').slice(0,4);
+  if(idx>=0){
+    const m=raw.slice(0,idx).replace(/\D/g,''),s=raw.slice(idx).replace(/\D/g,'');
+    if(m.length>=1&&m.length<=2&&s.length<=2)return m+':'+s;
+  }
+  if(all.length<=2)return all;
+  if(all.length===3)return all[0]+':'+all.slice(1);
+  return all.slice(0,2)+':'+all.slice(2);
+}
+function normalizeTime(raw){
+  raw=String(raw||'').trim();if(!raw)return '';
+  const idx=raw.search(/\D/);let m,s;
+  if(idx>=0){m=raw.slice(0,idx).replace(/\D/g,'');s=raw.slice(idx).replace(/\D/g,'');}
+  else{const d=raw.slice(0,4);if(d.length<=2){m=d;s='';}else if(d.length===3){m=d[0];s=d.slice(1);}else{m=d.slice(0,2);s=d.slice(2);}}
+  return m===''?raw:pad(+m)+':'+pad(+(s||0));
+}
+const toSec=t=>{const m=/^(\d{1,2}):([0-5]\d)$/.exec(String(t||'').trim());return m?(+m[1])*60+(+m[2]):null};
+const fmtPace=s=>{s=Math.round(s);return `${Math.floor(s/60)}:${pad(s%60)}`};
+
+/* ============ ERŐ GYAKORLATOK ============ */
+const LIFTS=[
+  {key:'sq',name:'Guggolás (Squat)',upper:false},
+  {key:'bp',name:'Fekvenyomás (Bench Press)',upper:true},
+  {key:'dl',name:'Felhúzás (Deadlift)',upper:false},
+  {key:'ohp',name:'Mellből nyomás (OHP)',upper:true}
+];
+const LIFT=Object.fromEntries(LIFTS.map(l=>[l.key,l]));
+const ROT=[
+ {key:'bp',short:'BENCH',accessory:'DB egykezes evezés 3×10 oldalanként, majd 3×10 fekvőtámasz.',tip:'Zárd a lapockáidat a padon, a talpad végig stabilan támasszon. Engedd a rudat kontrolláltan a szegycsonthoz, majd nyomd ki.'},
+ {key:'sq',short:'SQUAT',accessory:'TRX/gyűrűs evezés 3×12, majd saját testsúlyos kitörés 3×8 oldalanként.',tip:'Mély hasi levegővétel (bracing), a törzs feszes, a testsúly a teljes talpon oszlik el. Csak tiszta mélységbe guggolj.'},
+ {key:'ohp',short:'OHP',accessory:'TRX/gyűrűs evezés 3×12, majd oldalsó plank 3×30 mp oldalanként.',tip:'Feszítsd meg a farizmodat és a hasadat, kerüld a derék túlzott homorítását. A rudat függőleges vonalban nyomd a fejed fölé.'},
+ {key:'dl',short:'DEADLIFT',accessory:'Goblet squat 3×10 közepes súllyal, majd dead bug 3×10 oldalanként.',tip:'A rúd végig a tested közvetlen közelében mozog. A talaj eltolásával indítsd a mozgást, ne derékból rántsd meg a súlyt.'}
+];
+const SCHEMES={1:[[.65,'5'],[.75,'5'],[.85,'5+']],2:[[.70,'3'],[.80,'3'],[.90,'3+']],3:[[.75,'5'],[.85,'3'],[.95,'1+']],4:[[.40,'5'],[.50,'5'],[.60,'5']]};
+const WARMUP=[[.40,5],[.50,5],[.60,3]];
+
+/* ============ 15 KONDÍCIÓS EDZÉS (METCON) ============ */
+const METCONS=[
+{id:"engine-ladder",title:"Engine Ladder",subtitle:"Aerob kapacitás & ritmus",category:"Kondíció",duration:"Cap 20:00",rpe:"8.5/10",target:"Célidő: 16:30 – 18:30",format:"5 kör időre",
+ blocks:[{title:"5 kör időre (For Time)",items:["500 m Evezés (Row)","15 Burpee over rower (evezőn átugró burpee)","20 Wall Ball shot (9/6 kg)"]}],
+ stimulus:"Klasszikus aerob motor teszt. A pulzus stabilan a 85-90%-os zónában marad.",
+ strategy:"Az evezésen tartsd a 2k-s tempód +5-7 másodperccel lassabban (kb. 1:55-2:00/500m). A burpeenél lépkedős ritmust válassz, a fali labdát 12+8-as bontásban végezd.",
+ tips:[["Evezés","Ne rántsd el az első 500 métert. Tarts egyenletes csapásszámot (26-28 s/m)."],["Burpee","Ne állj meg fújni: lépj fel és lépj le egyenletesen."],["Wall Ball","A labdát a mellkasnál fogd, ne engedd le a combodra a guggolás alján."]]},
+
+{id:"echo-chipper",title:"Echo Chipper",subtitle:"Erő-állóképesség",category:"Chipper",duration:"Cap 22:00",rpe:"9/10",target:"Célidő: 17:00 – 19:30",format:"Időre (For Time)",
+ blocks:[{title:"Chipper feladatsor",items:["40 Cal Echo Bike","30 Dumbbell Snatch (22.5 / 15 kg)","30 Box Jump Over (60 / 50 cm)","30 Dumbbell Thruster (2×15 / 2×10 kg)","40 Cal Echo Bike"]}],
+ stimulus:"Magas metabolikus savasodás és láb-állóképesség.",
+ strategy:"Az első Echo Bike-on 60-65 RPM körül tekerj. A thruster a kulcs: 3×10 ismétlésre bontsd tudatosan.",
+ tips:[["Echo Bike","Egyenletes watt-leadás; ne égesd el magad az elején."],["DB Thruster","A felső holtponton vegyél mély levegőt, a csípőddel indítsd a lökést."],["Box Jump Over","Lépkedj le a dobozról az achilles és a pulzus kímélése érdekében."]]},
+
+{id:"tri-erg-aerobic",title:"Tri-Erg Aerobic Capacity",subtitle:"Tiszta aerob motor",category:"Kardió",duration:"34:00 (3 kör)",rpe:"8/10",target:"Cél: egyenletes köridők (28-31 perc)",format:"3 kör · körök közt 2:00 pihenő",
+ blocks:[{title:"Minden körben teljesítendő",items:["1000 m SkiErg","1500 m Evezés (Row)","2500 m Echo Bike / C2 Bike"],note:"A körök között pontosan 2:00 pihenő kötelező."}],
+ stimulus:"Tiszta zóna 2-3 aerob fejlesztés, zsírégető és mitokondriális bázisépítés.",
+ strategy:"Fix watt/split tartása mindhárom gépen. A körök közötti szórás ne legyen több 3-5 másodpercnél.",
+ tips:[["SkiErg","Dolgozz törzsből, a karok laza ostorként kövessék a mozdulatot."],["Pihenő","A 2 percben sétálj és kortyolj vizet, ne feküdj le a földre."]]},
+
+{id:"kettlebell-shuttle",title:"Kettlebell & Shuttle Grinder",subtitle:"Középtávú állóképesség",category:"Kondíció",duration:"Cap 20:00",rpe:"8.5/10",target:"Célidő: 15:30 – 18:00",format:"4 kör időre",
+ blocks:[{title:"4 kör időre",items:["400 m Futás (vagy 25 Cal Evezés)","24 Kettlebell Swing (24 / 16 kg)","16 KB Goblet Guggolás (24 / 16 kg)","12 Burpee Box Jump Over (60 / 50 cm)"]}],
+ stimulus:"Funkcionális törzs- és lábkapacitás futással kombinálva.",
+ strategy:"A KB swing legyen unbroken minden körben. A futás után azonnal vedd kézbe a súlyt.",
+ tips:[["KB Swing","Erőteljes csípőnyújtás, a kar csak tartja a súlyt."],["Burpee Box Jump Over","Alacsony súlyponttal forogj a túloldalra."]]},
+
+{id:"cardio-monster-emom",title:"Cardio Monster EMOM 24",subtitle:"Magas intenzitású intervallum",category:"Intervallum",duration:"24:00 fix",rpe:"9/10",target:"Minden feladat 45-48 mp alatt",format:"EMOM 24 perc (6 teljes kör)",
+ blocks:[{title:"Minden perc új állomás",items:["1. perc: 18/14 Cal Evezés","2. perc: 15 Burpee","3. perc: 16/12 Cal Echo Bike","4. perc: 50 Double Unders (vagy 75 szimpla)"]}],
+ stimulus:"Percenkénti laktátküszöb terhelés garantált 12-15 mp pihenővel.",
+ strategy:"Ha valamelyik percben 52 másodperc fölé csúszol, a következő körben vegyél vissza 2 ismétlést.",
+ tips:[["Légzés","Az evezőn és a bringán hangold össze a légzésed a mozdulat ritmusával."],["Kötél","Laza vállak, csuklóból pörgess."]]},
+
+{id:"lactate-tolerance",title:"Lactate Tolerance Chipper",subtitle:"Küszöb feletti ellenállás",category:"Kondíció",duration:"Cap 22:00",rpe:"9/10",target:"Célidő: 17:30 – 19:30",format:"3 kör időre",
+ blocks:[{title:"3 kör időre",items:["400 m Futás (vagy 24 Cal SkiErg)","15 Rúddal végzett Thruster (42.5 / 30 kg)","15 Bar-Facing Burpee","20 Cal Evezés"]}],
+ stimulus:"Nagyfokú savasodás kezelése, mentális fegyelem a rúddal és evezőn.",
+ strategy:"A thrustert rögtön az elejétől bontsd 9+6-ra. A burpee tempója legyen megfontolt, hogy az evezőn tudj húzni.",
+ tips:[["Thruster","Guggolj dinamikusan és a láblökés juttassa fej fölé a rudat."],["Evezés","Hosszú, ritmusos húzások."]]},
+
+{id:"the-40min-engine",title:"The 40-Min Engine Test",subtitle:"Hosszútávú állóképesség",category:"Kardió",duration:"40:00 AMRAP",rpe:"8/10",target:"Cél: 3 – 3.5 teljes kör",format:"40 perc folyamatos AMRAP",
+ blocks:[{title:"Folyamatos körmunka 40 percen át",items:["1000 m Evezés","40 Guggolás saját testsúllyal (Air Squats)","800 m Futás","30 Fekvőtámasz (Push-ups)","20 Húzódzkodás (Pull-ups) vagy Ring Row","50 Cal Bike"]}],
+ stimulus:"Hosszútávú aerob bázis és izom-állóképesség kombinációja.",
+ strategy:"Maratoni megközelítés: az első 20 percben tilos túlpörögni. A fekvőtámaszokat bontsd 5-6-os csomagokra már az 1. körben.",
+ tips:[["Push-ups","Ne menj bukásig, a mellkas érintse a talajt."],["Húzódzkodás","Használj kényelmes fogást, kis szettekben dolgozz."]]},
+
+{id:"dumbbell-power-cap",title:"Dumbbell Power & Capacity",subtitle:"Kézisúlyzós erőnlét",category:"Kondíció",duration:"Cap 20:00",rpe:"8.5/10",target:"Célidő: 14:00 – 16:30",format:"5 kör időre (körök közt 1:30 pihenő)",
+ blocks:[{title:"5 kör (körök között 1:30 pihenő)",items:["15 Cal Echo Bike","12 DB Felhúzás (2×22.5 / 2×15 kg)","9 DB Hang Power Clean","6 DB Push Press"]}],
+ stimulus:"Felsőtest és csípő robbanékonyság magas pulzusszámon.",
+ strategy:"A súlyzós komplexet (12+9+6) próbáld meg lerakás nélkül befejezni.",
+ tips:[["Echo Bike","80%-os tempó, maradjon erő a súlyzókhoz."],["DB Clean","Robbants a csípőddel a válladra a kézisúlyzókat."]]},
+
+{id:"row-pyramid-ttb",title:"Rowing Pyramid & TTB",subtitle:"Evezés és törzserő",category:"Kondíció",duration:"Cap 22:00",rpe:"8.5/10",target:"Célidő: 16:00 – 18:30",format:"Időre (For Time)",
+ blocks:[{title:"Piramis sorrendben",items:["250 m Evezés + 10 Toes to Bar","500 m Evezés + 15 Toes to Bar","750 m Evezés + 20 Toes to Bar","500 m Evezés + 15 Toes to Bar","250 m Evezés + 10 Toes to Bar"]}],
+ stimulus:"Hátizom, fogáserő és hasfal terhelése evezős split-tartással.",
+ strategy:"A 750 m evezés az edzés mentális közepe: itt tartsd a megtervezett ritmust.",
+ tips:[["Toes to Bar","Kis, feszes szettek (pl. 5-ösök) rövid pihenőkkel."],["Evezés","A láb tol, a hát tart, a kar csak a végén húz."]]},
+
+{id:"ski-box-stepover",title:"Ski & Box Step-Over Interval",subtitle:"Intervallum kapacitás",category:"Intervallum",duration:"20:00 (4 kör)",rpe:"9/10",target:"Cél: 75+ összesített fellépés",format:"4 kör (3:00 munka / 2:00 pihenő)",
+ blocks:[{title:"Minden kör 3 perces",items:["350 m SkiErg","A fennmaradó időben: Max DB Box Step-Over (2×15 / 2×10 kg, 50 cm)"],note:"A körök között 2:00 pihenő."}],
+ stimulus:"Láb és tüdő kapacitás növelése.",
+ strategy:"A SkiErget 1:20 alatt fejezd be, hogy legalább 1:40 perced maradjon a dobozon folyamatosan lépkedni.",
+ tips:[["Box Step-Over","A sarkad teljesen legyen a dobozon, ne kapkodj."]]},
+
+{id:"devils-grit",title:"Devil's Grit",subtitle:"Teljes testes chipper",category:"Kondíció",duration:"Cap 25:00",rpe:"9/10",target:"Célidő: 19:00 – 22:00",format:"5 kör időre",
+ blocks:[{title:"5 kör időre",items:["20 Cal Evezés","15 Hand-Release Fekvőtámasz","15 Ugró kitörés (Jumping Lunges)","8 Devil's Press (2×15 / 2×10 kg)"]}],
+ stimulus:"Kőkemény mentális állóképesség és pulzusterhelés.",
+ strategy:"A Devil's Pressnél ne karból emelj: robbants csípőből a fejed fölé.",
+ tips:[["Devil's Press","Egyenletes mozgás, a földön vegyél levegőt."],["Evezés","A kitörések utáni első 5 húzás legyen könnyed, míg kitisztul a combod."]]},
+
+{id:"triple-threat-sprint",title:"Triple Threat Sprint",subtitle:"Gép és futás triatlon",category:"Kardió",duration:"Cap 23:00",rpe:"8.5/10",target:"Célidő: 17:30 – 20:00",format:"Időre (For Time)",
+ blocks:[{title:"Teljesítsd sorrendben",items:["1500 m Evezés (Row)","3000 m C2 Bike (vagy 75 Cal Echo)","1200 m Futás"]}],
+ stimulus:"Hosszútávú ritmusváltás a gépek és a futás között.",
+ strategy:"A bringán az első 1 perc pörgetős legyen (90+ RPM). A futás utolsó 400 méterén mindent adj ki.",
+ tips:[["Átmenet","Ne ülj le a gépek között, azonnal válts át."]]},
+
+{id:"barbell-aerobic-hybrid",title:"Barbell Aerobic Hybrid",subtitle:"Súlyemelés aerob állapotban",category:"Kondíció",duration:"Cap 24:00",rpe:"9/10",target:"Célidő: 18:00 – 21:00",format:"4 kör időre",
+ blocks:[{title:"4 kör időre",items:["400 m Futás","15 Rúddal végzett Power Snatch (35 / 25 kg)","15 Burpee over bar","15 Cal Echo Bike"]}],
+ stimulus:"Gyors súlyzós robbanékonyság magas pulzuson.",
+ strategy:"A súly könnyű: gyors egyesekkel (drop & reset) dolgozz.",
+ tips:[["Power Snatch","A rúd maradjon közel a testhez."],["Burpee over bar","Forogj azonnal a rúd felé leérkezéskor."]]},
+
+{id:"calorie-burn-302010",title:"30-20-10 Calorie Burn",subtitle:"Progresszív piramis",category:"Kardió",duration:"Cap 19:00",rpe:"9/10",target:"Célidő: 14:00 – 16:30",format:"Időre (For Time)",
+ blocks:[{title:"Piramis blokkok",items:["30 Cal Evezés + 30 Wall Ball + 30 Box Jump","20 Cal Echo Bike + 20 Wall Ball + 20 Box Jump","10 Cal SkiErg + 10 Wall Ball + 10 Box Jump"]}],
+ stimulus:"Fokozódó intenzitású, fogyó kalóriás záró metcon.",
+ strategy:"A 30-as kör 75%-os, a 20-as 85%-os, a 10-es kör 100%-os tempójú legyen.",
+ tips:[["Negatív split","Tartsd vissza magad az elején, a végén sprintelj."]]},
+
+{id:"the-final-benchmark",title:"The Final Benchmark",subtitle:"Mérföldkő teszt",category:"Haladó metcon",duration:"Cap 26:00",rpe:"9.5/10",target:"Célidő: 20:00 – 23:30",format:"Időre (For Time)",
+ blocks:[{title:"A mindent eldöntő feladatsor",items:["100 Double Unders","50 Cal Evezés","40 Wall Ball (9/6 kg)","30 Burpee","20 DB Hang Clean & Jerk (2×20 / 2×15 kg)","50 Cal Echo Bike"]}],
+ stimulus:"A teljes 30 napos ciklus végső aerob kapacitás tesztje.",
+ strategy:"Az első 50 cal evezésen tartsd a hideg fegyelmet. Az utolsó 50 kalóriás biciklin tedd oda az összes megmaradt energiád.",
+ tips:[["Wall Ball","Nagy, egyenletes szettek."],["Echo Bike","Zárd le maximális erőbedobással."]]}
+];
+
+/* ============ 15 FUTÓEDZÉS ============ */
+const RUNS=[
+{zone:'interval',title:'Intervallum: 5 × 800 m',dist:'5 × 800 m',steps:[['Bemelegítés','1 km nagyon könnyű kocogás @E + dinamikus nyújtás.'],['Fő rész','5 × 800 m @2k tempóban. Minden résztáv után pontosan 2:00 séta/könnyű kocogás.'],['Levezetés','1 km laza levezető kocogás @E.']],tip:'Tartsd a céltempót végig egyenletesen. Ne kezdd gyorsabban az első kört!'},
+{zone:'tempo',title:'Tempófutás: 20 perc küszöb',dist:'20 perc @T',steps:[['Bemelegítés','1.5 km könnyű futás @E + 3 × 60 m repülő.'],['Fő rész','20 perc folyamatos küszöbfutás @T zónában.'],['Levezetés','1 km laza kocogás @E.']],tip:'A @T tempó kontrolláltan nehéz. Beszélni csak szavakban tudsz, de stabilan bírnod kell 20 percen át.'},
+{zone:'easy',title:'Alapozó Z2 futás: 8 km',dist:'8 km @E',steps:[['Bemelegítés','5 perc tempós séta, majd könnyed átmenet futásba.'],['Fő rész','8 km kényelmes, folyamatos futás @E zónában.'],['Levezetés','5 perc levezető séta és vádlimobilitás.']],tip:'Végig orrlégzés! Ha emelkedik a pulzusod, azonnal lassíts vissza.'},
+{zone:'interval',title:'Intervallum: 6 × 800 m kapacitás',dist:'6 × 800 m',steps:[['Bemelegítés','1.2 km laza kocogás @E.'],['Fő rész','6 × 800 m @2k tempóban (2:00 pihenővel).'],['Levezetés','800 m séta és levezetés.']],tip:'A 4. és 5. résztávnál dől el az edzés minősége. Feszítsd meg a törzsed.'},
+{zone:'tempo',title:'Tempófutás: 25 perc progresszió',dist:'25 perc @T',steps:[['Bemelegítés','1.5 km @E.'],['Fő rész','25 perc folyamatos futás @T zónában.'],['Levezetés','1.5 km könnyed kocogás @E.']],tip:'Az első 15 percben fogd vissza magad, az utolsó 5 percben fokozhatod enyhén a tempót.'},
+{zone:'easy',title:'Aerob bázis: 9 km Z2',dist:'9 km @E',steps:[['Bemelegítés','1 km nagyon laza futás.'],['Fő rész','8 km folyamatos Z2 futás @E zónában.'],['Levezetés','Levezető séta.']],tip:'Egyenletes, könnyed léptek, fókuszálj a magas lépésszámra.'},
+{zone:'interval',title:'VO2 Max: 4 × 1000 m',dist:'4 × 1000 m',steps:[['Bemelegítés','1.5 km @E + dinamikus bemelegítés.'],['Fő rész','4 × 1000 m @5k versenytempóban (2:00 pihenővel).'],['Levezetés','1 km laza levezetés @E.']],tip:'A leginkább hatékony VO2 max stimuláció. Tartsd a tempót a végéig.'},
+{zone:'progression',title:'Kombinált: 20p @T + 3 km @E',dist:'20p @T + 3 km',steps:[['Bemelegítés','1 km @E.'],['Fő rész 1','20 perc @T tempófutás.'],['Fő rész 2','Azonnali átmenet megállás nélkül: 3 km könnyed Z2 futás @E zónában.'],['Levezetés','500 m séta.']],tip:'Megtanítja a szervezetet fáradtan, alacsonyabb pulzuson regenerálódni.'},
+{zone:'interval',title:'Csúcsintenzitás: 5 × 1000 m',dist:'5 × 1000 m',steps:[['Bemelegítés','1.5 km @E.'],['Fő rész','5 × 1000 m @5k zónában (2:00 pihenővel).'],['Levezetés','1 km levezetés.']],tip:'Öt kilométer versenytempóban. Ne engedd szétesni a karmozgást.'},
+{zone:'easy',title:'Hosszú futás: 10 km mérföldkő',dist:'10 km @E',steps:[['Bemelegítés','Könnyű séta és kocogás.'],['Fő rész','10 km folyamatos, kényelmes futás @E zónában.'],['Levezetés','5 perc séta és nyújtás.']],tip:'Beszélgetős tempó. A pulzus végig maradjon a zöld zónában.'},
+{zone:'tempo',title:'Állóképesség: 30 perc küszöb',dist:'30 perc @T',steps:[['Bemelegítés','1.5 km @E.'],['Fő rész','30 perc folyamatos @T futás.'],['Levezetés','1 km kocogás.']],tip:'Fél óra a laktátküszöbön. Törekedj a relaxált vállövre.'},
+{zone:'interval',title:'Hosszú résztáv: 3 × 1500 m',dist:'3 × 1500 m',steps:[['Bemelegítés','1.5 km @E.'],['Fő rész','3 × 1500 m @5k tempóban (2:30 pihenővel).'],['Levezetés','1 km séta.']],tip:'Hosszú és koncentrált résztávok. A harmadik résztáv végén a célvonalig küzdj.'},
+{zone:'recovery',title:'Regeneráló futás: 5 km laza',dist:'5 km @E',steps:[['Fő rész','5 km szuperkönnyű kocogás/séta @E zónában.']],tip:'Aktív regeneráció a benchmark előtt. Élvezd a mozgást.'},
+{zone:'strides',title:'Élesítés: 4 km + Repülők',dist:'4 km + repülők',steps:[['Fő rész','4 km könnyed @E futás.'],['Levezetés','4 × 100 m lendületes, laza repülőfutás séta pihenőkkel.']],tip:'Felébreszti az idegrendszert és a gyors izomrostokat.'},
+{zone:'interval',title:'5 KM TESZTFUTÁS (Benchmark)',dist:'5 km MAX',steps:[['Bemelegítés','1.5 km könnyű kocogás + 2 repülőfutás.'],['FŐ RÉSZ','5 KM MAXIMÁLIS VERSENYTEMPÓBAN @5k.'],['Levezetés','1 km séta és levezetés.']],tip:'Egyenletes tempó az első 3 km-en, a 4. kilométeren kapaszkodj, az 5.-en pedig sprintelj a célig!'}
+];
+
+const ZONES={
+ easy:{name:'Könnyű / Z2',range:p=>[p.p5+70,p.p5+110]},
+ recovery:{name:'Regeneráló',range:p=>[p.p5+85,p.p5+130]},
+ tempo:{name:'Tempó (@T)',range:p=>[p.p5+12,p.p5+25]},
+ interval:{name:'Versenytempó (@2k/@5k)',range:p=>[p.p2,p.p5]},
+ strides:{name:'Z2 (fokozókhoz)',range:p=>[p.p5+70,p.p5+110]},
+ progression:{name:'Progresszív közép',range:p=>[p.p5+15,p.p5+35]}
+};
+
+/* ============ ADATBÁZIS & TÁROLÁS ============ */
+const baseState=()=>({programStart:today(),tm:{sq:120,bp:90,dl:150,ohp:60},runTimes:{t2:'08:30',t5:'24:00'},logs:[],cycleApplied:1,lastBackup:0});
+
+function sanitize(s){
+  const b=baseState();
+  if(!s||typeof s!=='object')return b;
+  if(/^\d{4}-\d{2}-\d{2}$/.test(String(s.programStart||'')))b.programStart=s.programStart;
+  for(const l of LIFTS){
+    const n=Number(s.tm?.[l.key]);
+    if(Number.isFinite(n)&&n>0)b.tm[l.key]=round25(n);
+  }
+  const r=s.runTimes||{};
+  if(r.t2)b.runTimes.t2=r.t2;
+  if(r.t5)b.runTimes.t5=r.t5;
+  if(Array.isArray(s.logs))b.logs=s.logs.filter(x=>x&&x.id&&x.date);
+  b.cycleApplied=Number.isInteger(s.cycleApplied)?s.cycleApplied:1;
+  b.lastBackup=Number(s.lastBackup)||0;
+  return b;
+}
+
+function load(){
+  try{
+    const v3=localStorage.getItem(KEY);if(v3)return sanitize(JSON.parse(v3));
+    const v2=localStorage.getItem(OLD_KEY);if(v2)return sanitize(JSON.parse(v2));
+  }catch(e){}
+  return baseState();
+}
+
+let state=load(),tab='program',selectedDate='';
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('Mentési hiba!',true)}}
+let tt;function toast(m,err){const t=$('#toast');t.textContent=m;t.className='toast'+(err?' err':'');clearTimeout(tt);tt=setTimeout(()=>t.classList.add('hidden'),2600)}
+
+/* ============ LOGIKA ============ */
+const clampDate=d=>d<state.programStart?state.programStart:d;
+const dayIndex=date=>{
+  const[y,m,d]=date.split('-').map(Number),[a,b,c]=state.programStart.split('-').map(Number);
+  return Math.round((Date.UTC(y,m-1,d)-Date.UTC(a,b-1,c))/864e5);
+};
+
+function planFor(date){
+  const i=dayIndex(date);
+  if(i<0)return{kind:'before',parts:[]};
+  if(i%2===0){
+    const n=i/2;
+    return{kind:'strength',lift:ROT[n%4],week:Math.floor(n/4)%4+1,metcon:METCONS[n%METCONS.length],parts:['wendler','metcon']};
+  }
+  const n=(i-1)/2;
+  return{kind:'run',run:RUNS[n%RUNS.length],parts:['run']};
+}
+
+const cycleNow=()=>{const i=dayIndex(today());return i<0?1:Math.floor(i/30)+1};
+const logsOn=d=>state.logs.filter(l=>l.date===d);
+const partLog=(d,p)=>state.logs.find(l=>l.date===d&&l.part===p);
+const dayState=d=>{
+  const p=planFor(d);
+  if(p.kind==='before'||!p.parts||!p.parts.length)return 'none';
+  const n=p.parts.filter(x=>partLog(d,x)).length;
+  return n===0?'todo':n===p.parts.length?'done':'part';
+};
+const sets=(key,week)=>SCHEMES[week].map(([pct,reps])=>({pct,reps,kg:state.tm[key]?round25(state.tm[key]*pct):null}));
+
+function runProfile(){
+  const t2=toSec(state.runTimes.t2),t5=toSec(state.runTimes.t5);
+  if(!t2||!t5||t2/2>=t5/5)return null;
+  return{t2,t5,p2:t2/2,p5:t5/5};
+}
+const rng=(z,P)=>{const[a,b]=ZONES[z].range(P);return`${fmtPace(a)}–${fmtPace(b)} /km`};
+function runTarget(run,P){
+  if(!P)return null;
+  const[a,b]=ZONES[run.zone].range(P);
+  switch(run.zone){
+   case'interval':return`Résztávok: ${fmtPace(P.p2)} /km (@2k) és ${fmtPace(P.p5)} /km (@5k)`;
+   case'tempo':return`Küszöbtempó: ${rng('tempo',P)}`;
+   case'progression':return`Középső szakasz: ${rng('progression',P)}`;
+   case'recovery':return`Regeneráló: ${rng('recovery',P)}`;
+   default:return`Z2 alapozó: ${rng('easy',P)}`;
+  }
+}
+
+const TITLES={program:'Mai terv',metcon:'Metcon',profile:'Beállítások',log:'Napló'};
+const NAV=[['program','📅','PROGRAM'],['metcon','🔥','METCON'],['profile','⚙️','PROFIL'],['log','📖','NAPLÓ']];
+
+function render(){
+  try{
+    $('#title').textContent=TITLES[tab];
+    const i=dayIndex(today());
+    $('#badge').textContent=i<0?'INDUL: '+fmtDate(state.programStart).toUpperCase():`${cycleNow()}. CIKLUS`;
+    $('#nav').innerHTML=NAV.map(([k,ic,l])=>`
+      <button data-a="tab" data-t="${k}" class="${tab===k?'on':''}">
+        <b>${ic}</b>
+        <span>${l}</span>
+      </button>
+    `).join('');
+    const v=$('#view');
+    v.innerHTML=({program:vProgram,metcon:vMetcon,profile:vProfile,log:vLog})[tab]();
+    const on=v.querySelector('.day.on');if(on)on.scrollIntoView({block:'nearest',inline:'center'});
+  }catch(err){
+    console.error(err);
+    $('#view').innerHTML=`
+      <div class="card notice" style="text-align:center;padding:24px">
+        <h4>Megjelenítési helyreállítás</h4>
+        <p class="small" style="margin-top:6px">Az alkalmazás memóriájának frissítése szükséges.</p>
+        <button class="btn white" data-a="wipe" style="margin-top:14px">Alaphelyzetbe állítás</button>
+      </div>`;
+  }
+}
+
+const blocksHtml=w=>w.blocks.map((b,k)=>`
+  <div style="margin-top:4px">
+    <div class="h em">${esc(b.title)}</div>
+    ${b.items.map(it=>`<div class="item"><i>•</i><span>${esc(it)}</span></div>`).join('')}
+    ${b.note?`<p class="small" style="color:#fcd34d;margin-top:6px;font-weight:700">${esc(b.note)}</p>`:''}
+  </div>
+`).join('');
+
+function resultBox(part,placeholder){return`<textarea class="field" id="res-${part}" rows="2" placeholder="${esc(placeholder)}"></textarea>`}
+function loggedBox(date,part){
+  const l=partLog(date,part);
+  return`<div class="notice em">
+    <h4>✓ Naplózva</h4>
+    <pre style="margin:0;white-space:pre-wrap;font:inherit;font-size:12px;color:#d4d4d8">${esc(l.details)}</pre>
+    <button class="btn sm white" data-a="editLog" data-id="${esc(l.id)}" style="margin-top:4px">Módosítás</button>
+  </div>`;
+}
+
+/* ============ NÉZET: PROGRAM ============ */
+function vProgram(){
+  const date=selectedDate,p=planFor(date),start=pd(state.programStart);
+  let st=pd(date);st.setDate(st.getDate()-4);if(st<start)st=new Date(start);
+  let strip='';
+  for(let k=0;k<18;k++){
+    const d=new Date(st);d.setDate(st.getDate()+k);const key=ymd(d),pl=planFor(key),ds=dayState(key);
+    strip+=`<button class="day ${key===date?'on':''} ${ds==='done'?'done':''}" data-a="date" data-d="${key}">
+      <small>${d.toLocaleDateString('hu-HU',{weekday:'short'})}</small>
+      <strong>${d.getDate()}</strong>
+      <em>${ds==='done'?'✓':ds==='part'?'●':pl.kind==='strength'?'ERŐ':pl.kind==='run'?'FUTÁS':'—'}</em>
+    </button>`;
+  }
+
+  const name=p.kind==='strength'?`5/3/1 ${LIFT[p.lift.key].name}`:p.kind==='run'?p.run.title:'Program előtt';
+  let body='';
+
+  if(p.kind==='before'){
+    body=`<section class="card">
+      <h3>Kezdés: ${esc(fmtDate(state.programStart))}</h3>
+      <p class="mut small">A választott nap a program kezdete előtt van.</p>
+      <button class="btn pri" data-a="jumpStart">Ugrás a kezdőnapra</button>
+    </section>`;
+  } else {
+    if(p.kind==='strength'){
+      const key=p.lift.key,ss=sets(key,p.week),has=!!state.tm[key],w=p.metcon;
+      body+=`
+      <section class="card">
+        <div class="row">
+          <div class="tags">
+            <span class="tag em">5/3/1 Erőemelés</span>
+            <span class="tag">${p.week}. hét${p.week===4?' · Deload':''}</span>
+            <span class="tag">${p.lift.short}</span>
+          </div>
+        </div>
+        <div>
+          <h3>${LIFT[key].name}</h3>
+          <span class="tiny dim">TM: ${has?kgFmt(state.tm[key])+' kg':'nincs beállítva'}</span>
+        </div>
+
+        ${has?`
+          <div style="display:grid;gap:6px;background:var(--card-sub);padding:12px;border-radius:15px;border:1px solid var(--line)">
+            ${ss.map((s,k)=>`
+              <div class="setrow">
+                <div>
+                  <span class="tiny dim uppercase">${k+1}. Munkasorozat (${Math.round(s.pct*100)}%)</span><br>
+                  <b>${kgFmt(s.kg)} kg × ${s.reps}</b>
+                </div>
+                ${String(s.reps).includes('+')?'<span class="tag amb">AMRAP 🔥</span>':''}
+              </div>
+            `).join('')}
+          </div>
+          ${p.week<4?`
+            <div class="notice">
+              <h4>Bemelegítés (Warm-up)</h4>
+              <p class="small mono">${WARMUP.map(([pc,r])=>`${kgFmt(round25(state.tm[key]*pc))} kg × ${r}`).join(' &bull; ')}</p>
+            </div>
+          `:''}
+        `:`
+          <div class="notice">
+            <h4>Hiányzó Training Max!</h4>
+            <p>Add meg a Profil fülön a súlyodat a pontos munkasorozatokhoz.</p>
+            <button class="btn pri" data-a="tab" data-t="profile">TM beállítása</button>
+          </div>
+        `}
+
+        <details>
+          <summary>▸ Technikai tippek és kiegészítő munka</summary>
+          <div style="display:grid;gap:8px;margin-top:8px">
+            <div class="notice"><h4>Tipp</h4><p>${esc(p.lift.tip)}</p></div>
+            <div class="notice sky"><h4>Kiegészítő munka</h4><p>${esc(p.lift.accessory)}</p></div>
+          </div>
+        </details>
+
+        ${partLog(date,'wendler')?loggedBox(date,'wendler'):`
+          ${p.week<4&&has?`
+            <div style="background:var(--card-sub);padding:12px;border-radius:14px;border:1px solid var(--line)">
+              <div class="row">
+                <label class="lbl" style="margin:0">AMRAP elért ismétlések</label>
+                <span id="amrap-est" class="tiny ok"></span>
+              </div>
+              <input class="field" id="amrap" type="number" inputmode="numeric" min="0" max="40" placeholder="Pl. 8" style="margin-top:6px">
+            </div>
+          `:''}
+          ${resultBox('wendler','Érzet, megjegyzések, kiegészítő gyakorlatok...')}
+          <button class="btn pri" data-a="logPart" data-p="wendler">Erőedzés Mentése</button>
+        `}
+      </section>
+
+      <section class="card">
+        <div class="row">
+          <div class="tags">
+            <span class="tag amb">Kondíció</span>
+            <span class="tag">${esc(w.duration)}</span>
+          </div>
+          <span class="tiny mut">${esc(w.format)}</span>
+        </div>
+        <div>
+          <h3>${esc(w.title)}</h3>
+          <p class="tiny dim uppercase font-bold">${esc(w.subtitle)}</p>
+        </div>
+
+        <div style="background:var(--card-sub);padding:14px;border-radius:16px;border:1px solid var(--line)">
+          ${blocksHtml(w)}
+        </div>
+
+        <button class="btn sky" data-a="openMetcon" data-id="${w.id}">
+          Stratégia & Interaktív Edzésóra
+        </button>
+
+        ${partLog(date,'metcon')?loggedBox(date,'metcon'):`
+          ${resultBox('metcon','Eredmény (idő / körök), használt súly, érzet...')}
+          <button class="btn pri" data-a="logPart" data-p="metcon">Kondíció Mentése</button>
+        `}
+      </section>
+      `;
+    } else {
+      const r=p.run,P=runProfile(),tg=runTarget(r,P);
+      body+=`
+      <section class="card">
+        <div class="row">
+          <div class="tags">
+            <span class="tag sky">Futás</span>
+            <span class="tag">${esc(r.dist)}</span>
+          </div>
+        </div>
+        <h3>${esc(r.title)}</h3>
+
+        ${P?`
+          <div class="notice sky">
+            <h4>Személyes céltempó</h4>
+            <p style="font-size:15px;font-weight:900;color:#fff">${esc(tg)}</p>
+          </div>
+        `:`
+          <div class="notice">
+            <h4>Nincsenek futóidők</h4>
+            <p>Add meg a 2K és 5K idődet a Profil fülön az egyéni zónákhoz.</p>
+            <button class="btn pri" data-a="tab" data-t="profile">Futóidők megadása</button>
+          </div>
+        `}
+
+        <div style="background:var(--card-sub);padding:14px;border-radius:16px;border:1px solid var(--line);display:grid;gap:8px">
+          ${r.steps.map(([a,b])=>`
+            <div class="step">
+              <b>${a}</b>
+              <p class="small" style="color:#d4d4d8">${esc(b)}</p>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="notice">
+          <h4>Tempóbeosztási tipp</h4>
+          <p>${esc(r.tip)}</p>
+        </div>
+
+        ${partLog(date,'run')?loggedBox(date,'run'):`
+          ${resultBox('run','Futott táv, időeredmény, átlagpulzus, érzet...')}
+          <button class="btn sky" data-a="logPart" data-p="run">Futóedzés Mentése</button>
+        `}
+      </section>
+      `;
+    }
+
+    const extra=logsOn(date).filter(l=>!p.parts.includes(l.part));
+    if(extra.length){
+      body+=`<section class="card"><div class="h">Egyéb rögzített edzések</div>${extra.map(logCard).join('')}</section>`;
+    }
+  }
+
+  return`
+    <div class="strip">${strip}</div>
+    <div class="row" style="margin-top:2px">
+      <div>
+        <div class="h em">${esc(fmtDate(date))}</div>
+        <h2>${esc(name)}</h2>
+      </div>
+      <button class="btn sm white" data-a="jumpToday">Ma</button>
+    </div>
+    ${body}
+  `;
+}
+
+/* ============ NÉZET: METCON KÖNYVTÁR ============ */
+function vMetcon(){
+  return`
+  <section class="card">
+    <div class="h em">STRNG Workout Library</div>
+    <h2>Metcon Könyvtár</h2>
+    <p class="small mut">15 precízen felépített CrossFit és kondíciós edzés beépített időmérővel.</p>
+    <div class="grid2">
+      <input class="field" id="metcon-search" type="search" placeholder="Keresés: burpee, thruster..." autocomplete="off">
+      <select class="field" id="metcon-filter">
+        <option value="all">Minden kategória</option>
+        ${[...new Set(METCONS.map(w=>w.category))].sort().map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('')}
+      </select>
+    </div>
+  </section>
+  <div id="metcon-list" style="display:grid;gap:12px">
+    ${METCONS.map(w=>{
+      const n=state.logs.filter(l=>l.refId===w.id).length;
+      return`
+      <button class="card metcon-item" style="text-align:left" data-a="openMetcon" data-id="${w.id}" data-search="${esc([w.title,w.subtitle,w.category,w.stimulus,...w.blocks.flatMap(b=>[b.title,...b.items])].join(' ').toLowerCase())}" data-category="${esc(w.category)}">
+        <div class="row">
+          <span class="tag ${w.category==='Chipper'?'amb':w.category==='Intervallum'?'sky':'em'}">${esc(w.category)}</span>
+          <span class="tiny ok font-bold">${n?'Naplózva: '+n+'×':'Megnyitás ›'}</span>
+        </div>
+        <h3 style="margin-top:2px">${esc(w.title)}</h3>
+        <p class="tiny dim uppercase font-bold">${esc(w.subtitle)}</p>
+        <div class="tags">
+          <span class="tag">${esc(w.duration)}</span>
+          <span class="tag">RPE ${esc(w.rpe)}</span>
+        </div>
+        <p class="small mut" style="line-height:1.4">${esc(w.stimulus)}</p>
+      </button>`;
+    }).join('')}
+  </div>
+  <p id="metcon-empty" class="card small mut hidden" style="text-align:center">Nincs találat a keresésre.</p>
+  `;
+}
+
+function filterMetcons(){
+ const q=($('#metcon-search')?.value\vert{}\vert{}'').trim().toLocaleLowerCase('hu-HU'),cat=$('#metcon-filter')?.value||'all';let visible=0;
+ document.querySelectorAll('.metcon-item').forEach(el=>{
+   const ok=(cat==='all'||el.dataset.category===cat)&&(!q||(el.dataset.search||'').includes(q));
+   el.classList.toggle('hidden',!ok);if(ok)visible++;
+ });
+ $('#metcon-empty')?.classList.toggle('hidden',visible>0);
+}
+
+/* ============ NÉZET: PROFIL ============ */
+function vProfile(){
+  const P=runProfile(),i=dayIndex(today()),t=state.runTimes;
+  return`
+  <section class="card">
+    <div class="h em">Program Információ</div>
+    <div>
+      <label class="lbl" for="pstart">Program indulási dátuma</label>
+      <input class="field" id="pstart" type="date" value="${esc(state.programStart)}">
+    </div>
+    <p class="small mut">${i<0?'A program még nem indult el.':`Jelenleg a <b>${cycleNow()}. ciklusban</b> jársz.`}</p>
+    <button class="btn white" data-a="saveStart">Kezdődátum Mentése</button>
+  </section>
+
+  <section class="card">
+    <div class="row">
+      <div class="h em">5/3/1 Training Max (TM)</div>
+      <button class="btn sm amb" data-a="applyCycle">+ Ciklus Léptetés</button>
+    </div>
+    <p class="small mut">A munkasúlyok a 90%-os Training Maxból (TM) számolódnak. Ha beírod az 1RM-et, azonnal átszámolja.</p>
+    <div class="grid2">
+      ${LIFTS.map(l=>`
+        <div style="background:var(--card-sub);padding:12px;border-radius:15px;border:1px solid var(--line)">
+          <label class="lbl">${l.name}</label>
+          <input class="field" id="orm-${l.key}" type="number" inputmode="decimal" step="2.5" placeholder="1RM (kg)" style="margin-bottom:6px">
+          <input class="field" id="tm-${l.key}" type="number" inputmode="decimal" step="2.5" placeholder="TM (kg)" value="${state.tm[l.key]??''}">
+        </div>
+      `).join('')}
+    </div>
+    <button class="btn pri" data-a="saveTm">Súlyok Mentése</button>
+  </section>
+
+  <section class="card">
+    <div class="h sky">Futás · Zónák & Tempók</div>
+    <p class="small mut">Add meg a felmérő időidet. Automatikus MM:SS formátumot használ.</p>
+    <div class="grid2">
+      <div>
+        <label class="lbl" for="rt2">Legjobb 2 km (MM:SS)</label>
+        <input class="field time" id="rt2" type="text" value="${esc(t.t2)}" placeholder="08:30" maxlength="5">
+      </div>
+      <div>
+        <label class="lbl" for="rt5">Legjobb 5 km (MM:SS)</label>
+        <input class="field time" id="rt5" type="text" value="${esc(t.t5)}" placeholder="24:00" maxlength="5">
+      </div>
+    </div>
+    <button class="btn sky" data-a="saveRun">Futóidők Frissítése</button>
+
+    ${P?`
+      <div class="grid2" style="margin-top:6px">
+        <div style="background:var(--card-sub);padding:10px;border-radius:12px;text-align:center">
+          <span class="tiny dim uppercase">2 km átlag</span>
+          <b class="mono" style="display:block;font-size:16px;color:#f87171">${fmtPace(P.p2)} /km</b>
+        </div>
+        <div style="background:var(--card-sub);padding:10px;border-radius:12px;text-align:center">
+          <span class="tiny dim uppercase">5 km átlag</span>
+          <b class="mono" style="display:block;font-size:16px;color:#34d399">${fmtPace(P.p5)} /km</b>
+        </div>
+      </div>
+      <div style="display:grid;gap:6px">
+        ${['easy','tempo','interval','recovery'].map(z=>`
+          <div class="row" style="background:var(--card-sub);padding:9px 12px;border-radius:12px;border:1px solid var(--line)">
+            <span class="small font-bold">${ZONES[z].name}</span>
+            <span class="mono ok font-bold">${rng(z,P)}</span>
+          </div>
+        `).join('')}
+      </div>
+    `:''}
+  </section>
+
+  <section class="card">
+    <div class="h em">Adatmentés (Telefonhoz kötött)</div>
+    <p class="small mut">Minden adatod a böngésződben tárolódik. Tölts le biztonsági mentést telefoncsere esetére.</p>
+    <button class="btn white" data-a="share">Mentés Letöltése / Megosztás</button>
+    <label class="btn" style="display:block">Visszaállítás JSON fájlból
+      <input type="file" id="restoreFile" accept=".json,application/json" class="hidden">
+    </label>
+    <button class="btn danger" data-a="wipe">Minden adat törlése ezen az eszközön</button>
+  </section>
+  `;
+}
+
+/* ============ NÉZET: NAPLÓ ============ */
+function logCard(l){
+  return`
+  <article class="card" style="background:var(--card-sub);padding:14px">
+    <div class="row" style="align-items:flex-start">
+      <div>
+        <div class="tags">
+          <span class="tag ${l.type==='Futás'?'sky':'em'}">${esc(l.type)}</span>
+          <span class="tiny dim">${esc(fmtDate(l.date))}</span>
+        </div>
+        <h4 style="margin:4px 0 0;font-size:15px;font-weight:800">${esc(l.title)}</h4>
+      </div>
+      <div style="display:flex;gap:4px">
+        <button class="btn sm" data-a="editLog" data-id="${esc(l.id)}">Módosít</button>
+        <button class="btn sm danger" data-a="delLog" data-id="${esc(l.id)}">✕</button>
+      </div>
+    </div>
+    ${l.details?`<pre style="margin:0;white-space:pre-wrap;font:inherit;font-size:12px;color:#d4d4d8;background:rgba(0,0,0,0.3);padding:10px;border-radius:10px;border:1px solid var(--line)">${esc(l.details)}</pre>`:''}
+  </article>`;
+}
+
+function vLog(){
+  const logs=[...state.logs].sort((a,b)=>b.date.localeCompare(a.date)||b.createdAt-a.createdAt);
+  const doneDays=new Set(state.logs.map(l=>l.date)).size;
+  return`
+  <section class="card">
+    <div class="grid3">
+      <div style="background:var(--card-sub);padding:12px;border-radius:14px;text-align:center">
+        <b style="font-size:22px;display:block">${state.logs.length}</b>
+        <span class="tiny dim uppercase">Összes edzés</span>
+      </div>
+      <div style="background:var(--card-sub);padding:12px;border-radius:14px;text-align:center">
+        <b style="font-size:22px;display:block">${doneDays}</b>
+        <span class="tiny dim uppercase">Edzésnap</span>
+      </div>
+      <div style="background:var(--card-sub);padding:12px;border-radius:14px;text-align:center">
+        <b style="font-size:22px;display:block">${state.cycleApplied||1}</b>
+        <span class="tiny dim uppercase">Ciklus</span>
+      </div>
+    </div>
+  </section>
+
+  <button class="btn white" data-a="newLog">＋ Egyéni Edzés Rögzítése</button>
+  <div class="row"><div class="h">Rögzített Edzések</div><span class="tiny dim">${logs.length} bejegyzés</span></div>
+  <div style="display:grid;gap:10px">
+    ${logs.length?logs.map(logCard).join(''):'<div class="card small mut" style="text-align:center">Még nincs rögzített edzésed.</div>'}
+  </div>
+  `;
+}
+
+/* ============ IDŐMÉRŐ & METCON POPUP ============ */
+let workoutTimer={interval:null,mode:'amrap',duration:600,remaining:600,elapsed:0,running:false,lastEmomRound:0};
+const timerFmt=n=>`${Math.floor(Math.max(0,n)/60)}:${pad(Math.floor(Math.max(0,n)%60))}`;
+
+function timerBeep(high){
+  try{
+    const C=window.AudioContext||window.webkitAudioContext;
+    if(C){
+      const c=new C(),o=c.createOscillator(),g=c.createGain();
+      o.connect(g);g.connect(c.destination);
+      o.frequency.value=high?1050:800;
+      g.gain.value=0.1;o.start();o.stop(c.currentTime+0.18);
+      o.onended=()=>c.close();
+    }
+  }catch(_){}
+  try{navigator.vibrate&&navigator.vibrate(high?[100,50,100]:80)}catch(_){}
+}
+function timerStopInterval(){
+  if(workoutTimer.interval){clearInterval(workoutTimer.interval);workoutTimer.interval=null}
+  workoutTimer.running=false;
+}
+function timerDisplay(){
+ const display=$('#timer-display'),status=$('#timer-status');if(!display)return;
+ display.textContent=timerFmt(workoutTimer.mode==='fortime'?workoutTimer.elapsed:workoutTimer.remaining);
+ status.textContent=workoutTimer.running?'FUT':(workoutTimer.elapsed>0?'MEGÁLLÍTVA':'KÉSZEN ÁLL');
+ const b=$('#timer-start');if(b)b.textContent=workoutTimer.running?'Szünet':'Indítás';
+}
+function runTimerToggle(){
+  if(workoutTimer.running){
+    timerStopInterval();
+    timerDisplay();
+  } else {
+    workoutTimer.running=true;
+    let last=Date.now();
+    workoutTimer.interval=setInterval(()=>{
+      const now=Date.now(),delta=Math.max(0,(now-last)/1000);last=now;
+      workoutTimer.elapsed+=delta;
+      if(workoutTimer.mode!=='fortime')workoutTimer.remaining=Math.max(0,workoutTimer.duration-workoutTimer.elapsed);
+      if(workoutTimer.mode==='emom'){
+        const round=Math.floor(workoutTimer.elapsed/60);
+        if(round>workoutTimer.lastEmomRound){workoutTimer.lastEmomRound=round;timerBeep(true)}
+      }
+      if(workoutTimer.mode!=='fortime'&&workoutTimer.remaining<=0){
+        timerStopInterval();timerBeep(true);toast('Lejárt az idő!');
+      }
+      timerDisplay();
+    },200);
+    timerDisplay();
+  }
+}
+function runTimerReset(){
+  timerStopInterval();
+  const mins=Math.max(1,Math.min(60,Number($('#timer-minutes')?.value)||10));
+  const mode=$('#timer-mode')?.value||'amrap';
+  workoutTimer={interval:null,mode,duration:mins*60,remaining:mins*60,elapsed:0,running:false,lastEmomRound:0};
+  timerDisplay();
+}
+
+function updateMovementProgress(){
+ const checks=[...document.querySelectorAll('[data-movement-check]')],done=checks.filter(c=>c.checked).length;
+ checks.forEach(c=>c.closest('.movement-check')?.classList.toggle('done',c.checked));
+ const count=$('#movement-count'),bar=$('#movement-progress');
+ if(count)count.textContent=`${done} / ${checks.length} kész`;
+ if(bar)bar.style.width=(checks.length?done/checks.length*100:0)+'%';
+}
+
+function openMetcon(id){
+  const w=METCONS.find(x=>x.id===id);if(!w)return;
+  modal(`
+  <div class="row" style="align-items:flex-start">
+    <div>
+      <div class="tags">
+        <span class="tag em">${esc(w.category)}</span>
+        <span class="tag">${esc(w.format)}</span>
+      </div>
+      <h2 style="margin-top:6px">${esc(w.title)}</h2>
+      <p class="tiny dim uppercase font-bold">${esc(w.subtitle)}</p>
+    </div>
+    <button class="btn sm white" data-a="closeModal">✕</button>
+  </div>
+
+  <div class="grid2">
+    <div style="background:var(--card-sub);padding:10px;border-radius:14px;text-align:center">
+      <span class="tiny dim uppercase">Időkeret</span>
+      <b style="display:block;font-size:14px">${esc(w.duration)}</b>
+    </div>
+    <div style="background:var(--card-sub);padding:10px;border-radius:14px;text-align:center">
+      <span class="tiny dim uppercase">Célidő</span>
+      <b style="display:block;font-size:14px;color:#34d399">${esc(w.target)}</b>
+    </div>
+  </div>
+
+  <div class="timerbox">
+    <div class="row"><div class="h em">Edzésóra</div><span class="tiny dim">${esc(w.format)}</span></div>
+    <div id="timer-display" class="timerdisplay">10:00</div>
+    <div id="timer-status" class="timerstatus">KÉSZEN ÁLL</div>
+    <div class="grid2">
+      <div>
+        <label class="lbl">Típus</label>
+        <select class="field" id="timer-mode" style="padding:8px">
+          <option value="amrap" ${w.format.includes('AMRAP')?'selected':''}>AMRAP (visszaszámlálás)</option>
+          <option value="fortime" ${w.format.includes('Time')||w.format.includes('kör')?'selected':''}>For Time (stopper)</option>
+          <option value="emom" ${w.format.includes('EMOM')?'selected':''}>EMOM (percenkénti csipogás)</option>
+        </select>
+      </div>
+      <div>
+        <label class="lbl">Idő (perc)</label>
+        <input class="field" id="timer-minutes" type="number" value="15" style="padding:8px">
+      </div>
+    </div>
+    <div class="grid2">
+      <button class="btn pri" id="timer-start" data-a="timerToggle">Indítás</button>
+      <button class="btn" data-a="timerReset">Újra</button>
+    </div>
+  </div>
+
+  <div>
+    <div class="row">
+      <div class="h">Feladatsor (Koppints ha kész)</div>
+      <span id="movement-count" class="tiny dim">0 kész</span>
+    </div>
+    <div class="progress-track" style="margin:6px 0 10px"><div id="movement-progress" class="progress-fill"></div></div>
+    <div style="display:grid;gap:8px">
+      ${w.blocks.map(b=>`
+        <div>
+          <span class="tiny ok font-bold uppercase">${esc(b.title)}</span>${b.items.map(it=>`
+            <label class="movement-check">
+              <input type="checkbox" data-movement-check>
+              <span>${esc(it)}</span>
+            </label>
+          `).join('')}
+        </div>
+      `).join('')}
+    </div>
+  </div>
+
+  <div class="notice">
+    <h4>Stratégia & Pacing</h4>
+    <p>${esc(w.strategy)}</p>
+  </div>
+
+  <div>
+    <div class="h" style="margin-bottom:8px">Mozgásonkénti technika</div>
+    <div style="display:grid;gap:6px">
+      ${w.tips.map(([a,b])=>`
+        <div style="background:var(--card-sub);padding:10px;border-radius:12px;border:1px solid var(--line)">
+          <b style="font-size:12px;color:#fff">${esc(a)}</b>
+          <p class="small mut" style="margin-top:2px">${esc(b)}</p>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+
+  <div style="background:var(--card-sub);padding:14px;border-radius:16px;border:1px solid var(--line);display:grid;gap:8px">
+    <div class="h">Eredmény rögzítése erre a napra (${esc(fmtDate(selectedDate))})</div>
+    <input class="field" id="mscore" placeholder="Elért idő / körök száma">
+    <input class="field" id="mload" placeholder="Használt súly (pl. 2×15 kg)">
+    <textarea class="field" id="mnotes" rows="2" placeholder="Megjegyzések, skálázás, érzet..."></textarea>
+    <button class="btn pri" data-a="logLibrary" data-id="${w.id}">Mentés a Naplóba</button>
+  </div>
+  `);
+  runTimerReset();
+}
+
+/* ============ MODAL ============ */
+const modal=html=>{const m=$('#modal');m.innerHTML=`<div class="panel">${html}</div>`;m.classList.remove('hidden');document.body.style.overflow='hidden'};
+const closeModal=()=>{timerStopInterval();$('#modal').classList.add('hidden');$('#modal').innerHTML='';document.body.style.overflow=''};
+
+function logForm(l){
+  const types=['Súlyemelés','Metcon','Futás','Egyéb'];
+  modal(`
+  <h3>${l?'Edzés módosítása':'Egyéni edzés rögzítése'}</h3>
+  <div class="grid2">
+    <div><label class="lbl">Dátum</label><input class="field" type="date" id="f-date" value="${esc(l?l.date:selectedDate)}"></div>
+    <div><label class="lbl">Típus</label><select class="field" id="f-type">${types.map(t=>`<option ${l&&l.type===t?'selected':''}>${esc(t)}</option>`).join('')}</select></div>
+  </div>
+  <div><label class="lbl">Edzés megnevezése</label><input class="field" id="f-title" type="text" value="${esc(l?l.title:'')}" placeholder="Pl. Saját köredzés"></div>
+  <div><label class="lbl">Részletek</label><textarea class="field" id="f-details" rows="4" placeholder="Súlyok, ismétlések, megjegyzések...">${esc(l?l.details:'')}</textarea></div>
+  <div class="grid2">
+    <button class="btn" data-a="closeModal">Mégse</button>
+    <button class="btn pri" data-a="saveLogForm" data-id="${l?esc(l.id):''}">Mentés</button>
+  </div>
+  `);
+}
+
+function addLog(o){state.logs.push({id:uid(),createdAt:Date.now(),details:'',...o});save()}
+
+/* ============ ESEMÉNYEK ============ */
+const A={
+ tab(d){tab=d.t;closeModal();render();window.scrollTo(0,0)},
+ date(d){selectedDate=d.d;render()},
+ jumpToday(){selectedDate=today();render()},
+ jumpStart(){selectedDate=state.programStart;render()},
+ closeModal,
+ openMetcon(d){openMetcon(d.id)},
+ timerToggle(){runTimerToggle()},
+ timerReset(){runTimerReset()},
+ logLibrary(d){
+   const w=METCONS.find(x=>x.id===d.id);if(!w)return;
+   const score=($('#mscore')?.value||'').trim(),load=($('#mload')?.value\vert{}\vert{}'').trim(),notes=($('#mnotes')?.value||'').trim();
+   const res=[score?'Eredmény: '+score:'',load?'Súly: '+load:'',notes?'Megjegyzés: '+notes:''].filter(Boolean).join('\n');
+   addLog({date:selectedDate,part:'metcon',refId:w.id,type:'Metcon',title:w.title,details:`${w.format} · ${w.duration}${res?'\n\n'+res:''}`});
+   closeModal();render();toast('Metcon elmentve!');
+ },
+ logPart(d){
+   const date=selectedDate,p=planFor(date),note=($('#res-'+d.p)?.value||'').trim();
+   if(d.p==='wendler'){
+     const key=p.lift.key,ss=sets(key,p.week),reps=Number($('#amrap')?.value)||0,top=ss[2];
+     const amrap=reps>0&&top.kg?`\nAMRAP: ${kgFmt(top.kg)} kg × ${reps} rep → Becsült 1RM: ${Math.round(top.kg*(1+reps/30))} kg`:'';
+     addLog({date,part:'wendler',type:'Súlyemelés',title:`5/3/1 ${LIFT[key].name}`,lift:key,
+       details:`${p.week}. hét · TM: ${kgFmt(state.tm[key])} kg\n${ss.map((s,k)=>`${k+1}. sorozat:${Math.round(s.pct*100)}% = ${s.kg?kgFmt(s.kg)+' kg':'–'} × ${s.reps}`).join('\n')}${amrap}${note?'\n\n'+note:''}`});
+     toast('Erőedzés naplózva!');
+   } else if(d.p==='metcon'){
+     const w=p.metcon;
+     addLog({date,part:'metcon',refId:w.id,type:'Metcon',title:w.title,details:`${w.format} · ${w.duration}${note?'\n\n'+note:''}`});
+     toast('Kondíció naplózva!');
+   } else {
+     const r=p.run,P=runProfile(),tg=runTarget(r,P);
+     addLog({date,part:'run',type:'Futás',title:r.title,details:`${r.dist}${tg?'\nCéltempó: '+tg:''}${note?'\n\n'+note:''}`});
+     toast('Futóedzés naplózva!');
+   }
+   render();
+ },
+ editLog(d){const l=state.logs.find(x=>x.id===d.id);if(l)logForm(l)},
+ newLog(){logForm(null)},
+ saveLogForm(d){
+   const date=$('#f-date').value,title=$('#f-title').value.trim(),type=$('#f-type').value,details=$('#f-details').value.trim();
+   if(!title)return toast('Add meg az edzés nevét!',true);
+   if(d.id){const l=state.logs.find(x=>x.id===d.id);if(l)Object.assign(l,{date,title,type,details});save();toast('Frissítve!')}
+   else{addLog({date,part:'custom',type,title,details});toast('Naplózva!')}
+   closeModal();render();
+ },
+ delLog(d){
+   if(!confirm('Biztosan törlöd ezt az edzést?'))return;
+   state.logs=state.logs.filter(x=>x.id!==d.id);save();render();toast('Törölve.');
+ },
+ saveStart(){
+   state.programStart=$('#pstart').value;save();render();toast('Kezdődátum mentve!');
+ },
+ saveTm(){
+   for(const l of LIFTS){
+     const v=$('#tm-'+l.key).value.trim(),n=Number(v);
+     state.tm[l.key]=v===''?null:round25(n);
+   }
+   save();render();toast('Súlyok mentve!');
+ },
+ applyCycle(){
+   if(!confirm('Lépteted a ciklust? Felsőtest: +2.5kg, Alsótest: +5kg.'))return;
+   for(const l of LIFTS)state.tm[l.key]=round25(state.tm[l.key]+(l.upper?2.5:5));
+   state.cycleApplied=(state.cycleApplied||1)+1;
+   save();render();toast(`${state.cycleApplied}. ciklus aktiválva!`);
+ },
+ saveRun(){
+   const a=normalizeTime($('#rt2').value),b=normalizeTime($('#rt5').value);
+   if(!a||!b)return toast('Add meg mindkét időt!',true);
+   state.runTimes={t2:a,t5:b};save();render();toast('Futóidők frissítve!');
+ },
+ async share(){
+   const json=JSON.stringify({app:'strng-training',state},null,2);
+   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([json],{type:'application/json'}));
+   a.download=`strng_mentes_${today()}.json`;a.click();toast('Fájl letöltve!');
+ },
+ wipe(){
+   if(!confirm('FIGYELEM: Minden mentett adatod törlődik erről az eszközről! Folytatod?'))return;
+   localStorage.clear();state=baseState();render();toast('Minden adat törölve.');
+ }
+};
+
+document.addEventListener('click',e=>{
+  if(e.target.id==='modal'){closeModal();return}
+  const el=e.target.closest('[data-a]');if(el&&A[el.dataset.a])A[el.dataset.a](el.dataset,el);
 });
 
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then(ks => Promise.all(ks.filter(k => k !== C).map(k => caches.delete(k))))
-      .then(() => self.clients.claim())
-  );
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.id==='rt2'||t.id==='rt5'){const v=liveTime(t.value);if(t.value!==v){t.value=v;}}
+  if(t.id==='metcon-search')filterMetcons();
+  if(t.id==='amrap'){
+    const val=Number(t.value),p=planFor(selectedDate);
+    if(val>0&&p.lift){
+      const ss=sets(p.lift.key,p.week),top=ss[2];
+      if(top.kg)$('#amrap-est').textContent=`Becsült 1RM: ${Math.round(top.kg*(1+val/30))} kg`;
+    }else if($('#amrap-est')){$('#amrap-est').textContent='';}
+  }
+  const m=/^orm-(\w+)$/.exec(t.id\vert{}\vert{}'');if(m){const n=Number(t.value),tm=$('#tm-'+m[1]);if(tm)tm.value=n>0?round25(n*.9):''}
 });
 
-self.addEventListener('fetch', (e) => {
-  const r = e.request;
-  if (r.method !== 'GET' || new URL(r.url).origin !== location.origin) return;
-  e.respondWith(
-    fetch(r)
-      .then(res => {
-        const cp = res.clone();
-        caches.open(C).then(c => c.put(r, cp));
-        return res;
-      })
-      .catch(() => caches.match(r).then(m => m || caches.match('./index.html')))
-  );
+document.addEventListener('focusout',e=>{const t=e.target;if(t.id==='rt2'||t.id==='rt5')t.value=normalizeTime(t.value)});
+
+document.addEventListener('change',e=>{
+  if(e.target.matches('[data-movement-check]'))updateMovementProgress();
+  if(e.target.id==='metcon-filter')filterMetcons();
+  if(e.target.id==='timer-mode'||e.target.id==='timer-minutes')runTimerReset();
+  if(e.target.id==='restoreFile'){
+    const f=e.target.files&&e.target.files[0];if(!f)return;
+    const r=new FileReader();
+    r.onload=()=>{
+      try{
+        const o=JSON.parse(String(r.result));
+        if(o.state){state=sanitize(o.state);save();render();toast('Mentés visszaállítva!');}
+      }catch(_){toast('Érvénytelen fájl!',true)}
+    };
+    r.readAsText(f);
+  }
 });
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+selectedDate=today();
+render();
+
+if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+})();
+</script>
+</body>
+</html>
