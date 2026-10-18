@@ -19,11 +19,6 @@
   --mut:#a1a1aa;
   --dim:#71717a;
   --em:#30d158;
-  --em-dim:rgba(48,209,88,0.12);
-  --sky:#0a84ff;
-  --sky-dim:rgba(10,132,255,0.12);
-  --amb:#ff9f0a;
-  --amb-dim:rgba(255,159,10,0.12);
   --red:#ff453a;
   --red-dim:rgba(255,69,58,0.12);
 }
@@ -36,7 +31,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 /* Fejléc */
 .top{
   position:sticky;top:0;z-index:30;
-  background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(0,0,0,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--line);
   padding:calc(12px + env(safe-area-inset-top)) 16px 12px;
   display:flex;justify-content:space-between;align-items:center;
@@ -54,14 +49,11 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 
 /* Tipográfia */
 .h{font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:var(--mut)}
-.h.em{color:var(--em)}.h.sky{color:var(--sky)}.h.amb{color:var(--amb)}
+.h.em{color:var(--em)}
 h2{font-size:19px;font-weight:800}h3{font-size:16px;font-weight:800}
 .mut{color:var(--mut)}.dim{color:var(--dim)}.small{font-size:12.5px}.tiny{font-size:10.5px}
 .mono{font-family:ui-monospace,Menlo,monospace}
 .tag{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--card-sub);color:var(--mut);border-radius:999px;padding:4px 9px;font-size:10px;font-weight:800;text-transform:uppercase}
-.tag.em{color:var(--em);border-color:rgba(48,209,88,0.25);background:var(--em-dim)}
-.tag.sky{color:var(--sky);border-color:rgba(10,132,255,0.25);background:var(--sky-dim)}
-.tag.amb{color:var(--amb);border-color:rgba(255,159,10,0.25);background:var(--amb-dim)}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 
 /* Gombok és mezők */
@@ -138,7 +130,7 @@ nav button.on{color:#fff;background:rgba(255,255,255,0.08)}
 <script>
 (()=>{'use strict';
 
-// Cache felszabadítás
+// 1. Gyorsítótár törlése a beragadás elkerüléséhez
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistrations().then(rs => { for(let r of rs) r.unregister(); });
 }
@@ -146,7 +138,7 @@ if ('caches' in window) {
   caches.keys().then(ks => { for(let k of ks) caches.delete(k); });
 }
 
-const KEY = 'strng_apple_v2';
+const KEY = 'strng_apple_v3';
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pad = n => String(n).padStart(2, '0');
@@ -171,7 +163,7 @@ function liveTime(raw){
 function normalizeTime(raw){
   raw = String(raw || '').trim(); if (!raw) return '';
   const idx = raw.search(/\D/); let m, s;
-  if (idx >= 0) { m = raw.slice(0, idx).replace(/\D/g, ''); s = raw.slice(idx).replace(/\D/g, ''); }
+  if (idx >= 0) { m = raw.slice(0, idx).replace(/\\D/g, ''); s = raw.slice(idx).replace(/\\D/g, ''); }
   else { const d = raw.slice(0, 4); if (d.length <= 2) { m = d; s = ''; } else if (d.length === 3) { m = d[0]; s = d.slice(1); } else { m = d.slice(0, 2); s = d.slice(2); } }
   return m === '' ? raw : pad(+m) + ':' + pad(+(s || 0));
 }
@@ -189,11 +181,11 @@ const LIFTS = [
 const LIFT = Object.fromEntries(LIFTS.map(l => [l.key, l]));
 
 const ROT = [
- { key: 'sq', short: 'SQUAT', accessory: 'TRX / gyűrűs evezés 3×12, kitörés 3×8/oldal.', tip: 'Mély hasi levegővétel (bracing), testsúly a teljes talpon, derék feszes.' },
- { key: 'bp', short: 'BENCH', accessory: 'DB egykezes evezés 3×10/oldal, 3×10 fekvőtámasz.', tip: 'Zárt lapockák a padon, teli talpas támasz. Kontrollált leengedés, robbanékony kinyomás.' },
- { key: 'dl', short: 'DEADLIFT', accessory: 'Goblet squat 3×10, dead bug 3×10/oldal.', tip: 'A rúd szorosan a tested mentén mozog. Lábból indítsd a talaj eltolását.' },
- { key: 'ohp', short: 'OHP', accessory: 'TRX evezés 3×12, oldalsó plank 3×30 mp/oldal.', tip: 'Feszített farizom és has, a rúd egyenes függőleges pályán mozogjon.' },
- { key: 'pc', short: 'CLEAN', accessory: 'Húzódzkodás 3×8, Good Morning 3×10.', tip: 'Boka-térd-csípő robbanékony hármas kiterjesztése, gyors könyökforgatás a vállra.' }
+ { key: 'sq', short: 'SQUAT', accessory: 'TRX / gyűrűs evezés 3×12, kitörés 3×8 oldalanként.', tip: 'Mély hasi levegővétel (bracing), testsúly a teljes talpon, derék feszes.' },
+ { key: 'bp', short: 'BENCH', accessory: 'DB egykezes evezés 3×10 oldalanként, 3×10 fekvőtámasz.', tip: 'Zárt lapockák a padon, teli talpas támasz. Kontrollált leengedés, robbanékony nyomás.' },
+ { key: 'dl', short: 'DEADLIFT', accessory: 'Goblet squat 3×10, dead bug 3×10 oldalanként.', tip: 'A rúd szorosan a lábszár és comb mentén mozog. Talaj eltolása lábból.' },
+ { key: 'ohp', short: 'OHP', accessory: 'TRX evezés 3×12, oldalsó plank 3×30 mp oldalanként.', tip: 'Feszített farizom és has, a rúd egyenes függőleges pályán mozogjon.' },
+ { key: 'pc', short: 'CLEAN', accessory: 'Húzódzkodás 3×8, Good Morning súlyzóval 3×10.', tip: 'Boka-térd-csípő robbanékony kiterjesztése, gyors könyökforgatás a vállra.' }
 ];
 
 const SCHEMES = {
@@ -210,118 +202,385 @@ const PC_SCHEMES = {
 };
 const WARMUP = [[.40, 5], [.50, 5], [.60, 3]];
 
-/* 15 KONDÍCIÓS EDZÉS (METCON KÖNYVTÁR) */
+/* METCON EDZÉSEK (SÚLYZÓS ÉS SAJÁTTESTSÚLYOS VARIÁNSOKKAL) */
 const METCONS = [
-{ id: "m1", title: "Engine Ladder", category: "Kondíció", duration: "Cap 20:00", target: "16:30 – 18:30", format: "5 kör időre",
-  items: ["500 m Evezés (Row)", "15 Burpee over rower", "20 Wall Ball shot (9/6 kg)"],
-  strategy: "Evezésen 2k tempó +5-7 mp. Burpee folyamatos ritmusban, Wall Ball 12+8 bontásban.",
-  tips: [["Evezés", "26-28 csapásszám."], ["Wall Ball", "Mellkasnál fogd a labdát."]] },
-{ id: "m2", title: "Echo Chipper", category: "Chipper", duration: "Cap 22:00", target: "17:00 – 19:30", format: "Időre (For Time)",
-  items: ["40 Cal Echo Bike", "30 DB Snatch (22.5/15 kg)", "30 Box Jump Over (60/50 cm)", "30 DB Thruster (2×15/10 kg)", "40 Cal Echo Bike"],
-  strategy: "Echo Bike 60-65 RPM. Thruster 3×10-es bontásban.",
-  tips: [["Thruster", "Csípőből lökj, fent vegyél levegőt."], ["Box Jump", "Lépkedj le a dobozról."]] },
-{ id: "m3", title: "Tri-Erg Aerobic Capacity", category: "Kardió", duration: "34:00 (3 kör)", target: "28:00 – 31:00", format: "3 kör (2:00 pihenővel)",
-  items: ["1000 m SkiErg", "1500 m Evezés", "2500 m Bike"],
-  strategy: "Tiszta zóna 2-3 aerob fejlesztés. Egyenletes wattok.",
-  tips: [["Pihenő", "Sétálj és igyál, ne feküdj le."]] },
-{ id: "m4", title: "Kettlebell & Shuttle Grinder", category: "Kondíció", duration: "Cap 20:00", target: "15:30 – 18:00", format: "4 kör időre",
-  items: ["400 m Futás (vagy 25 Cal Evezés)", "24 Kettlebell Swing (24/16 kg)", "16 KB Goblet Guggolás", "12 Burpee Box Jump Over"],
-  strategy: "KB swing unbroken minden körben. Futás után azonnal vedd fel a súlyt.",
-  tips: [["KB Swing", "Dinamikus csípőnyújtás."]] },
-{ id: "m5", title: "Cardio Monster EMOM 24", category: "Intervallum", duration: "24:00 fix", target: "45-48 mp munka / perc", format: "EMOM 24 perc (6 kör)",
-  items: ["1. perc: 18/14 Cal Evezés", "2. perc: 15 Burpee", "3. perc: 16/12 Cal Echo Bike", "4. perc: 50 Double Unders"],
-  strategy: "Legalább 12-15 mp pihenő minden percben. Ha csúszol, vegyél vissza 2 ismétlést.",
-  tips: [["Ugrókötél", "Laza vállak, csuklóból hajts."]] },
-{ id: "m6", title: "Lactate Tolerance Chipper", category: "Kondíció", duration: "Cap 22:00", target: "17:30 – 19:30", format: "3 kör időre",
-  items: ["400 m Futás (vagy 24 Cal SkiErg)", "15 Rúddal végzett Thruster (42.5/30 kg)", "15 Bar-Facing Burpee", "20 Cal Evezés"],
-  strategy: "Thruster 9+6 bontásban rögtön az elejétől.",
-  tips: [["Thruster", "Láblökésből indíts."]] },
-{ id: "m7", title: "The 40-Min Engine Test", category: "Kardió", duration: "40:00 AMRAP", target: "3 – 3.5 kör", format: "40 perc AMRAP",
-  items: ["1000 m Evezés", "40 Guggolás testsúllyal", "800 m Futás", "30 Fekvőtámasz", "20 Húzódzkodás / Ring Row", "50 Cal Bike"],
-  strategy: "Maratoni tempó, orrlégzés. Fekvőtámaszokat bontsd 5-ösökre.",
-  tips: [["Fekvőtámasz", "Kerüld az izombukást."]] },
-{ id: "m8", title: "Dumbbell Power & Capacity", category: "Kondíció", duration: "Cap 20:00", target: "14:00 – 16:30", format: "5 kör (1:30 pihenővel)",
-  items: ["15 Cal Echo Bike", "12 DB Felhúzás (2×22.5/15 kg)", "9 DB Hang Clean", "6 DB Push Press"],
-  strategy: "A súlyzós komplexet (12+9+6) próbáld lerakás nélkül vinni.",
-  tips: [["Echo Bike", "80%-os tempó."]] },
-{ id: "m9", title: "Rowing Pyramid & TTB", category: "Kondíció", duration: "Cap 22:00", target: "16:00 – 18:30", format: "Időre (For Time)",
-  items: ["250m Evezés + 10 TTB", "500m Evezés + 15 TTB", "750m Evezés + 20 TTB", "500m Evezés + 15 TTB", "250m Evezés + 10 TTB"],
-  strategy: "A 750 m evezésen tartsd fegyelmezetten a tempót.",
-  tips: [["TTB", "Kis szettek rövid szünetekkel."]] },
-{ id: "m10", title: "Ski & Box Step-Over Interval", category: "Intervallum", duration: "20:00 (4 kör)", target: "75+ fellépés", format: "4 kör (3:00 munka / 2:00 pihenő)",
-  items: ["350 m SkiErg", "Fennmaradó időben: Max DB Box Step-Over (2×15/10 kg)"],
-  strategy: "SkiErg 1:20 alatt, maradjon 1:40 a dobozra.",
-  tips: [["Box Step", "Sarkad teljesen legyen a dobozon."]] },
-{ id: "m11", title: "Devil's Grit", category: "Kondíció", duration: "Cap 25:00", target: "19:00 – 22:00", format: "5 kör időre",
-  items: ["20 Cal Evezés", "15 Hand-Release Fekvőtámasz", "15 Ugró kitörés", "8 Devil's Press (2×15/10 kg)"],
-  strategy: "Devil's Pressnél csípőből robbants, ne karból húzz.",
-  tips: [["Evezés", "Kitörések után az első 5 húzás legyen laza."]] },
-{ id: "m12", title: "Triple Threat Sprint", category: "Kardió", duration: "Cap 23:00", target: "17:30 – 20:00", format: "Időre (For Time)",
-  items: ["1500 m Evezés", "3000 m Bike (vagy 75 Cal Echo)", "1200 m Futás"],
-  strategy: "Bringán 90+ RPM. Futás végén hajrá.",
-  tips: [["Váltás", "Azonnal ülj át a gépekre."]] },
-{ id: "m13", title: "Barbell Aerobic Hybrid", category: "Kondíció", duration: "Cap 24:00", target: "18:00 – 21:00", format: "4 kör időre",
-  items: ["400 m Futás", "15 Power Snatch rúddal (35/25 kg)", "15 Burpee over bar", "15 Cal Echo Bike"],
-  strategy: "Gyors egyesek a snatcheknél.",
-  tips: [["Burpee", "Fordulj azonnal a rúd felé."]] },
-{ id: "m14", title: "30-20-10 Calorie Burn", category: "Kardió", duration: "Cap 19:00", target: "14:00 – 16:30", format: "Időre (For Time)",
-  items: ["30 Cal Evezés + 30 Wall Ball + 30 Box Jump", "20 Cal Bike + 20 Wall Ball + 20 Box Jump", "10 Cal SkiErg + 10 Wall Ball + 10 Box Jump"],
-  strategy: "Negatív split: 75% -> 85% -> 100% sprint.",
-  tips: [["Piramis", "Tartsd vissza magad az első körben."]] },
-{ id: "m15", title: "The Final Benchmark", category: "Kondíció", duration: "Cap 26:00", target: "20:00 – 23:30", format: "Időre (For Time)",
-  items: ["100 Double Unders", "50 Cal Evezés", "40 Wall Ball (9/6 kg)", "30 Burpee", "20 DB Hang Clean & Jerk (2×20/15 kg)", "50 Cal Echo Bike"],
-  strategy: "A végső aerob teszt. Utolsó biciklin mindent bele.",
-  tips: [["Wall Ball", "Nagy, egyenletes szettek."]] }
+  {
+    id: "unilateral-leg-core",
+    title: "Unilateral Leg & Core",
+    category: "Alsótest & Törzs",
+    duration: "5 Sets (2:00 pihenő)",
+    rpe: "8.5 / 10",
+    target: "Szigorú tempótartás és egyensúly",
+    format: "5 szett minőségi munka",
+    equipped: [
+      "8 Rear Foot Elevated Split Squat / láb (31X1 tempó)",
+      "- 0:30 pihenő -",
+      "10 Single Leg Deadlift / láb (súlyzóval)",
+      "- 0:30 pihenő -",
+      "12 Alternating Leg V-Ups",
+      "- 2:00 pihenő a szettek között -"
+    ],
+    bodyweight: [
+      "8 Bolgár guggolás kanapéra/székre tett lábbal (31X1 tempó)",
+      "- 0:30 pihenő -",
+      "10 Egylábas felhúzás spiccérintéssel (kontrollált leengedés)",
+      "- 0:30 pihenő -",
+      "12 Váltott lábas bicska felülés (Alternating V-Ups)",
+      "- 2:00 pihenő a szettek között -"
+    ],
+    stimulus: "Alsótest egyoldali ereje és törzsstabilitás. A 31X1 tempó: 3 mp leengedés, 1 mp lent, robbanékony felállás, 1 mp fent.",
+    tips: [
+      ["Split Squat (31X1)", "Tartsd a törzsedet feszesen, a térded ne essen befele."],
+      ["Single Leg Deadlift", "Egyenes hát, csípőből billenj előre, a támasztó láb enyhén hajlítva."],
+      ["Alternating V-Ups", "Hanyattfekvésből egyszerre emeld a törzset és az egyik nyújtott lábat."]
+    ]
+  },
+  {
+    id: "ten-rounds-upper",
+    title: "10 Rounds Upper & Burpee",
+    category: "Felsőtest & Pulzus",
+    duration: "Cap 12:00",
+    rpe: "8.5 – 9.0 / 10",
+    target: "Sub 8:00 – 10:00 perc",
+    format: "10 kör időre (For Time)",
+    equipped: [
+      "5 Dumbbell Bench Press (vagy Floor Press)",
+      "5 Strict Pull-Ups (vagy 5-5 DB Bent Over Row)",
+      "*Minden 2. kör végén (2, 4, 6, 8, 10):* 5 Burpee Over Dumbbell"
+    ],
+    bodyweight: [
+      "8 Fekvőtámasz (szükség esetén lábemeléssel)",
+      "8 Asztal/Ajtófélfa alatti evezés (vagy Plank Shoulder Tap 10/10)",
+      "*Minden 2. kör végén (2, 4, 6, 8, 10):* 5 Burpee oldalra ugrással"
+    ],
+    stimulus: "Tiszta felsőtesti erő-állóképesség és pulzusterhelés. Unbroken sorozatokra törekedj.",
+    tips: [
+      ["Bench / Push-Up", "Zárt lapockák a padon vagy a talajon, robbanékony kinyomás."],
+      ["Pull-Up / Row", "Lendület nélkül, tiszta húzással dolgozz."],
+      ["Burpee", "Mellkas a talajon, gyors talpra ugrás és páros lábbal ugrás."]
+    ]
+  },
+  {
+    id: "situp-clean-chipper",
+    title: "Sit-Up & Hang Clean Chipper",
+    category: "Chipper",
+    duration: "Cap 12:00",
+    rpe: "8.5 – 9.0 / 10",
+    target: "Sub 7:00 – 9:00 perc",
+    format: "Időre (For Time)",
+    equipped: [
+      "50 Sit-Ups (felülés)",
+      "35 Alternating DB Hang Clean",
+      "25 Burpee",
+      "35 Alternating DB Hang Clean",
+      "50 Sit-Ups"
+    ],
+    bodyweight: [
+      "50 Sit-Ups (felülés)",
+      "35 Ugró guggolás (Jumping Air Squats)",
+      "25 Burpee",
+      "35 Ugró guggolás (Jumping Air Squats)",
+      "50 Sit-Ups"
+    ],
+    stimulus: "Piramis jellegű kapacitási teszt égő hasfallal és intenzív pulzussal.",
+    tips: [
+      ["Sit-Ups", "Kar lendületét használd ki, fejnél és cipőorron érintsd a talajt."],
+      ["Hang Clean / Jump Squat", "Combközéptől indíts egyenes háttal, csípőből pattints a vállra."],
+      ["Burpee", "Egyenletes robot-ritmus, ne állj le a 25 ismétlés alatt."]
+    ]
+  },
+  {
+    id: "push-pull-penalty",
+    title: "Push / Pull Penalty",
+    category: "Büntetéses blokk",
+    duration: "Part A (8:00) + Part B (8:00)",
+    rpe: "9.0 / 10",
+    target: "Part A sub 6:00, Part B sub 5:00",
+    format: "Két külön For Time blokk (3:00 pihenővel)",
+    equipped: [
+      "PART A (Cap 8:00): 100 Push-Ups",
+      "*Megállásonként (break):* 8-8 Single Arm DB Row",
+      "- 3:00 Pihenő -",
+      "PART B (Cap 8:00): 50 Single DB Both Arm Press",
+      "*Megállásonként (break):* 6 Strict Pull-Ups (vagy 12 TRX Row)"
+    ],
+    bodyweight: [
+      "PART A (Cap 8:00): 100 Push-Ups (fekvőtámasz)",
+      "*Megállásonként (break):* 16 Plank Shoulder Taps (8/oldal)",
+      "- 3:00 Pihenő -",
+      "PART B (Cap 8:00): 50 Pike Push-Ups (vagy emelt lábas fekvő)",
+      "*Megállásonként (break):* 12 Asztal alatti evezés (vagy Doorframe Row)"
+    ],
+    stimulus: "Kíméletlen büntető-alapú felsőtest blokk. Stratégiai mikroszettekkel dolgozz, ne menj izombukásig.",
+    tips: [
+      ["Push-Ups", "Tervezz előre mikroszetteket (pl. 15, majd 10-esek)."],
+      ["DB Press / Pike", "Feszes törzs, függőleges tolás fej fölé."],
+      ["Büntetések", "Azonnal kezdd el a büntető gyakorlatot a megállás után."]
+    ]
+  },
+  {
+    id: "four-intervals-shoulders",
+    title: "Shoulder Capacity Intervals",
+    category: "Intervallum",
+    duration: "4 kör (2:00, 2:00, 2:00, 3:00 / 1:00 rest)",
+    rpe: "8.5 – 9.0 / 10",
+    target: "10-20 Pike Push-up körönként",
+    format: "Intervallumos munka",
+    equipped: [
+      "Minden ablakban (2p, 2p, 2p, 3p):",
+      "8-8 Single Arm DB Push Press",
+      "14 Alternating Bodyweight Lunges (kitörés)",
+      "Fennmaradó időben: Max Rep Pike Push-ups vagy HSPU",
+      "- 1:00 pihenő a körök között -"
+    ],
+    bodyweight: [
+      "Minden ablakban (2p, 2p, 2p, 3p):",
+      "8-8 Súlyos táskás Push Press (vagy 10 Hand-Release fekvőtámasz)",
+      "14 Váltott lábas kitörés (kitörés)",
+      "Fennmaradó időben: Max Rep Pike Push-ups (csípő magasan)",
+      "- 1:00 pihenő a körök között -"
+    ],
+    stimulus: "Vállak és tricepsz vertikális nyomó izom-állóképessége fáradt állapotban.",
+    tips: [
+      ["Push Press", "Láblökésből indítsd a mozgást, kíméld a vállaidat."],
+      ["Lunges", "Pörgesd le megállás nélkül."],
+      ["Pike / HSPU", "3-5 ismétléses mikroszettekben dolgozz."]
+    ]
+  },
+  {
+    id: "row-burpee-repeat",
+    title: "Row & Burpee Repeat",
+    category: "Kapacitás",
+    duration: "2 Sets × AMRAP 5:00 (2:30 pihenő)",
+    rpe: "8.5 – 9.0 / 10",
+    target: "2+ kör mindkét ablakban",
+    format: "2 szett 5 perces AMRAP",
+    equipped: [
+      "Mindkét szettben AMRAP 5:00:",
+      "14 Single Arm DB Row (Jobb kar)",
+      "10 Burpee",
+      "14 Single Arm DB Row (Bal kar)",
+      "20 Air Squats (guggolás)",
+      "- 2:30 pihenő a két szett között -"
+    ],
+    bodyweight: [
+      "Mindkét szettben AMRAP 5:00:",
+      "14 Súlyos táskás evezés jobb kézzel (vagy 14 Egylábas csípőfeltolás)",
+      "10 Burpee",
+      "14 Súlyos táskás evezés bal kézzel (vagy 14 Egylábas csípőfeltolás)",
+      "20 Air Squats (guggolás)",
+      "- 2:30 pihenő a két szett között -"
+    ],
+    stimulus: "Ismételhető aerob kapacitás. A 2. körben hozni kell az 1. kör eredményét.",
+    tips: [
+      ["DB Row", "Döntött törzs, egyenes hát, könyökből húzz a csípődhöz."],
+      ["Burpee", "Mellkas a földön, gyors felpattanás ritmusból."],
+      ["Air Squat", "Csípő térdvonal alá, tarts egyenletes tempót."]
+    ]
+  },
+  {
+    id: "suitcase-ascending-ladder",
+    title: "Suitcase Ladder & Goblet",
+    category: "Piramis",
+    duration: "AMRAP 12:00",
+    rpe: "8.5 / 10",
+    target: "Eljutni a 18-20-as körig",
+    format: "12 perces növekvő létra",
+    equipped: [
+      "6-8-10-12-14... Single DB Suitcase Deadlift (oldalanként felezve)",
+      "*Minden körben állandó:*",
+      "6 Pike Push-ups (vagy HSPU)",
+      "9 Dumbbell Goblet Squats"
+    ],
+    bodyweight: [
+      "6-8-10-12-14... Egylábas felhúzás spiccérintéssel (vagy táskás bőrönd felhúzás)",
+      "*Minden körben állandó:*",
+      "6 Pike Push-ups",
+      "9 Tempó guggolás (3 mp leengedéssel)"
+    ],
+    stimulus: "Kemény ferde hasizom és törzsstabilitás az aszimmetrikus felhúzások miatt.",
+    tips: [
+      ["Suitcase Deadlift", "Egyenes törzs, ne billenj el oldalra a súlyzó felé."],
+      ["Goblet Squat", "Mély guggolások, mellkas emelve."],
+      ["Pike Push-up", "A-alakú csípő, fej a tenyerek elé érkezzen."]
+    ]
+  }
 ];
 
-/* CHRIS HINSHAW 5K EDZÉSPROGRAM */
+/* CHRIS HINSHAW 5K AEROBIC CAPACITY EDZÉSPROGRAM */
 const HINSHAW_PROGRAM = [
   {
     week: 1, title: "1. Hét: Pacing & Laktát Bázis",
     sessions: [
-      { type: "Pálya (VO2 Max)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 8 × 400 m @5k (pihenő: 90 mp álló/séta)\nLevezetés: 1 km @recovery", focus: "Cél a pontos versenytempó megtartása, szórás nélkül." },
-      { type: "Küszöb (Threshold)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 3 × 1200 m @tempo (pihenő: 2:00 kocogás)\nLevezetés: 1 km @easy", focus: "Laktátküszöb kitolása, egyenletes légzés." },
-      { type: "Aerob Bázis (Z2)", desc: "6 km folyamatos futás @easy zónában", focus: "Végig orrlégzés! Ha emelkedik a pulzus, lassíts." }
+      {
+        id: "w1s1", title: "VO2 Max Pályaintervallum", badge: "Pálya · Intenzív",
+        warmup: "1.5 km könnyű kocogás @easy zónában + dinamikus gimnasztika",
+        main: "8 × 400 m @5k versenytempóban",
+        rest: "90 mp álló vagy séta pihenő minden 400 m után",
+        cooldown: "1 km laza levezető kocogás @recovery",
+        focus: "Pontos, másodpercre egyenletes versenytempó megtartása a szórás elkerülésére."
+      },
+      {
+        id: "w1s2", title: "Küszöb-intervallumok", badge: "Küszöb · Laktát",
+        warmup: "1.5 km könnyű kocogás @easy",
+        main: "3 × 1200 m @tempo küszöbtempóban",
+        rest: "2:00 laza kocogás az 1200 méteres szakaszok között",
+        cooldown: "1 km nagyon könnyű levezetés @easy",
+        focus: "A laktátküszöb kitolása, kontrollált, mély légzés."
+      },
+      {
+        id: "w1s3", title: "Aerob Bázisfutás (Zone 2)", badge: "Alapozás · Z2",
+        warmup: "5 perc tempós séta",
+        main: "6 km folyamatos futás @easy zónában",
+        rest: "Megszakítás nélkül",
+        cooldown: "5 perc levezető séta és nyújtás",
+        focus: "Végig orrlégzés! Ha emelkedik a pulzusod, azonnal lassíts."
+      }
     ]
   },
   {
-    week: 2, title: "2. Hét: Laktát Tolerancia",
+    week: 2, title: "2. Hét: Laktát Tolerancia Növelés",
     sessions: [
-      { type: "Pálya (VO2 Max)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 5 × 800 m @5k (pihenő: 2:00 séta)\nLevezetés: 1 km @recovery", focus: "Hosszabb ideig tartó 5k tempó fenntartása." },
-      { type: "Küszöb (Threshold)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 20 perc folyamatos tempófutás @tempo\nLevezetés: 1 km @easy", focus: "Stabil sebesség a laktátküszöbön." },
-      { type: "Aerob Bázis (Z2)", desc: "7 km kényelmes futás @easy zónában", focus: "Keringési alapok megerősítése." }
+      {
+        id: "w2s1", title: "Középtávú Intervallumok", badge: "Pálya · VO2 Max",
+        warmup: "1.5 km @easy + 3 × 60 m repülőfutás",
+        main: "5 × 800 m @5k versenytempóban",
+        rest: "2:00 aktív séta pihenő a 800 méterek után",
+        cooldown: "1 km könnyű kocogás @recovery",
+        focus: "Hosszabb ideig tartó 5k versenytempó fenntartása."
+      },
+      {
+        id: "w2s2", title: "Folyamatos Küszöbfutás", badge: "Küszöb · Monoton",
+        warmup: "1.5 km @easy kocogás",
+        main: "20 perc folyamatos futás @tempo zónában",
+        rest: "Megszakítás nélkül",
+        cooldown: "1 km levezetés @easy",
+        focus: "Stabil, megingásmentes sebesség a 4 mmol-os laktátküszöbön."
+      },
+      {
+        id: "w2s3", title: "Hosszabb Aerob Bázis", badge: "Alapozás · Z2",
+        warmup: "5 perc séta",
+        main: "7 km kényelmes futás @easy zónában",
+        rest: "Megszakítás nélkül",
+        cooldown: "5 perc levezető séta",
+        focus: "Szív- és érrendszeri mitokondrium-fejlesztés alacsony pulzussal."
+      }
     ]
   },
   {
     week: 3, title: "3. Hét: Sebességi Állóképesség (Piramis)",
     sessions: [
-      { type: "Pálya (Piramis)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 400m @speed (pihi: 90mp), 800m @5k (pihi: 2p), 1200m @5k (pihi: 2:30p), 800m @5k (pihi: 2p), 400m @speed\nLevezetés: 1 km @recovery", focus: "Mentális fókusz az 1200m-es szakaszon." },
-      { type: "Sebesség (Anaerob)", desc: "Bemelegítés: 1.5 km @easy + repülők\nFő rész: 6 × 400 m @speed (pihenő: 2:00 séta)\nLevezetés: 1 km @easy", focus: "Gyors lábmunka és ritmusváltás." },
-      { type: "Aerob Bázis (Z2)", desc: "8 km egyenletes futás @easy zónában", focus: "Alacsony pulzus, relaxált felsőtest." }
+      {
+        id: "w3s1", title: "Hinshaw Pályapiramis", badge: "Pálya · Piramis",
+        warmup: "1.5 km @easy + dinamikus bemelegítés",
+        main: "400m @speed (90mp pihi) → 800m @5k (2p pihi) → 1200m @5k (2:30 pihi) → 800m @5k (2p pihi) → 400m @speed",
+        rest: "A megadott szakaszos pihenőkkel",
+        cooldown: "1 km laza kocogás @recovery",
+        focus: "Mentális fókusz az 1200 m-es csúcson; a záró 400 m-en robbantás."
+      },
+      {
+        id: "w3s2", title: "Anaerob Sebességfejlesztés", badge: "Sebesség · Sprint",
+        warmup: "1.5 km @easy + 4 × 50 m fokozó repülő",
+        main: "6 × 400 m @speed tempóban (gyorsabb mint 5k!)",
+        rest: "2:00 teljes álló/séta pihenő az ismétlések között",
+        cooldown: "1 km levezetés @recovery",
+        focus: "Maximális lépésfrekvencia és gazdaságos futótechnika."
+      },
+      {
+        id: "w3s3", title: "Állóképességi Bázis", badge: "Alapozás · Z2",
+        warmup: "5 perc séta",
+        main: "8 km egyenletes futás @easy zónában",
+        rest: "Megszakítás nélkül",
+        cooldown: "5 perc séta",
+        focus: "Alacsony pulzus, relaxált kar- és vállöv."
+      }
     ]
   },
   {
     week: 4, title: "4. Hét: Konszolidáció & Deload",
     sessions: [
-      { type: "Pálya (Élesítés)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 6 × 400 m @5k (pihenő: 90 mp séta)\nLevezetés: 1 km @recovery", focus: "Frissülés, könnyed tempótartás." },
-      { type: "Küszöb (Rövid)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 15 perc folyamatos futás @tempo\nLevezetés: 1 km @easy", focus: "Feszültségmentes, fegyelmezett ritmus." },
-      { type: "Aktív Pihenő", desc: "5 km nagyon könnyű kocogás/séta @recovery", focus: "Teljes regeneráció a csúcshét előtt." }
+      {
+        id: "w4s1", title: "Frissítő Pályarészidők", badge: "Pálya · Élesítés",
+        warmup: "1.5 km könnyű @easy kocogás",
+        main: "6 × 400 m @5k versenytempóban",
+        rest: "90 mp séta pihenő",
+        cooldown: "1 km levezetés @recovery",
+        focus: "Friss izomérzet és könnyed tempótartás, nem kifulladásig."
+      },
+      {
+        id: "w4s2", title: "Rövid Küszöbblokk", badge: "Küszöb · Kontroll",
+        warmup: "1.5 km @easy",
+        main: "15 perc folyamatos futás @tempo zónában",
+        rest: "Megszakítás nélkül",
+        cooldown: "1 km levezetés @easy",
+        focus: "Kényelmes, fegyelmezett ritmus."
+      },
+      {
+        id: "w4s3", title: "Aktív Regeneráló Futás", badge: "Regeneráció",
+        warmup: "Séta",
+        main: "5 km nagyon könnyű kocogás/séta @recovery zónában",
+        rest: "Kényelmes tempóban",
+        cooldown: "Nyújtás",
+        focus: "Teljes testi felüdülés az 5. heti csúcsterhelés előtt."
+      }
     ]
   },
   {
-    week: 5, title: "5. Hét: Specifikus Versenyterhelés",
+    week: 5, title: "5. Hét: Versenyspecifikus Csúcsterhelés",
     sessions: [
-      { type: "Pálya (Csúcsterhelés)", desc: "Bemelegítés: 1.5 km @easy + 2 repülő\nFő rész: 4 × 1000 m @5k (pihenő: 2:30 séta)\nLevezetés: 1 km @recovery", focus: "Négy kilométer tiszta versenytempóban." },
-      { type: "Küszöb (Progresszív)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 25 perc folyamatos futás @tempo\nLevezetés: 1 km @easy", focus: "Hosszú küszöb-állóképesség." },
-      { type: "Aerob Bázis (Z2)", desc: "8 km folyamatos futás @easy zónában", focus: "Bázis szinten tartása." }
+      {
+        id: "w5s1", title: "1000m-es Versenyintervallumok", badge: "Pálya · Csúcs",
+        warmup: "1.5 km @easy + dinamikus gimnasztika + 2 repülő",
+        main: "4 × 1000 m pontosan @5k versenytempóban",
+        rest: "2:30 séta pihenő az 1000 méterek után",
+        cooldown: "1 km levezetés @recovery",
+        focus: "Négy kilométernyi tiszta versenytempó akumulációja."
+      },
+      {
+        id: "w5s2", title: "Hosszú Küszöb-állóképesség", badge: "Küszöb · Hosszú",
+        warmup: "1.5 km @easy",
+        main: "25 perc folyamatos tempófutás @tempo zónában",
+        rest: "Megszakítás nélkül",
+        cooldown: "1.5 km levezetés @easy",
+        focus: "A fáradtsággal szembeni mentális szilárdság fejlesztése."
+      },
+      {
+        id: "w5s3", title: "Záró Aerob Bázis", badge: "Alapozás · Z2",
+        warmup: "5 perc séta",
+        main: "8 km folyamatos futás @easy zónában",
+        rest: "Megszakítás nélkül",
+        cooldown: "5 perc séta",
+        focus: "Energiaraktárak kímélése, könnyed mozgás."
+      }
     ]
   },
   {
     week: 6, title: "6. Hét: Formába Hozás & 5K Teszt",
     sessions: [
-      { type: "Élesítés (Taper)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 4 × 400 m @5k (pihi: 90 mp) + 4 × 100 m repülő\nLevezetés: 1 km @easy", focus: "Idegrendszeri ébresztés." },
-      { type: "Regeneráló", desc: "4 km szuperkönnyű futás @recovery", focus: "Pihenés a felmérő előtt." },
-      { type: "5 KM VERSENYTESZT", desc: "Bemelegítés: 1.5 km @easy + dinamikus bemelegítés\nFŐ RÉSZ: 5 KM MAXIMÁLIS VERSENYFUTÁS (@MAX)\nLevezetés: 1 km levezető séta", focus: "Egyenletes tempó az első 3 km-en, mindent bele az utolsó kilométeren!" }
+      {
+        id: "w6s1", title: "Idegrendszeri Ébresztés (Taper)", badge: "Élesítés",
+        warmup: "1.5 km @easy kocogás",
+        main: "4 × 400 m @5k (pihi: 90 mp) + 4 × 100 m laza repülőfutás (pihi: séta)",
+        rest: "A megadott pihenőkkel",
+        cooldown: "1 km levezetés @easy",
+        focus: "Gyors lábmunka, maximális izomfrissesség felépítése."
+      },
+      {
+        id: "w6s2", title: "Szuperkönnyű Átmozgatás", badge: "Regeneráció",
+        warmup: "Séta",
+        main: "4 km szuperkönnyű laza kocogás @recovery zónában",
+        rest: "Megszakítás nélkül",
+        cooldown: "Mobilitás és nyújtás",
+        focus: "Izomtónus fenntartása a verseny előtt 2 nappal."
+      },
+      {
+        id: "w6s3", title: "5 KM VERSENYTESZT (BENCHMARK)", badge: "🏆 D-Day Felmérő",
+        warmup: "1.5 km @easy kocogás + dinamikus gimnasztika + 2 db 60 m-es repülő",
+        main: "5 KM MAXIMÁLIS EREJŰ VERSENYFUTÁS IDŐRE",
+        rest: "Célvonalig!",
+        cooldown: "1 km könnyű levezető séta és folyadékpótlás",
+        focus: "Egyenletes tempó 1-3 km között, kitartás a 4. km-en, mindent bele az utolsó 1000 méteren!"
+      }
     ]
   }
 ];
@@ -333,7 +592,8 @@ const baseState = () => ({
   runTimes: { t2: '08:30', t5: '24:00' },
   dailyWods: {},
   logs: [],
-  cycleApplied: 1
+  cycleApplied: 1,
+  metconModes: {}
 });
 
 function sanitize(s){
@@ -348,6 +608,7 @@ function sanitize(s){
   if(r.t2) b.runTimes.t2 = r.t2;
   if(r.t5) b.runTimes.t5 = r.t5;
   if(s.dailyWods && typeof s.dailyWods === 'object') b.dailyWods = s.dailyWods;
+  if(s.metconModes && typeof s.metconModes === 'object') b.metconModes = s.metconModes;
   if(Array.isArray(s.logs)) b.logs = s.logs.filter(x => x && x.id && x.date);
   b.cycleApplied = Number.isInteger(s.cycleApplied) ? s.cycleApplied : 1;
   return b;
@@ -361,7 +622,8 @@ function load(){
   return baseState();
 }
 
-let state = load(), tab = 'program', selectedDate = '';
+let state = load(), tab = 'program', selectedDate = '', activeMetconMode = 'equipped', activeModalMetconId = null;
+
 function save(){
   try { localStorage.setItem(KEY, JSON.stringify(state)); }
   catch(e){ toast('Mentési hiba!', true); }
@@ -376,7 +638,7 @@ function toast(m, err){
   tt = setTimeout(() => t.classList.add('hidden'), 2400);
 }
 
-/* HINSHAW TEMPÓSZÁMÍTÓ */
+/* HINSHAW TEMPÓSZÁMÍTÁS */
 function getHinshawPaces(){
   const s5 = toSec(state.runTimes.t5) || 1440;
   const s2 = toSec(state.runTimes.t2) || Math.round(s5 * 0.38);
@@ -400,14 +662,14 @@ function getHinshawPaces(){
 function applyHinshawPaces(text){
   const P = getHinshawPaces();
   return text
-    .replace(/@5k/g, `<b class="mono" style="color:var(--em)">@5k (${P.p5k}/km)</b>`)
-    .replace(/@speed/g, `<b class="mono" style="color:#fff">@Speed (${P.speed}/km)</b>`)
-    .replace(/@tempo/g, `<b class="mono" style="color:#fff">@Tempo (${P.tempo}/km)</b>`)
-    .replace(/@easy/g, `<b class="mono" style="color:#fff">@Easy (${P.easy}/km)</b>`)
-    .replace(/@recovery/g, `<b class="mono dim">@Recovery (${P.recovery}/km)</b>`);
+    .replace(/@5k/g, `<span class="mono ok">@5k (${P.p5k}/km)</span>`)
+    .replace(/@speed/g, `<span class="mono" style="color:#fff;font-weight:800">@Speed (${P.speed}/km)</span>`)
+    .replace(/@tempo/g, `<span class="mono" style="color:#fff;font-weight:800">@Tempo (${P.tempo}/km)</span>`)
+    .replace(/@easy/g, `<span class="mono" style="color:#d4d4d8;font-weight:700">@Easy (${P.easy}/km)</span>`)
+    .replace(/@recovery/g, `<span class="mono dim">@Recovery (${P.recovery}/km)</span>`);
 }
 
-/* PROGRAM MOTOR (5 NAPOS CIKLUS) */
+/* 5 NAPOS MOTOR */
 const dayIndex = date => {
   const[y, m, d] = date.split('-').map(Number), [a, b, c] = state.programStart.split('-').map(Number);
   return Math.round((Date.UTC(y, m - 1, d) - Date.UTC(a, b - 1, c)) / 864e5);
@@ -469,7 +731,7 @@ function render(){
   }
 }
 
-/* 1. NÉZET: PROGRAM (5/3/1 + DAY 5 POWER CLEAN + CSOPORTOS WOD BEÍRÓ) */
+/* 1. NÉZET: PROGRAM */
 function vProgram(){
   const date = selectedDate, p = planFor(date), start = pd(state.programStart);
   let st = pd(date); st.setDate(st.getDate() - 4); if (st < start) st = new Date(start);
@@ -502,7 +764,7 @@ function vProgram(){
     const groupWod = state.dailyWods[date] || '';
 
     body += `
-    <!-- 1. KÁRTYA: 5/3/1 ERŐEMELÉS (VAGY DAY 5 POWER CLEAN) -->
+    <!-- 1. KÁRTYA: 5/3/1 ERŐEMELÉS VAGY POWER CLEAN -->
     <section class="card">
       <div class="row">
         <div class="tags">
@@ -550,7 +812,7 @@ function vProgram(){
       `}
 
       <details>
-        <summary>▸ Technikai tippek és kiegészítő munka</summary>
+        <summary style="font-size:12px;font-weight:700;color:var(--mut);cursor:pointer;padding:4px 0">▸ Technikai tippek és kiegészítő munka</summary>
         <div style="display:grid;gap:8px;margin-top:8px">
           <div class="notice"><h4>Technika</h4><p>${esc(p.lift.tip)}</p></div>
           <div class="notice"><h4>Kiegészítő munka</h4><p>${esc(p.lift.accessory)}</p></div>
@@ -560,7 +822,7 @@ function vProgram(){
       <button class="btn pri" data-a="logStrength">Erőedzés Mentése a Naplóba</button>
     </section>
 
-    <!-- 2. KÁRTYA: CSOPORTOS EDZÉS METCON BEÍRÓ / MEGJELENÍTŐ -->
+    <!-- 2. KÁRTYA: CSOPORTOS EDZÉS METCON BEÍRÓ -->
     <section class="card">
       <div class="row">
         <div class="tags">
@@ -582,7 +844,6 @@ function vProgram(){
         `}
       </div>
 
-      <!-- Eredmény naplózása a csoportos edzéshez -->
       <div style="background:var(--card-sub);padding:14px;border-radius:16px;border:1px solid var(--line);display:grid;gap:8px">
         <label class="lbl">Saját WOD eredmény rögzítése</label>
         <input class="field" id="gwod-score" placeholder="Elért idő / körök (pl. 14:22 RX)">
@@ -591,7 +852,6 @@ function vProgram(){
         <button class="btn pri" data-a="logGroupWodResult">WOD Eredmény Naplózása</button>
       </div>
 
-      <!-- Shortcut a pótló edzésekhez -->
       <div class="notice">
         <h4>Nem tudsz eljönni a terembe?</h4>
         <p>Válassz ki egy otthon vagy egyénileg elvégezhető edzést a Metcon könyvtárból:</p>
@@ -600,7 +860,6 @@ function vProgram(){
     </section>
     `;
 
-    // Napi naplózott bejegyzések listája
     const logs = state.logs.filter(l => l.date === date);
     if (logs.length){
       body += `<section class="card"><div class="h">Naplózva ezen a napon</div>${logs.map(logCard).join('')}</section>`;
@@ -620,15 +879,15 @@ function vProgram(){
   `;
 }
 
-/* 2. NÉZET: METCON KÖNYVTÁR (15 PÓTLÓ / OTTHONI EDZÉS + TIMER) */
+/* 2. NÉZET: METCON KÖNYVTÁR (SÚLYZÓS & SAJÁTTESTSÚLYOS VARIÁNSOKKAL) */
 function vMetcon(){
   return `
   <section class="card">
     <div class="h">STRNG Workout Library</div>
     <h2>Metcon Könyvtár</h2>
-    <p class="small mut">15 otthon vagy egyénileg elvégezhető edzés a csoportos edzések pótlására, beépített időmérővel és technikával.</p>
+    <p class="small mut">Otthon vagy egyénileg elvégezhető edzések a csoportos edzések pótlására. Minden feladathoz elérhető <b>súlyzós</b> és <b>sajáttestsúlyos (otthoni)</b> változat is.</p>
     <div class="grid2">
-      <input class="field" id="metcon-search" type="search" placeholder="Keresés: burpee, thruster..." autocomplete="off">
+      <input class="field" id="metcon-search" type="search" placeholder="Keresés: burpee, split squat..." autocomplete="off">
       <select class="field" id="metcon-filter">
         <option value="all">Minden kategória</option>
         ${[...new Set(METCONS.map(w => w.category))].sort().map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('')}
@@ -637,7 +896,7 @@ function vMetcon(){
   </section>
   <div id="metcon-list" style="display:grid;gap:12px">
     ${METCONS.map(w => `
-      <button class="card metcon-item" style="text-align:left" data-a="openMetcon" data-id="${w.id}" data-search="${esc([w.title, w.category, ...w.items].join(' ').toLowerCase())}" data-category="${esc(w.category)}">
+      <button class="card metcon-item" style="text-align:left" data-a="openMetcon" data-id="${w.id}" data-search="${esc([w.title, w.category, ...w.equipped, ...w.bodyweight].join(' ').toLowerCase())}" data-category="${esc(w.category)}">
         <div class="row">
           <span class="tag">${esc(w.category)}</span>
           <span class="tiny ok font-bold">Megnyitás ›</span>
@@ -666,14 +925,14 @@ function filterMetcons(){
   $('#metcon-empty')?.classList.toggle('hidden', visible > 0);
 }
 
-/* 3. NÉZET: FUTÁS (CHRIS HINSHAW 5K AEROBIC CAPACITY TERV) */
+/* 3. NÉZET: FUTÁS (HINSHAW 5K - TISZTA, SZERKESZTETT BLOKKOK) */
 function vRun(){
   const P = getHinshawPaces();
   return `
   <section class="card">
     <div class="h">Chris Hinshaw Aerobic Capacity</div>
     <h2>5K Futóteljesítmény Növelő Program</h2>
-    <p class="small mut">Strukturált, energiarendszerekre épülő 6 hetes futóterv. Add meg a felmérő időidet, és a program automatikusan kiszámolja a másodpercre pontos tempóidat.</p>
+    <p class="small mut">Strukturált, energiarendszerekre épülő 6 hetes futóterv. Add meg a cél 5 km-es és 2 km-es idődet a zónák kiszámításához.</p>
     
     <div class="grid2">
       <div>
@@ -687,46 +946,76 @@ function vRun(){
     </div>
     <button class="btn white" data-a="saveRunTimes">Tempók és Teljes Terv Frissítése</button>
 
-    <div class="h" style="margin-top:6px">Kiszámolt Zónatempók</div>
+    <div class="h" style="margin-top:8px">Kiszámolt Zónatempók</div>
     <div class="grid2">
-      <div style="background:var(--card-sub);padding:10px;border-radius:12px">
-        <span class="tiny dim uppercase">@Speed (Anaerob)</span>
-        <b class="mono" style="display:block;font-size:15px;color:#fff">${P.speed} /km</b>
+      <div style="background:var(--card-sub);padding:10px 12px;border-radius:12px;border:1px solid var(--line)">
+        <span class="tiny dim uppercase block">@Speed (Anaerob)</span>
+        <b class="mono" style="font-size:16px;color:#fff">${P.speed} /km</b>
       </div>
-      <div style="background:var(--card-sub);padding:10px;border-radius:12px">
-        <span class="tiny dim uppercase">@5K (VO2 Max)</span>
-        <b class="mono" style="display:block;font-size:15px;color:#fff">${P.p5k} /km</b>
+      <div style="background:var(--card-sub);padding:10px 12px;border-radius:12px;border:1px solid var(--line)">
+        <span class="tiny dim uppercase block">@5K (VO2 Max)</span>
+        <b class="mono" style="font-size:16px;color:var(--em)">${P.p5k} /km</b>
       </div>
-      <div style="background:var(--card-sub);padding:10px;border-radius:12px">
-        <span class="tiny dim uppercase">@Tempo (Küszöb)</span>
-        <b class="mono" style="display:block;font-size:15px;color:#fff">${P.tempo} /km</b>
+      <div style="background:var(--card-sub);padding:10px 12px;border-radius:12px;border:1px solid var(--line)">
+        <span class="tiny dim uppercase block">@Tempo (Küszöb)</span>
+        <b class="mono" style="font-size:16px;color:#fff">${P.tempo} /km</b>
       </div>
-      <div style="background:var(--card-sub);padding:10px;border-radius:12px">
-        <span class="tiny dim uppercase">@Easy (Z2 Bázis)</span>
-        <b class="mono" style="display:block;font-size:15px;color:#fff">${P.easy} /km</b>
+      <div style="background:var(--card-sub);padding:10px 12px;border-radius:12px;border:1px solid var(--line)">
+        <span class="tiny dim uppercase block">@Easy (Z2 Bázis)</span>
+        <b class="mono" style="font-size:16px;color:#fff">${P.easy} /km</b>
       </div>
     </div>
   </section>
 
-  <!-- 6 HETES HINSHAW EDZÉSTERV -->
-  <div style="display:grid;gap:14px">
+  <!-- HETEK ÉS EDZÉSEK SZERKESZTETT ELRENDEZÉSBEN -->
+  <div style="display:grid;gap:16px">
     ${HINSHAW_PROGRAM.map(w => `
-      <section class="card">
+      <section class="card" style="padding:16px">
         <div class="row">
-          <span class="tag">${w.week}. Hét</span>
-          <span class="tiny dim">3 edzés / hét</span>
+          <span class="tag" style="background:#fff;color:#000;border-color:#fff">${w.week}. HÉT</span>
+          <span class="tiny dim uppercase font-bold">3 edzés / hét</span>
         </div>
-        <h3>${esc(w.title)}</h3>
+        <h3 style="margin-top:2px">${esc(w.title)}</h3>
 
-        <div style="display:grid;gap:10px">
+        <div style="display:grid;gap:12px;margin-top:4px">
           ${w.sessions.map((ses, sIdx) => `
-            <div style="background:var(--card-sub);padding:12px;border-radius:14px;border:1px solid var(--line);display:grid;gap:4px">
+            <div style="background:var(--card-sub);border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:10px">
+              
+              <!-- Edzés fejléc -->
               <div class="row">
-                <b style="font-size:13px;color:#fff">${ses.type}</b>
+                <div>
+                  <span class="tag" style="padding:2px 8px;font-size:9px">${ses.badge}</span>
+                  <h4 style="font-size:14px;font-weight:800;margin-top:4px">${sIdx + 1}. Edzés: ${esc(ses.title)}</h4>
+                </div>
                 <button class="btn sm" data-a="logRunSession" data-w="${w.week}" data-s="${sIdx}">Naplózás</button>
               </div>
-              <p class="small" style="color:#d4d4d8;line-height:1.5">${applyHinshawPaces(ses.desc)}</p>
-              <p class="tiny dim">Fókusz: ${esc(ses.focus)}</p>
+
+              <!-- 1. Bemelegítés blokk -->
+              <div style="padding:8px 10px;background:rgba(255,255,255,0.02);border-radius:10px;border-left:3px solid var(--dim)">
+                <span class="tiny dim uppercase font-bold block">1. Bemelegítés</span>
+                <p class="small" style="color:#d4d4d8;margin-top:2px">${applyHinshawPaces(ses.warmup)}</p>
+              </div>
+
+              <!-- 2. Fő rész blokk -->
+              <div style="padding:10px 12px;background:rgba(255,255,255,0.05);border-radius:12px;border:1px solid var(--line-strong)">
+                <span class="tiny uppercase font-bold block" style="color:var(--em)">2. Fő Rész</span>
+                <p style="font-size:14px;font-weight:800;color:#fff;margin-top:2px;line-height:1.4">${applyHinshawPaces(ses.main)}</p>
+                <div style="margin-top:6px;font-size:12px;color:var(--mut)">
+                  <b class="dim">Pihenő:</b> ${esc(ses.rest)}
+                </div>
+              </div>
+
+              <!-- 3. Levezetés blokk -->
+              <div style="padding:8px 10px;background:rgba(255,255,255,0.02);border-radius:10px;border-left:3px solid var(--dim)">
+                <span class="tiny dim uppercase font-bold block">3. Levezetés</span>
+                <p class="small" style="color:#d4d4d8;margin-top:2px">${applyHinshawPaces(ses.cooldown)}</p>
+              </div>
+
+              <!-- Fókusz -->
+              <p class="tiny dim" style="border-top:1px solid var(--line);padding-top:6px">
+                <b>Edzői fókusz:</b> ${esc(ses.focus)}
+              </p>
+
             </div>
           `).join('')}
         </div>
@@ -799,7 +1088,7 @@ function logCard(l){
   </article>`;
 }
 
-/* METCON POPUP & TIMER */
+/* METCON POPUP ÉS KETTŐS VARIÁNS KAPCSOLÓ */
 let timerState = { id: null, sec: 900, running: false };
 const timerFmt = n => `${Math.floor(n / 60)}:${pad(n % 60)}`;
 
@@ -818,8 +1107,18 @@ function timerTick(){
 
 function openMetcon(id){
   const w = METCONS.find(x => x.id === id); if (!w) return;
+  activeModalMetconId = id;
+  activeMetconMode = state.metconModes[id] || 'equipped';
   clearInterval(timerState.id);
   timerState = { id: null, sec: 900, running: false };
+  renderMetconModal();
+}
+
+function renderMetconModal(){
+  const w = METCONS.find(x => x.id === activeModalMetconId); if (!w) return;
+  const isEq = activeMetconMode === 'equipped';
+  const activeItems = isEq ? w.equipped : w.bodyweight;
+
   modal(`
   <div class="row">
     <div>
@@ -829,15 +1128,24 @@ function openMetcon(id){
     <button class="btn sm white" data-a="closeModal">✕</button>
   </div>
 
+  <!-- Súlyzós / Sajáttestsúlyos Váltókapcsoló -->
+  <div style="background:var(--card-sub);padding:4px;border-radius:14px;display:grid;grid-template-columns:1fr 1fr;gap:4px;border:1px solid var(--line)">
+    <button class="btn sm ${isEq ? 'white' : ''}" data-a="setMetconVariant" data-mode="equipped" style="border:0">🏋️ Súlyzós / Eszközös</button>
+    <button class="btn sm ${!isEq ? 'white' : ''}" data-a="setMetconVariant" data-mode="bodyweight" style="border:0">🤸 Sajáttestsúlyos (Otthoni)</button>
+  </div>
+
   <div class="timerbox">
     <div class="h">Edzésóra (15 perc)</div>
     <div id="timer-display" class="timerdisplay">${timerFmt(timerState.sec)}</div>
     <button class="btn pri" id="timer-btn" data-a="toggleTimer">Indítás</button>
   </div>
 
-  <div style="background:var(--card-sub);padding:12px;border-radius:15px;border:1px solid var(--line)">
-    <div class="h" style="margin-bottom:6px">Feladatsor (Koppints ha kész)</div>
-    ${w.items.map(it => `
+  <div style="background:var(--card-sub);padding:14px;border-radius:15px;border:1px solid var(--line)">
+    <div class="row" style="margin-bottom:6px">
+      <div class="h em">${isEq ? 'Eszközös Feladatsor' : 'Sajáttestsúlyos Otthoni Feladatsor'}</div>
+      <span class="tiny dim">Koppints ha kész</span>
+    </div>
+    ${activeItems.map(it => `
       <label class="movement-check">
         <input type="checkbox">
         <span>${esc(it)}</span>
@@ -846,15 +1154,16 @@ function openMetcon(id){
   </div>
 
   <div class="notice">
-    <h4>Taktika & Stratégia</h4>
-    <p>${esc(w.strategy)}</p>
+    <h4>Taktika & Munkatempó</h4>
+    <p>${esc(w.stimulus)}</p>
+    <p style="margin-top:4px;color:#fff"><b>Célkitűzés:</b> ${esc(w.target)} (RPE: ${esc(w.rpe)})</p>
   </div>
 
   <div style="display:grid;gap:6px">
     ${w.tips.map(([a, b]) => `
-      <div style="background:var(--card-sub);padding:8px 12px;border-radius:12px">
-        <b style="font-size:12px">${esc(a)}</b>
-        <p class="small mut">${esc(b)}</p>
+      <div style="background:var(--card-sub);padding:10px 12px;border-radius:12px;border:1px solid var(--line)">
+        <b style="font-size:12px;color:#fff">${esc(a)}</b>
+        <p class="small mut" style="margin-top:2px">${esc(b)}</p>
       </div>
     `).join('')}
   </div>
@@ -864,7 +1173,7 @@ function openMetcon(id){
 }
 
 const modal = html => { const m = $('#modal'); m.innerHTML = `<div class="panel">${html}</div>`; m.classList.remove('hidden'); };
-const closeModal = () => { clearInterval(timerState.id); $('#modal').classList.add('hidden'); $('#modal').innerHTML = ''; };
+const closeModal = () => { clearInterval(timerState.id); $('#modal').classList.add('hidden'); $('#modal').innerHTML = ''; activeModalMetconId = null; };
 
 /* MŰVELETEK */
 function addLog(o){ state.logs.unshift({ id: uid(), ...o }); save(); }
@@ -876,6 +1185,14 @@ const A = {
   jumpStart(){ selectedDate = state.programStart; render(); },
   closeModal,
   openMetcon(d){ openMetcon(d.id); },
+  setMetconVariant(d){
+    activeMetconMode = d.mode;
+    if(activeModalMetconId) {
+      state.metconModes[activeModalMetconId] = d.mode;
+      save();
+    }
+    renderMetconModal();
+  },
   toggleTimer(){
     const b = $('#timer-btn');
     if (timerState.running){
@@ -890,7 +1207,12 @@ const A = {
   },
   logLibrary(d){
     const w = METCONS.find(x => x.id === d.id); if (!w) return;
-    addLog({ date: selectedDate, type: 'Metcon', title: w.title, details: `${w.format} · ${w.duration}\n${w.items.join('\n')}` });
+    const isEq = activeMetconMode === 'equipped';
+    const items = isEq ? w.equipped : w.bodyweight;
+    addLog({
+      date: selectedDate, type: 'Metcon', title: `${w.title} (${isEq ? 'Eszközös' : 'Otthoni testsúlyos'})`,
+      details: `${w.format} · ${w.duration}\n${items.join('\n')}`
+    });
     closeModal(); render(); toast('Metcon elmentve!');
   },
   logStrength(){
@@ -947,8 +1269,8 @@ const A = {
     if (!w) return;
     const s = w.sessions[Number(d.s)];
     addLog({
-      date: selectedDate, type: 'Futás', title: `${w.week}. Hét · ${s.type}`,
-      details: `${s.desc}\n\nFókusz: ${s.focus}`
+      date: selectedDate, type: 'Futás', title: `${w.week}. Hét · ${s.title}`,
+      details: `1. Bemelegítés: ${s.warmup}\n2. Fő rész: ${s.main} (Pihenő: ${s.rest})\n3. Levezetés: ${s.cooldown}\nFókusz: ${s.focus}`
     });
     render(); toast('Futóedzés naplózva!');
   },
