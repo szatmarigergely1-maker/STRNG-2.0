@@ -10,13 +10,22 @@
 <style>
 :root{
   color-scheme:dark;
-  --bg:#000;--card:#121214;--card-sub:#1a1a1e;
-  --line:rgba(255,255,255,0.08);--line-strong:rgba(255,255,255,0.18);
-  --text:#fff;--mut:#a1a1aa;--dim:#71717a;
-  --em:#30d158;--em-bg:rgba(48,209,88,0.12);
-  --sky:#0a84ff;--sky-bg:rgba(10,132,255,0.12);
-  --amb:#ff9f0a;--amb-bg:rgba(255,159,10,0.12);
-  --red:#ff453a;--red-bg:rgba(255,69,58,0.12);
+  --bg:#000000;
+  --card:#111113;
+  --card-sub:#18181b;
+  --line:rgba(255,255,255,0.08);
+  --line-strong:rgba(255,255,255,0.16);
+  --text:#ffffff;
+  --mut:#a1a1aa;
+  --dim:#71717a;
+  --em:#30d158;
+  --em-dim:rgba(48,209,88,0.12);
+  --sky:#0a84ff;
+  --sky-dim:rgba(10,132,255,0.12);
+  --amb:#ff9f0a;
+  --amb-dim:rgba(255,159,10,0.12);
+  --red:#ff453a;
+  --red-dim:rgba(255,69,58,0.12);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
 html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;font-size:14px;line-height:1.45}
@@ -24,10 +33,10 @@ body{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 .hidden{display:none!important}
 
-/* Header */
+/* Fejléc */
 .top{
   position:sticky;top:0;z-index:30;
-  background:rgba(0,0,0,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(0,0,0,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--line);
   padding:calc(12px + env(safe-area-inset-top)) 16px 12px;
   display:flex;justify-content:space-between;align-items:center;
@@ -35,49 +44,45 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 .brand{display:flex;align-items:baseline;gap:8px}
 .brand b{font-size:20px;font-weight:900;letter-spacing:-0.03em}
 .brand span{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--mut);border-left:1px solid var(--line);padding-left:8px}
-.pill{font-size:11px;font-weight:800;color:var(--em);background:var(--em-bg);border:1px solid rgba(48,209,88,0.25);border-radius:999px;padding:4px 10px}
+.pill{font-size:11px;font-weight:800;color:#fff;background:var(--card-sub);border:1px solid var(--line-strong);border-radius:999px;padding:4px 10px}
 
-/* Layout */
+/* Elrendezés */
 .wrap{max-width:540px;margin:0 auto;padding:16px;display:grid;gap:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;display:grid;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:12px}
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 
-/* Typo & Tags */
+/* Tipográfia */
 .h{font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:var(--mut)}
 .h.em{color:var(--em)}.h.sky{color:var(--sky)}.h.amb{color:var(--amb)}
 h2{font-size:19px;font-weight:800}h3{font-size:16px;font-weight:800}
 .mut{color:var(--mut)}.dim{color:var(--dim)}.small{font-size:12.5px}.tiny{font-size:10.5px}
 .mono{font-family:ui-monospace,Menlo,monospace}
 .tag{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--card-sub);color:var(--mut);border-radius:999px;padding:4px 9px;font-size:10px;font-weight:800;text-transform:uppercase}
-.tag.em{color:var(--em);border-color:rgba(48,209,88,0.25);background:var(--em-bg)}
-.tag.sky{color:var(--sky);border-color:rgba(10,132,255,0.25);background:var(--sky-bg)}
-.tag.amb{color:var(--amb);border-color:rgba(255,159,10,0.25);background:var(--amb-bg)}
+.tag.em{color:var(--em);border-color:rgba(48,209,88,0.25);background:var(--em-dim)}
+.tag.sky{color:var(--sky);border-color:rgba(10,132,255,0.25);background:var(--sky-dim)}
+.tag.amb{color:var(--amb);border-color:rgba(255,159,10,0.25);background:var(--amb-dim)}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 
-/* Buttons & Inputs */
-.btn{width:100%;border:1px solid var(--line);background:var(--card-sub);border-radius:14px;padding:12px 14px;font-weight:800;font-size:12px;text-transform:uppercase;text-align:center}
+/* Gombok és mezők */
+.btn{width:100%;border:1px solid var(--line);background:var(--card-sub);border-radius:14px;padding:13px 16px;font-weight:800;font-size:12px;text-transform:uppercase;text-align:center}
 .btn:active{transform:scale(0.97)}
-.btn.pri{background:var(--em);color:#000;border-color:var(--em);font-weight:900}
-.btn.sky{background:var(--sky);color:#fff;border-color:var(--sky);font-weight:900}
+.btn.pri{background:#fff;color:#000;border-color:#fff;font-weight:900}
 .btn.white{background:#fff;color:#000;border-color:#fff;font-weight:900}
 .btn.sm{width:auto;padding:6px 12px;font-size:11px;border-radius:10px}
-.btn.danger{color:var(--red);border-color:rgba(255,69,58,0.2);background:var(--red-bg)}
+.btn.danger{color:var(--red);border-color:rgba(255,69,58,0.2);background:var(--red-dim)}
 .field{width:100%;background:var(--card-sub);border:1px solid var(--line);border-radius:14px;padding:12px;color:#fff;font:inherit;font-size:15px;outline:none}
-.field:focus{border-color:var(--em)}
+.field:focus{border-color:var(--line-strong)}
 textarea.field{resize:vertical;min-height:68px}
 .time{text-align:center;font-family:ui-monospace,Menlo,monospace;font-weight:800}
 .lbl{display:block;font-size:10px;font-weight:800;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
 
-/* Notice box */
-.notice{border:1px solid rgba(255,159,10,0.25);background:var(--amb-bg);border-radius:15px;padding:12px;display:grid;gap:6px}
-.notice h4{font-size:12px;font-weight:800;color:#fcd34d}
-.notice p{font-size:12px;color:#e4e4e7}
-.notice.sky{border-color:rgba(10,132,255,0.25);background:var(--sky-bg)}.notice.sky h4{color:#7dd3fc}
-.notice.em{border-color:rgba(48,209,88,0.25);background:var(--em-bg)}.notice.em h4{color:#86efac}
+/* Dobozok */
+.notice{border:1px solid var(--line);background:rgba(255,255,255,0.03);border-radius:16px;padding:14px;display:grid;gap:6px}
+.notice h4{font-size:12.5px;font-weight:800;color:#fff}
+.notice p{font-size:12px;color:#d4d4d8}
 
-/* Vízszintes naptár */
+/* Naptársáv */
 .strip{display:flex;gap:8px;overflow-x:auto;padding:4px 2px;scrollbar-width:none}
 .strip::-webkit-scrollbar{display:none}
 .day{min-width:58px;padding:8px 6px;border:1px solid var(--line);background:var(--card);border-radius:14px;text-align:center;flex:0 0 auto}
@@ -88,15 +93,18 @@ textarea.field{resize:vertical;min-height:68px}
 .day.on small,.day.on em{color:#000}
 
 /* Elemek & Timer */
-.setrow{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:8px 0}
+.setrow{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:9px 0}
 .setrow:last-child{border:0}
-.item{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+.item{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
 .item:last-child{border:0}
-.item i{font-style:normal;font-weight:900;color:var(--em)}
-.timerbox{border:1px solid var(--line-strong);background:#070709;border-radius:18px;padding:14px;display:grid;gap:10px}
-.timerdisplay{font:900 44px/1 ui-monospace,Menlo,monospace;text-align:center}
+.item i{font-style:normal;font-weight:900;color:#fff}
+.timerbox{border:1px solid var(--line-strong);background:#070709;border-radius:18px;padding:16px;display:grid;gap:12px}
+.timerdisplay{font:900 48px/1 ui-monospace,Menlo,monospace;text-align:center}
+.movement-check{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;cursor:pointer}
+.movement-check:last-child{border-bottom:0}
+.movement-check input{accent-color:#fff;width:18px;height:18px;margin:0}
 
-/* Bottom Nav */
+/* Alsó sáv */
 nav{
   position:fixed;left:0;right:0;bottom:0;z-index:35;
   background:rgba(10,10,12,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -110,7 +118,7 @@ nav button.on{color:#fff;background:rgba(255,255,255,0.08)}
 
 /* Modal & Toast */
 .modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);overflow-y:auto;padding:calc(16px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
-.panel{max-width:500px;margin:0 auto;background:var(--card);border:1px solid var(--line-strong);border-radius:22px;padding:18px;display:grid;gap:12px}
+.panel{max-width:500px;margin:0 auto;background:var(--card);border:1px solid var(--line-strong);border-radius:22px;padding:18px;display:grid;gap:14px}
 .toast{position:fixed;left:50%;bottom:calc(85px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:60;background:#fff;color:#000;padding:9px 18px;border-radius:999px;font-size:12px;font-weight:800;text-align:center}
 .toast.err{background:var(--red);color:#fff}
 </style>
@@ -118,7 +126,7 @@ nav button.on{color:#fff;background:rgba(255,255,255,0.08)}
 <body>
 
 <header class="top">
-  <div class="brand"><b>STRNG</b><span id="title">Mai terv</span></div>
+  <div class="brand"><b>STRNG</b><span id="title">Napi edzés</span></div>
   <div class="pill" id="badge">1. CIKLUS</div>
 </header>
 
@@ -130,7 +138,7 @@ nav button.on{color:#fff;background:rgba(255,255,255,0.08)}
 <script>
 (()=>{'use strict';
 
-// 1. ZOMBI CACHE MEGSEMMISÍTŐ
+// Cache felszabadítás
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistrations().then(rs => { for(let r of rs) r.unregister(); });
 }
@@ -138,380 +146,472 @@ if ('caches' in window) {
   caches.keys().then(ks => { for(let k of ks) caches.delete(k); });
 }
 
-const KEY='strng_v4_store';
-const $=s=>document.querySelector(s);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const pad=n=>String(n).padStart(2,'0');
-const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-const today=()=>ymd(new Date());
-const pd=s=>new Date(s+'T12:00:00');
-const fmtDate=s=>pd(s).toLocaleDateString('hu-HU',{weekday:'short',month:'short',day:'numeric'});
-const uid=()=>(Date.now()+'-'+Math.random().toString(16).slice(2));
-const kgFmt=n=>String(n).replace('.',',');
-const round25=n=>Math.round(n/2.5)*2.5;
+const KEY = 'strng_apple_v2';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad = n => String(n).padStart(2, '0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const today = () => ymd(new Date());
+const pd = s => new Date(s + 'T12:00:00');
+const fmtDate = s => pd(s).toLocaleDateString('hu-HU', { weekday: 'short', month: 'short', day: 'numeric' });
+const uid = () => (Date.now() + '-' + Math.random().toString(16).slice(2));
+const kgFmt = n => String(n).replace('.', ',');
+const round25 = n => Math.round(n / 2.5) * 2.5;
 
 function liveTime(raw){
-  const idx=raw.search(/\D/),all=raw.replace(/\D/g,'').slice(0,4);
-  if(idx>=0){
-    const m=raw.slice(0,idx).replace(/\D/g,''),s=raw.slice(idx).replace(/\D/g,'');
-    if(m.length>=1&&m.length<=2&&s.length<=2)return m+':'+s;
+  const idx = raw.search(/\D/), all = raw.replace(/\D/g, '').slice(0, 4);
+  if (idx >= 0) {
+    const m = raw.slice(0, idx).replace(/\D/g, ''), s = raw.slice(idx).replace(/\D/g, '');
+    if (m.length >= 1 && m.length <= 2 && s.length <= 2) return m + ':' + s;
   }
-  if(all.length<=2)return all;
-  if(all.length===3)return all[0]+':'+all.slice(1);
-  return all.slice(0,2)+':'+all.slice(2);
+  if (all.length <= 2) return all;
+  if (all.length === 3) return all[0] + ':' + all.slice(1);
+  return all.slice(0, 2) + ':' + all.slice(2);
 }
 function normalizeTime(raw){
-  raw=String(raw||'').trim();if(!raw)return '';
-  const idx=raw.search(/\D/);let m,s;
-  if(idx>=0){m=raw.slice(0,idx).replace(/\D/g,'');s=raw.slice(idx).replace(/\D/g,'');}
-  else{const d=raw.slice(0,4);if(d.length<=2){m=d;s='';}else if(d.length===3){m=d[0];s=d.slice(1);}else{m=d.slice(0,2);s=d.slice(2);}}
-  return m===''?raw:pad(+m)+':'+pad(+(s||0));
+  raw = String(raw || '').trim(); if (!raw) return '';
+  const idx = raw.search(/\D/); let m, s;
+  if (idx >= 0) { m = raw.slice(0, idx).replace(/\D/g, ''); s = raw.slice(idx).replace(/\D/g, ''); }
+  else { const d = raw.slice(0, 4); if (d.length <= 2) { m = d; s = ''; } else if (d.length === 3) { m = d[0]; s = d.slice(1); } else { m = d.slice(0, 2); s = d.slice(2); } }
+  return m === '' ? raw : pad(+m) + ':' + pad(+(s || 0));
 }
-const toSec=t=>{const m=/^(\d{1,2}):([0-5]\d)$/.exec(String(t||'').trim());return m?(+m[1])*60+(+m[2]):null};
-const fmtPace=s=>{s=Math.round(s);return `${Math.floor(s/60)}:${pad(s%60)}`};
+const toSec = t => { const m = /^(\d{1,2}):([0-5]\d)$/.exec(String(t || '').trim()); return m ? (+m[1]) * 60 + (+m[2]) : null; };
+const fmtPace = s => { s = Math.round(s); return `${Math.floor(s / 60)}:${pad(s % 60)}`; };
 
-/* ERŐEMELŐ FORGÓ */
-const LIFTS=[
-  {key:'sq',name:'Guggolás (Squat)',upper:false},
-  {key:'bp',name:'Fekvenyomás (Bench)',upper:true},
-  {key:'dl',name:'Felhúzás (Deadlift)',upper:false},
-  {key:'ohp',name:'Mellből nyomás (OHP)',upper:true}
+/* 5 NAPOS ERŐEMELŐ FORGÓ */
+const LIFTS = [
+  { key: 'sq', name: 'Guggolás (Squat)', upper: false },
+  { key: 'bp', name: 'Fekvenyomás (Bench Press)', upper: true },
+  { key: 'dl', name: 'Felhúzás (Deadlift)', upper: false },
+  { key: 'ohp', name: 'Mellből nyomás (OHP)', upper: true },
+  { key: 'pc', name: 'Power Clean', upper: true }
 ];
-const LIFT=Object.fromEntries(LIFTS.map(l=>[l.key,l]));
-const ROT=[
- {key:'bp',short:'BENCH',accessory:'DB egykezes evezés 3×10/oldal, 3×10 fekvőtámasz.',tip:'Zárd a lapockáidat a padon, a talpad stabilan támasszon. Engedd a rudat a szegycsonthoz, majd robbants fel.'},
- {key:'sq',short:'SQUAT',accessory:'TRX evezés 3×12, saját testsúlyos kitörés 3×8/oldal.',tip:'Mély hasi levegővétel (bracing), a törzs kőkemény, testsúly a teljes talpon. Fájdalommentes mélységbe guggolj.'},
- {key:'ohp',short:'OHP',accessory:'TRX evezés 3×12, oldalsó plank 3×30 mp/oldal.',tip:'Szorítsd a farizmot és a hasat, ne homoríts a derékkal. Függőleges vonalban nyomd a rudat.'},
- {key:'dl',short:'DEADLIFT',accessory:'Goblet squat 3×10, dead bug 3×10/oldal.',tip:'A rúd végig a testedhez közel marad. A talaj eltolásával állj fel, ne derékból rántsd meg.'}
-];
-const SCHEMES={1:[[.65,'5'],[.75,'5'],[.85,'5+']],2:[[.70,'3'],[.80,'3'],[.90,'3+']],3:[[.75,'5'],[.85,'3'],[.95,'1+']],4:[[.40,'5'],[.50,'5'],[.60,'5']]};
-const WARMUP=[[.40,5],[.50,5],[.60,3]];
+const LIFT = Object.fromEntries(LIFTS.map(l => [l.key, l]));
 
-/* 15 KONDÍCIÓS EDZÉS (METCON) */
-const METCONS=[
-{id:"m1",title:"Engine Ladder",category:"Kondíció",duration:"Cap 20:00",target:"16:30 – 18:30",format:"5 kör időre",
- items:["500 m Evezés (Row)","15 Burpee over rower","20 Wall Ball shot (9/6 kg)"],
- strategy:"Az evezésen tartsd a 2k-s tempód +5-7 másodperccel lassabban. A burpeenél lépkedj egyenletesen, a Wall Ballt bontsd 12+8-ra.",
- tips:[["Evezés","Ne rántsd el az első 500 métert. Tarts 26-28-as csapásszámot."],["Wall Ball","A mellkasnál tartsd a labdát, ne engedd le a combodra."]]},
-{id:"m2",title:"Echo Chipper",category:"Chipper",duration:"Cap 22:00",target:"17:00 – 19:30",format:"Időre (For Time)",
- items:["40 Cal Echo Bike","30 Dumbbell Snatch (22.5/15 kg)","30 Box Jump Over (60/50 cm)","30 DB Thruster (2×15/10 kg)","40 Cal Echo Bike"],
- strategy:"Az első biciklin 60-65 RPM körül tekerj. A thruster a kulcs: 3×10-es szettekben dolgozz.",
- tips:[["DB Thruster","A csípőddel indítsd a lökést, fent vegyél levegőt."],["Box Jump","Lépkedj le a dobozról az achilles kíméléséhez."]]},
-{id:"m3",title:"Tri-Erg Aerobic Capacity",category:"Kardió",duration:"34:00 (3 kör)",target:"28:00 – 31:00",format:"3 kör (2:00 pihenővel)",
- items:["1000 m SkiErg","1500 m Evezés","2500 m Bike"],
- strategy:"Tiszta zóna 2-3 aerob fejlesztés. Fix watt/split tartása mindhárom gépen.",
- tips:[["Pihenő","A 2 percben sétálj és igyál, ne feküdj le a földre."]]},
-{id:"m4",title:"Kettlebell & Shuttle Grinder",category:"Kondíció",duration:"Cap 20:00",target:"15:30 – 18:00",format:"4 kör időre",
- items:["400 m Futás (vagy 25 Cal Evezés)","24 Kettlebell Swing (24/16 kg)","16 KB Goblet Guggolás","12 Burpee Box Jump Over"],
- strategy:"A KB swing legyen unbroken minden körben. Futás után azonnal vedd fel a súlyt.",
- tips:[["KB Swing","Erőteljes csípőnyújtás, a kar csak vezeti a súlyt."]]},
-{id:"m5",title:"Cardio Monster EMOM 24",category:"Intervallum",duration:"24:00 fix",target:"45-48 mp munka / perc",format:"EMOM 24 perc (6 kör)",
- items:["1. perc: 18/14 Cal Evezés","2. perc: 15 Burpee","3. perc: 16/12 Cal Echo Bike","4. perc: 50 Double Unders (vagy 75 szimpla)"],
- strategy:"Legalább 12-15 mp pihenőt hagyj minden percben. Ha csúszol, vegyél vissza 2 ismétlést.",
- tips:[["Ugrókötél","Laza vállak, csuklóból hajtsd a kötelet."]]},
-{id:"m6",title:"Lactate Tolerance Chipper",category:"Kondíció",duration:"Cap 22:00",target:"17:30 – 19:30",format:"3 kör időre",
- items:["400 m Futás (vagy 24 Cal SkiErg)","15 Rúddal végzett Thruster (42.5/30 kg)","15 Bar-Facing Burpee","20 Cal Evezés"],
- strategy:"A thrustert rögtön az elejétől bontsd 9+6-ra. A burpee legyen folyamatos.",
- tips:[["Thruster","Láblökésből nyomj a fej fölé."]]},
-{id:"m7",title:"The 40-Min Engine Test",category:"Kardió",duration:"40:00 AMRAP",target:"3 – 3.5 kör",format:"40 perc folyamatos AMRAP",
- items:["1000 m Evezés","40 Guggolás saját testsúllyal","800 m Futás","30 Fekvőtámasz","20 Húzódzkodás / Ring Row","50 Cal Bike"],
- strategy:"Maratoni tempó: orrlégzés ameddig bírod. A fekvőtámaszokat bontsd korán 5-ösökre.",
- tips:[["Fekvőtámasz","Ne menj izombukásig az elején."]]},
-{id:"m8",title:"Dumbbell Power & Capacity",category:"Kondíció",duration:"Cap 20:00",target:"14:00 – 16:30",format:"5 kör (1:30 pihenővel)",
- items:["15 Cal Echo Bike","12 DB Felhúzás (2×22.5/15 kg)","9 DB Hang Power Clean","6 DB Push Press"],
- strategy:"A súlyzós komplexet (12+9+6) próbáld meg lerakás nélkül végigvinni.",
- tips:[["Echo Bike","80%-os tempó, maradjon erő a súlyzókra."]]},
-{id:"m9",title:"Rowing Pyramid & TTB",category:"Kondíció",duration:"Cap 22:00",target:"16:00 – 18:30",format:"Időre (For Time)",
- items:["250m Evezés + 10 TTB","500m Evezés + 15 TTB","750m Evezés + 20 TTB","500m Evezés + 15 TTB","250m Evezés + 10 TTB"],
- strategy:"A 750 m evezés az edzés közepe, ott tartsd fegyelmezetten a splitet.",
- tips:[["Toes to Bar","Kis szettekben dolgozz rövid pihenőkkel."]]},
-{id:"m10",title:"Ski & Box Step-Over Interval",category:"Intervallum",duration:"20:00 (4 kör)",target:"75+ fellépés",format:"4 kör (3:00 munka / 2:00 pihenő)",
- items:["350 m SkiErg","Fennmaradó időben: Max DB Box Step-Over (2×15/10 kg)"],
- strategy:"A SkiErget 1:20 alatt fejezd be, hogy legalább 1:40 perced maradjon a dobozra.",
- tips:[["Box Step-Over","A sarkad teljesen legyen a dobozon."]]},
-{id:"m11",title:"Devil's Grit",category:"Kondíció",duration:"Cap 25:00",target:"19:00 – 22:00",format:"5 kör időre",
- items:["20 Cal Evezés","15 Hand-Release Fekvőtámasz","15 Ugró kitörés","8 Devil's Press (2×15/10 kg)"],
- strategy:"A Devil's Pressnél a csípődből robbants, ne karból húzz.",
- tips:[["Evezés","A kitörések után az első 5 húzás legyen laza."]]},
-{id:"m12",title:"Triple Threat Sprint",category:"Kardió",duration:"Cap 23:00",target:"17:30 – 20:00",format:"Időre (For Time)",
- items:["1500 m Evezés","3000 m C2 Bike (vagy 75 Cal Echo)","1200 m Futás"],
- strategy:"A bringán pörgess (90+ RPM). A futás végén mindent adj ki.",
- tips:[["Váltás","Azonnal ülj át a gépekre megállás nélkül."]]},
-{id:"m13",title:"Barbell Aerobic Hybrid",category:"Kondíció",duration:"Cap 24:00",target:"18:00 – 21:00",format:"4 kör időre",
- items:["400 m Futás","15 Power Snatch rúddal (35/25 kg)","15 Burpee over bar","15 Cal Echo Bike"],
- strategy:"A súly könnyű: gyors egyesekkel (drop & reset) dolgozz.",
- tips:[["Burpee","Fordulj azonnal a rúd felé leérkezéskor."]]},
-{id:"m14",title:"30-20-10 Calorie Burn",category:"Kardió",duration:"Cap 19:00",target:"14:00 – 16:30",format:"Időre (For Time)",
- items:["30 Cal Evezés + 30 Wall Ball + 30 Box Jump","20 Cal Bike + 20 Wall Ball + 20 Box Jump","10 Cal SkiErg + 10 Wall Ball + 10 Box Jump"],
- strategy:"A 30-as kör 75%-os, a 20-as 85%-os, a 10-es záró kör teljes sprint.",
- tips:[["Negatív split","Ne égesd el magad az első körben."]]},
-{id:"m15",title:"The Final Benchmark",category:"Kondíció",duration:"Cap 26:00",target:"20:00 – 23:30",format:"Időre (For Time)",
- items:["100 Double Unders","50 Cal Evezés","40 Wall Ball (9/6 kg)","30 Burpee","20 DB Hang Clean & Jerk (2×20/15 kg)","50 Cal Echo Bike"],
- strategy:"A 30 napos ciklus végső tesztje. Az utolsó bringára tegyél fel mindent.",
- tips:[["Wall Ball","Egyenletes nagy szettekben csináld."]]}
+const ROT = [
+ { key: 'sq', short: 'SQUAT', accessory: 'TRX / gyűrűs evezés 3×12, kitörés 3×8/oldal.', tip: 'Mély hasi levegővétel (bracing), testsúly a teljes talpon, derék feszes.' },
+ { key: 'bp', short: 'BENCH', accessory: 'DB egykezes evezés 3×10/oldal, 3×10 fekvőtámasz.', tip: 'Zárt lapockák a padon, teli talpas támasz. Kontrollált leengedés, robbanékony kinyomás.' },
+ { key: 'dl', short: 'DEADLIFT', accessory: 'Goblet squat 3×10, dead bug 3×10/oldal.', tip: 'A rúd szorosan a tested mentén mozog. Lábból indítsd a talaj eltolását.' },
+ { key: 'ohp', short: 'OHP', accessory: 'TRX evezés 3×12, oldalsó plank 3×30 mp/oldal.', tip: 'Feszített farizom és has, a rúd egyenes függőleges pályán mozogjon.' },
+ { key: 'pc', short: 'CLEAN', accessory: 'Húzódzkodás 3×8, Good Morning 3×10.', tip: 'Boka-térd-csípő robbanékony hármas kiterjesztése, gyors könyökforgatás a vállra.' }
 ];
 
-/* 15 FUTÓEDZÉS */
-const RUNS=[
-{zone:'interval',title:'Intervallum: 5 × 800 m',dist:'5 × 800 m',steps:[['Bemelegítés','1 km laza kocogás @E.'],['Fő rész','5 × 800 m @2k tempóban (2:00 séta pihenővel).'],['Levezetés','1 km laza levezetés @E.']],tip:'Tartsd a céltempót végig egyenletesen.'},
-{zone:'tempo',title:'Tempófutás: 20 perc küszöb',dist:'20 perc @T',steps:[['Bemelegítés','1.5 km @E + 3 × 60 m repülő.'],['Fő rész','20 perc folyamatos küszöbfutás @T zónában.'],['Levezetés','1 km laza kocogás @E.']],tip:'A tempó nehéz, de stabilan bírnod kell 20 percen át.'},
-{zone:'easy',title:'Alapozó Z2 futás: 8 km',dist:'8 km @E',steps:[['Bemelegítés','5 perc séta/kocogás.'],['Fő rész','8 km kényelmes, folyamatos futás @E zónában.'],['Levezetés','5 perc levezető séta.']],tip:'Végig orrlégzés! Ha emelkedik a pulzus, lassíts.'},
-{zone:'interval',title:'Intervallum: 6 × 800 m',dist:'6 × 800 m',steps:[['Bemelegítés','1.2 km laza kocogás.'],['Fő rész','6 × 800 m @2k tempóban (2:00 pihenővel).'],['Levezetés','800 m levezetés.']],tip:'A 4. és 5. résztávnál dől el a minőség.'},
-{zone:'tempo',title:'Tempófutás: 25 perc',dist:'25 perc @T',steps:[['Bemelegítés','1.5 km @E.'],['Fő rész','25 perc folyamatos futás @T zónában.'],['Levezetés','1.5 km kocogás.']],tip:'Az első 15 percben tartsd vissza magad.'},
-{zone:'easy',title:'Aerob bázis: 9 km Z2',dist:'9 km @E',steps:[['Bemelegítés','1 km laza futás.'],['Fő rész','8 km folyamatos Z2 futás @E zónában.'],['Levezetés','Séta levezetés.']],tip:'Egyenletes, könnyed léptek magas lépésszámmal.'},
-{zone:'interval',title:'VO2 Max: 4 × 1000 m',dist:'4 × 1000 m',steps:[['Bemelegítés','1.5 km @E.'],['Fő rész','4 × 1000 m @5k versenytempóban (2:00 pihenővel).'],['Levezetés','1 km levezetés.']],tip:'A leghatékonyabb VO2 max fejlesztő blokk.'},
-{zone:'progression',title:'Kombinált: 20p @T + 3 km @E',dist:'20p @T + 3 km',steps:[['Bemelegítés','1 km @E.'],['Fő rész 1','20 perc @T tempófutás.'],['Fő rész 2','Azonnali átmenet: 3 km könnyed Z2 futás.'],['Levezetés','500 m séta.']],tip:'Megtanítja a testet fáradtan regenerálódni.'},
-{zone:'interval',title:'Résztáv: 5 × 1000 m',dist:'5 × 1000 m',steps:[['Bemelegítés','1.5 km @E.'],['Fő rész','5 × 1000 m @5k zónában (2:00 pihenővel).'],['Levezetés','1 km levezetés.']],tip:'Öt kilométer versenytempóban, tiszta technikával.'},
-{zone:'easy',title:'Hosszú futás: 10 km mérföldkő',dist:'10 km @E',steps:[['Bemelegítés','Könnyű séta/kocogás.'],['Fő rész','10 km folyamatos, kényelmes futás @E zónában.'],['Levezetés','5 perc séta.']],tip:'Beszélgetős tempó. A pulzus maradjon a zöld sávban.'},
-{zone:'tempo',title:'Állóképesség: 30 perc küszöb',dist:'30 perc @T',steps:[['Bemelegítés','1.5 km @E.'],['Fő rész','30 perc folyamatos @T futás.'],['Levezetés','1 km kocogás.']],tip:'Fél óra a laktátküszöbön, laza vállakkal.'},
-{zone:'interval',title:'Hosszú résztáv: 3 × 1500 m',dist:'3 × 1500 m',steps:[['Bemelegítés','1.5 km @E.'],['Fő rész','3 × 1500 m @5k tempóban (2:30 pihenővel).'],['Levezetés','1 km séta.']],tip:'Hosszú résztávok: a 3. kör végén a célig küzdj.'},
-{zone:'recovery',title:'Regeneráló futás: 5 km',dist:'5 km @E',steps:[['Fő rész','5 km szuperkönnyű kocogás/séta @E zónában.']],tip:'Aktív regeneráció a teszt előtt.'},
-{zone:'strides',title:'Élesítés: 4 km + Repülők',dist:'4 km + repülők',steps:[['Fő rész','4 km könnyed @E futás.'],['Levezetés','4 × 100 m lendületes repülőfutás séta pihenőkkel.']],tip:'Idegrendszer aktiválás a felmérőhöz.'},
-{zone:'interval',title:'5 KM TESZTFUTÁS (Benchmark)',dist:'5 km MAX',steps:[['Bemelegítés','1.5 km könnyű kocogás + 2 repülő.'],['FŐ RÉSZ','5 KM MAXIMÁLIS VERSENYTEMPÓBAN @5k.'],['Levezetés','1 km levezető séta.']],tip:'Egyenletes tempó az első 3 km-en, az utolsó kilométeren sprintelj a célig!'}
-];
-
-const ZONES={
- easy:{name:'Könnyű / Z2',range:p=>[p.p5+70,p.p5+110]},
- recovery:{name:'Regeneráló',range:p=>[p.p5+85,p.p5+130]},
- tempo:{name:'Tempó (@T)',range:p=>[p.p5+12,p.p5+25]},
- interval:{name:'Versenytempó (@2k/@5k)',range:p=>[p.p2,p.p5]},
- strides:{name:'Z2 (fokozók)',range:p=>[p.p5+70,p.p5+110]},
- progression:{name:'Progresszív közép',range:p=>[p.p5+15,p.p5+35]}
+const SCHEMES = {
+  1: [[.65, 5], [.75, 5], [.85, '5+']],
+  2: [[.70, 3], [.80, 3], [.90, '3+']],
+  3: [[.75, 5], [.85, 3], [.95, '1+']],
+  4: [[.40, 5], [.50, 5], [.60, 5]]
 };
+const PC_SCHEMES = {
+  1: [[.65, 3], [.75, 3], [.85, '3+']],
+  2: [[.70, 3], [.80, 3], [.90, '3+']],
+  3: [[.75, 3], [.85, 3], [.95, '1+']],
+  4: [[.40, 3], [.50, 3], [.60, 3]]
+};
+const WARMUP = [[.40, 5], [.50, 5], [.60, 3]];
 
-/* ADATTÁROLÁS */
-const baseState=()=>({programStart:today(),tm:{sq:120,bp:90,dl:150,ohp:60},runTimes:{t2:'08:30',t5:'24:00'},logs:[],cycleApplied:1});
+/* 15 KONDÍCIÓS EDZÉS (METCON KÖNYVTÁR) */
+const METCONS = [
+{ id: "m1", title: "Engine Ladder", category: "Kondíció", duration: "Cap 20:00", target: "16:30 – 18:30", format: "5 kör időre",
+  items: ["500 m Evezés (Row)", "15 Burpee over rower", "20 Wall Ball shot (9/6 kg)"],
+  strategy: "Evezésen 2k tempó +5-7 mp. Burpee folyamatos ritmusban, Wall Ball 12+8 bontásban.",
+  tips: [["Evezés", "26-28 csapásszám."], ["Wall Ball", "Mellkasnál fogd a labdát."]] },
+{ id: "m2", title: "Echo Chipper", category: "Chipper", duration: "Cap 22:00", target: "17:00 – 19:30", format: "Időre (For Time)",
+  items: ["40 Cal Echo Bike", "30 DB Snatch (22.5/15 kg)", "30 Box Jump Over (60/50 cm)", "30 DB Thruster (2×15/10 kg)", "40 Cal Echo Bike"],
+  strategy: "Echo Bike 60-65 RPM. Thruster 3×10-es bontásban.",
+  tips: [["Thruster", "Csípőből lökj, fent vegyél levegőt."], ["Box Jump", "Lépkedj le a dobozról."]] },
+{ id: "m3", title: "Tri-Erg Aerobic Capacity", category: "Kardió", duration: "34:00 (3 kör)", target: "28:00 – 31:00", format: "3 kör (2:00 pihenővel)",
+  items: ["1000 m SkiErg", "1500 m Evezés", "2500 m Bike"],
+  strategy: "Tiszta zóna 2-3 aerob fejlesztés. Egyenletes wattok.",
+  tips: [["Pihenő", "Sétálj és igyál, ne feküdj le."]] },
+{ id: "m4", title: "Kettlebell & Shuttle Grinder", category: "Kondíció", duration: "Cap 20:00", target: "15:30 – 18:00", format: "4 kör időre",
+  items: ["400 m Futás (vagy 25 Cal Evezés)", "24 Kettlebell Swing (24/16 kg)", "16 KB Goblet Guggolás", "12 Burpee Box Jump Over"],
+  strategy: "KB swing unbroken minden körben. Futás után azonnal vedd fel a súlyt.",
+  tips: [["KB Swing", "Dinamikus csípőnyújtás."]] },
+{ id: "m5", title: "Cardio Monster EMOM 24", category: "Intervallum", duration: "24:00 fix", target: "45-48 mp munka / perc", format: "EMOM 24 perc (6 kör)",
+  items: ["1. perc: 18/14 Cal Evezés", "2. perc: 15 Burpee", "3. perc: 16/12 Cal Echo Bike", "4. perc: 50 Double Unders"],
+  strategy: "Legalább 12-15 mp pihenő minden percben. Ha csúszol, vegyél vissza 2 ismétlést.",
+  tips: [["Ugrókötél", "Laza vállak, csuklóból hajts."]] },
+{ id: "m6", title: "Lactate Tolerance Chipper", category: "Kondíció", duration: "Cap 22:00", target: "17:30 – 19:30", format: "3 kör időre",
+  items: ["400 m Futás (vagy 24 Cal SkiErg)", "15 Rúddal végzett Thruster (42.5/30 kg)", "15 Bar-Facing Burpee", "20 Cal Evezés"],
+  strategy: "Thruster 9+6 bontásban rögtön az elejétől.",
+  tips: [["Thruster", "Láblökésből indíts."]] },
+{ id: "m7", title: "The 40-Min Engine Test", category: "Kardió", duration: "40:00 AMRAP", target: "3 – 3.5 kör", format: "40 perc AMRAP",
+  items: ["1000 m Evezés", "40 Guggolás testsúllyal", "800 m Futás", "30 Fekvőtámasz", "20 Húzódzkodás / Ring Row", "50 Cal Bike"],
+  strategy: "Maratoni tempó, orrlégzés. Fekvőtámaszokat bontsd 5-ösökre.",
+  tips: [["Fekvőtámasz", "Kerüld az izombukást."]] },
+{ id: "m8", title: "Dumbbell Power & Capacity", category: "Kondíció", duration: "Cap 20:00", target: "14:00 – 16:30", format: "5 kör (1:30 pihenővel)",
+  items: ["15 Cal Echo Bike", "12 DB Felhúzás (2×22.5/15 kg)", "9 DB Hang Clean", "6 DB Push Press"],
+  strategy: "A súlyzós komplexet (12+9+6) próbáld lerakás nélkül vinni.",
+  tips: [["Echo Bike", "80%-os tempó."]] },
+{ id: "m9", title: "Rowing Pyramid & TTB", category: "Kondíció", duration: "Cap 22:00", target: "16:00 – 18:30", format: "Időre (For Time)",
+  items: ["250m Evezés + 10 TTB", "500m Evezés + 15 TTB", "750m Evezés + 20 TTB", "500m Evezés + 15 TTB", "250m Evezés + 10 TTB"],
+  strategy: "A 750 m evezésen tartsd fegyelmezetten a tempót.",
+  tips: [["TTB", "Kis szettek rövid szünetekkel."]] },
+{ id: "m10", title: "Ski & Box Step-Over Interval", category: "Intervallum", duration: "20:00 (4 kör)", target: "75+ fellépés", format: "4 kör (3:00 munka / 2:00 pihenő)",
+  items: ["350 m SkiErg", "Fennmaradó időben: Max DB Box Step-Over (2×15/10 kg)"],
+  strategy: "SkiErg 1:20 alatt, maradjon 1:40 a dobozra.",
+  tips: [["Box Step", "Sarkad teljesen legyen a dobozon."]] },
+{ id: "m11", title: "Devil's Grit", category: "Kondíció", duration: "Cap 25:00", target: "19:00 – 22:00", format: "5 kör időre",
+  items: ["20 Cal Evezés", "15 Hand-Release Fekvőtámasz", "15 Ugró kitörés", "8 Devil's Press (2×15/10 kg)"],
+  strategy: "Devil's Pressnél csípőből robbants, ne karból húzz.",
+  tips: [["Evezés", "Kitörések után az első 5 húzás legyen laza."]] },
+{ id: "m12", title: "Triple Threat Sprint", category: "Kardió", duration: "Cap 23:00", target: "17:30 – 20:00", format: "Időre (For Time)",
+  items: ["1500 m Evezés", "3000 m Bike (vagy 75 Cal Echo)", "1200 m Futás"],
+  strategy: "Bringán 90+ RPM. Futás végén hajrá.",
+  tips: [["Váltás", "Azonnal ülj át a gépekre."]] },
+{ id: "m13", title: "Barbell Aerobic Hybrid", category: "Kondíció", duration: "Cap 24:00", target: "18:00 – 21:00", format: "4 kör időre",
+  items: ["400 m Futás", "15 Power Snatch rúddal (35/25 kg)", "15 Burpee over bar", "15 Cal Echo Bike"],
+  strategy: "Gyors egyesek a snatcheknél.",
+  tips: [["Burpee", "Fordulj azonnal a rúd felé."]] },
+{ id: "m14", title: "30-20-10 Calorie Burn", category: "Kardió", duration: "Cap 19:00", target: "14:00 – 16:30", format: "Időre (For Time)",
+  items: ["30 Cal Evezés + 30 Wall Ball + 30 Box Jump", "20 Cal Bike + 20 Wall Ball + 20 Box Jump", "10 Cal SkiErg + 10 Wall Ball + 10 Box Jump"],
+  strategy: "Negatív split: 75% -> 85% -> 100% sprint.",
+  tips: [["Piramis", "Tartsd vissza magad az első körben."]] },
+{ id: "m15", title: "The Final Benchmark", category: "Kondíció", duration: "Cap 26:00", target: "20:00 – 23:30", format: "Időre (For Time)",
+  items: ["100 Double Unders", "50 Cal Evezés", "40 Wall Ball (9/6 kg)", "30 Burpee", "20 DB Hang Clean & Jerk (2×20/15 kg)", "50 Cal Echo Bike"],
+  strategy: "A végső aerob teszt. Utolsó biciklin mindent bele.",
+  tips: [["Wall Ball", "Nagy, egyenletes szettek."]] }
+];
+
+/* CHRIS HINSHAW 5K EDZÉSPROGRAM */
+const HINSHAW_PROGRAM = [
+  {
+    week: 1, title: "1. Hét: Pacing & Laktát Bázis",
+    sessions: [
+      { type: "Pálya (VO2 Max)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 8 × 400 m @5k (pihenő: 90 mp álló/séta)\nLevezetés: 1 km @recovery", focus: "Cél a pontos versenytempó megtartása, szórás nélkül." },
+      { type: "Küszöb (Threshold)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 3 × 1200 m @tempo (pihenő: 2:00 kocogás)\nLevezetés: 1 km @easy", focus: "Laktátküszöb kitolása, egyenletes légzés." },
+      { type: "Aerob Bázis (Z2)", desc: "6 km folyamatos futás @easy zónában", focus: "Végig orrlégzés! Ha emelkedik a pulzus, lassíts." }
+    ]
+  },
+  {
+    week: 2, title: "2. Hét: Laktát Tolerancia",
+    sessions: [
+      { type: "Pálya (VO2 Max)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 5 × 800 m @5k (pihenő: 2:00 séta)\nLevezetés: 1 km @recovery", focus: "Hosszabb ideig tartó 5k tempó fenntartása." },
+      { type: "Küszöb (Threshold)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 20 perc folyamatos tempófutás @tempo\nLevezetés: 1 km @easy", focus: "Stabil sebesség a laktátküszöbön." },
+      { type: "Aerob Bázis (Z2)", desc: "7 km kényelmes futás @easy zónában", focus: "Keringési alapok megerősítése." }
+    ]
+  },
+  {
+    week: 3, title: "3. Hét: Sebességi Állóképesség (Piramis)",
+    sessions: [
+      { type: "Pálya (Piramis)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 400m @speed (pihi: 90mp), 800m @5k (pihi: 2p), 1200m @5k (pihi: 2:30p), 800m @5k (pihi: 2p), 400m @speed\nLevezetés: 1 km @recovery", focus: "Mentális fókusz az 1200m-es szakaszon." },
+      { type: "Sebesség (Anaerob)", desc: "Bemelegítés: 1.5 km @easy + repülők\nFő rész: 6 × 400 m @speed (pihenő: 2:00 séta)\nLevezetés: 1 km @easy", focus: "Gyors lábmunka és ritmusváltás." },
+      { type: "Aerob Bázis (Z2)", desc: "8 km egyenletes futás @easy zónában", focus: "Alacsony pulzus, relaxált felsőtest." }
+    ]
+  },
+  {
+    week: 4, title: "4. Hét: Konszolidáció & Deload",
+    sessions: [
+      { type: "Pálya (Élesítés)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 6 × 400 m @5k (pihenő: 90 mp séta)\nLevezetés: 1 km @recovery", focus: "Frissülés, könnyed tempótartás." },
+      { type: "Küszöb (Rövid)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 15 perc folyamatos futás @tempo\nLevezetés: 1 km @easy", focus: "Feszültségmentes, fegyelmezett ritmus." },
+      { type: "Aktív Pihenő", desc: "5 km nagyon könnyű kocogás/séta @recovery", focus: "Teljes regeneráció a csúcshét előtt." }
+    ]
+  },
+  {
+    week: 5, title: "5. Hét: Specifikus Versenyterhelés",
+    sessions: [
+      { type: "Pálya (Csúcsterhelés)", desc: "Bemelegítés: 1.5 km @easy + 2 repülő\nFő rész: 4 × 1000 m @5k (pihenő: 2:30 séta)\nLevezetés: 1 km @recovery", focus: "Négy kilométer tiszta versenytempóban." },
+      { type: "Küszöb (Progresszív)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 25 perc folyamatos futás @tempo\nLevezetés: 1 km @easy", focus: "Hosszú küszöb-állóképesség." },
+      { type: "Aerob Bázis (Z2)", desc: "8 km folyamatos futás @easy zónában", focus: "Bázis szinten tartása." }
+    ]
+  },
+  {
+    week: 6, title: "6. Hét: Formába Hozás & 5K Teszt",
+    sessions: [
+      { type: "Élesítés (Taper)", desc: "Bemelegítés: 1.5 km @easy\nFő rész: 4 × 400 m @5k (pihi: 90 mp) + 4 × 100 m repülő\nLevezetés: 1 km @easy", focus: "Idegrendszeri ébresztés." },
+      { type: "Regeneráló", desc: "4 km szuperkönnyű futás @recovery", focus: "Pihenés a felmérő előtt." },
+      { type: "5 KM VERSENYTESZT", desc: "Bemelegítés: 1.5 km @easy + dinamikus bemelegítés\nFŐ RÉSZ: 5 KM MAXIMÁLIS VERSENYFUTÁS (@MAX)\nLevezetés: 1 km levezető séta", focus: "Egyenletes tempó az első 3 km-en, mindent bele az utolsó kilométeren!" }
+    ]
+  }
+];
+
+/* STATE */
+const baseState = () => ({
+  programStart: today(),
+  tm: { sq: 120, bp: 90, dl: 150, ohp: 60, pc: 80 },
+  runTimes: { t2: '08:30', t5: '24:00' },
+  dailyWods: {},
+  logs: [],
+  cycleApplied: 1
+});
 
 function sanitize(s){
-  const b=baseState();
-  if(!s||typeof s!=='object')return b;
-  if(/^\d{4}-\d{2}-\d{2}$/.test(String(s.programStart||'')))b.programStart=s.programStart;
+  const b = baseState();
+  if(!s || typeof s !== 'object') return b;
+  if(/^\d{4}-\d{2}-\d{2}$/.test(String(s.programStart || ''))) b.programStart = s.programStart;
   for(const l of LIFTS){
-    const n=Number(s.tm?.[l.key]);
-    if(Number.isFinite(n)&&n>0)b.tm[l.key]=round25(n);
+    const n = Number(s.tm?.[l.key]);
+    if(Number.isFinite(n) && n > 0) b.tm[l.key] = round25(n);
   }
-  const r=s.runTimes||{};
-  if(r.t2)b.runTimes.t2=r.t2;
-  if(r.t5)b.runTimes.t5=r.t5;
-  if(Array.isArray(s.logs))b.logs=s.logs.filter(x=>x&&x.id&&x.date);
-  b.cycleApplied=Number.isInteger(s.cycleApplied)?s.cycleApplied:1;
+  const r = s.runTimes || {};
+  if(r.t2) b.runTimes.t2 = r.t2;
+  if(r.t5) b.runTimes.t5 = r.t5;
+  if(s.dailyWods && typeof s.dailyWods === 'object') b.dailyWods = s.dailyWods;
+  if(Array.isArray(s.logs)) b.logs = s.logs.filter(x => x && x.id && x.date);
+  b.cycleApplied = Number.isInteger(s.cycleApplied) ? s.cycleApplied : 1;
   return b;
 }
 
 function load(){
-  try{
-    const v=localStorage.getItem(KEY);if(v)return sanitize(JSON.parse(v));
-  }catch(e){}
+  try {
+    const v = localStorage.getItem(KEY);
+    if(v) return sanitize(JSON.parse(v));
+  } catch(e){}
   return baseState();
 }
 
-let state=load(),tab='program',selectedDate='';
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('Mentési hiba!',true)}}
-let tt;function toast(m,err){const t=$('#toast');t.textContent=m;t.className='toast'+(err?' err':'');clearTimeout(tt);tt=setTimeout(()=>t.classList.add('hidden'),2400)}
+let state = load(), tab = 'program', selectedDate = '';
+function save(){
+  try { localStorage.setItem(KEY, JSON.stringify(state)); }
+  catch(e){ toast('Mentési hiba!', true); }
+}
 
-/* PROGRAM LOGIKA */
-const dayIndex=date=>{
-  const[y,m,d]=date.split('-').map(Number),[a,b,c]=state.programStart.split('-').map(Number);
-  return Math.round((Date.UTC(y,m-1,d)-Date.UTC(a,b-1,c))/864e5);
+let tt;
+function toast(m, err){
+  const t = $('#toast');
+  t.textContent = m;
+  t.className = 'toast' + (err ? ' err' : '');
+  clearTimeout(tt);
+  tt = setTimeout(() => t.classList.add('hidden'), 2400);
+}
+
+/* HINSHAW TEMPÓSZÁMÍTÓ */
+function getHinshawPaces(){
+  const s5 = toSec(state.runTimes.t5) || 1440;
+  const s2 = toSec(state.runTimes.t2) || Math.round(s5 * 0.38);
+  const p5k = s5 / 5.0;
+  const p2k = s2 / 2.0;
+  const p_speed = p2k - 10;
+  const p_tempo = p5k + 18;
+  const p_easy = p5k + 75;
+  const p_recovery = p5k + 105;
+
+  return {
+    p5k: fmtPace(p5k),
+    p2k: fmtPace(p2k),
+    speed: fmtPace(p_speed),
+    tempo: fmtPace(p_tempo),
+    easy: fmtPace(p_easy),
+    recovery: fmtPace(p_recovery)
+  };
+}
+
+function applyHinshawPaces(text){
+  const P = getHinshawPaces();
+  return text
+    .replace(/@5k/g, `<b class="mono" style="color:var(--em)">@5k (${P.p5k}/km)</b>`)
+    .replace(/@speed/g, `<b class="mono" style="color:#fff">@Speed (${P.speed}/km)</b>`)
+    .replace(/@tempo/g, `<b class="mono" style="color:#fff">@Tempo (${P.tempo}/km)</b>`)
+    .replace(/@easy/g, `<b class="mono" style="color:#fff">@Easy (${P.easy}/km)</b>`)
+    .replace(/@recovery/g, `<b class="mono dim">@Recovery (${P.recovery}/km)</b>`);
+}
+
+/* PROGRAM MOTOR (5 NAPOS CIKLUS) */
+const dayIndex = date => {
+  const[y, m, d] = date.split('-').map(Number), [a, b, c] = state.programStart.split('-').map(Number);
+  return Math.round((Date.UTC(y, m - 1, d) - Date.UTC(a, b - 1, c)) / 864e5);
 };
 
 function planFor(date){
-  const i=dayIndex(date);
-  if(i<0)return{kind:'before',parts:[]};
-  if(i%2===0){
-    const n=i/2;
-    return{kind:'strength',lift:ROT[n%4],week:Math.floor(n/4)%4+1,metcon:METCONS[n%METCONS.length],parts:['wendler','metcon']};
-  }
-  const n=(i-1)/2;
-  return{kind:'run',run:RUNS[n%RUNS.length],parts:['run']};
+  const i = dayIndex(date);
+  if (i < 0) return { kind: 'before' };
+  const dayInWeek = i % 5;
+  const week = Math.floor((i % 20) / 5) + 1;
+  const cycle = Math.floor(i / 20) + 1;
+  const lift = ROT[dayInWeek];
+  return {
+    kind: 'strength',
+    lift,
+    dayInWeek: dayInWeek + 1,
+    week,
+    cycle,
+    isDeload: week === 4
+  };
 }
 
-const cycleNow=()=>{const i=dayIndex(today());return i<0?1:Math.floor(i/30)+1};
-const logsOn=d=>state.logs.filter(l=>l.date===d);
-const partLog=(d,p)=>state.logs.find(l=>l.date===d&&l.part===p);
-const sets=(key,week)=>SCHEMES[week].map(([pct,reps])=>({pct,reps,kg:state.tm[key]?round25(state.tm[key]*pct):null}));
+const cycleNow = () => {
+  const i = dayIndex(today());
+  return i < 0 ? 1 : Math.floor(i / 20) + 1;
+};
 
-function runProfile(){
-  const t2=toSec(state.runTimes.t2),t5=toSec(state.runTimes.t5);
-  if(!t2||!t5||t2/2>=t5/5)return null;
-  return{t2,t5,p2:t2/2,p5:t5/5};
-}
-const rng=(z,P)=>{const[a,b]=ZONES[z].range(P);return`${fmtPace(a)}–${fmtPace(b)} /km`};
-function runTarget(run,P){
-  if(!P)return null;
-  const[a,b]=ZONES[run.zone].range(P);
-  switch(run.zone){
-   case'interval':return`Résztávok: ${fmtPace(P.p2)} /km (@2k) és ${fmtPace(P.p5)} /km (@5k)`;
-   case'tempo':return`Küszöbtempó: ${rng('tempo',P)}`;
-   case'progression':return`Középső szakasz: ${rng('progression',P)}`;
-   default:return`Z2 alapozó: ${rng('easy',P)}`;
-  }
-}
+const setsFor = (key, week) => {
+  const scheme = key === 'pc' ? PC_SCHEMES[week] : SCHEMES[week];
+  const tm = state.tm[key] || 0;
+  return scheme.map(([pct, reps]) => ({ pct, reps, kg: tm ? round25(tm * pct) : null }));
+};
 
-const TITLES={program:'Mai terv',metcon:'Metcon',profile:'Beállítások',log:'Napló'};
-const NAV=[['program','📅','PROGRAM'],['metcon','🔥','METCON'],['profile','⚙️','PROFIL'],['log','📖','NAPLÓ']];
+const TITLES = { program: 'Napi edzés', metcon: 'Metcon könyvtár', run: 'Hinshaw 5K', profile: 'Profil & Napló' };
+const NAV = [
+  ['program', '📋', 'TERV'],
+  ['metcon', '🔥', 'METCON'],
+  ['run', '🏃', 'FUTÁS'],
+  ['profile', '⚙️', 'PROFIL']
+];
 
 function render(){
-  try{
-    $('#title').textContent=TITLES[tab];
-    const i=dayIndex(today());
-    $('#badge').textContent=i<0?'INDUL: '+fmtDate(state.programStart).toUpperCase():`${cycleNow()}. CIKLUS`;
-    $('#nav').innerHTML=NAV.map(([k,ic,l])=>`
-      <button data-a="tab" data-t="${k}" class="${tab===k?'on':''}">
+  try {
+    $('#title').textContent = TITLES[tab];
+    const i = dayIndex(today());
+    $('#badge').textContent = i < 0 ? 'INDUL: ' + fmtDate(state.programStart).toUpperCase() : `${cycleNow()}. CIKLUS`;
+    $('#nav').innerHTML = NAV.map(([k, ic, l]) => `
+      <button data-a="tab" data-t="${k}" class="${tab === k ? 'on' : ''}">
         <b>${ic}</b>
         <span>${l}</span>
       </button>
     `).join('');
-    const v=$('#view');
-    v.innerHTML=({program:vProgram,metcon:vMetcon,profile:vProfile,log:vLog})[tab]();
-    const on=v.querySelector('.day.on');if(on)on.scrollIntoView({block:'nearest',inline:'center'});
-  }catch(err){
-    console.error(err);
+    const v = $('#view');
+    v.innerHTML = ({ program: vProgram, metcon: vMetcon, run: vRun, profile: vProfile })[tab]();
+    const on = v.querySelector('.day.on');
+    if (on) on.scrollIntoView({ block: 'nearest', inline: 'center' });
+  } catch(e) {
+    console.error(e);
   }
 }
 
-/* PROGRAM NÉZET */
+/* 1. NÉZET: PROGRAM (5/3/1 + DAY 5 POWER CLEAN + CSOPORTOS WOD BEÍRÓ) */
 function vProgram(){
-  const date=selectedDate,p=planFor(date),start=pd(state.programStart);
-  let st=pd(date);st.setDate(st.getDate()-4);if(st<start)st=new Date(start);
-  let strip='';
-  for(let k=0;k<18;k++){
-    const d=new Date(st);d.setDate(st.getDate()+k);const key=ymd(d),pl=planFor(key);
-    const hasDone=p.parts&&p.parts.every(x=>partLog(key,x));
-    strip+=`<button class="day ${key===date?'on':''}" data-a="date" data-d="${key}">
-      <small>${d.toLocaleDateString('hu-HU',{weekday:'short'})}</small>
-      <strong>${d.getDate()}</strong>
-      <em>${hasDone?'✓':pl.kind==='strength'?'ERŐ':pl.kind==='run'?'FUTÁS':'—'}</em>
-    </button>`;
+  const date = selectedDate, p = planFor(date), start = pd(state.programStart);
+  let st = pd(date); st.setDate(st.getDate() - 4); if (st < start) st = new Date(start);
+  
+  let strip = '';
+  for (let k = 0; k < 18; k++){
+    const d = new Date(st); d.setDate(st.getDate() + k);
+    const key = ymd(d), pl = planFor(key);
+    const dayLogged = state.logs.some(l => l.date === key);
+    strip += `
+      <button class="day ${key === date ? 'on' : ''}" data-a="date" data-d="${key}">
+        <small>${d.toLocaleDateString('hu-HU', { weekday: 'short' })}</small>
+        <strong>${d.getDate()}</strong>
+        <em>${dayLogged ? '✓' : pl.kind === 'strength' ? pl.lift.short : '—'}</em>
+      </button>`;
   }
 
-  const name=p.kind==='strength'?`5/3/1 ${LIFT[p.lift.key].name}`:p.kind==='run'?p.run.title:'Program előtt';
-  let body='';
+  const name = p.kind === 'strength' ? `${p.lift.short} · ${p.week}. HÉT` : 'Program előtt';
+  let body = '';
 
-  if(p.kind==='before'){
-    body=`<section class="card">
-      <h3>Kezdés: ${esc(fmtDate(state.programStart))}</h3>
-      <p class="mut small">A választott nap a program kezdete előtt van.</p>
-      <button class="btn pri" data-a="jumpStart">Ugrás a kezdőnapra</button>
-    </section>`;
-  } else if(p.kind==='strength'){
-    const key=p.lift.key,ss=sets(key,p.week),w=p.metcon;
-    body+=`
+  if (p.kind === 'before'){
+    body = `
+      <section class="card">
+        <h3>Kezdés: ${esc(fmtDate(state.programStart))}</h3>
+        <p class="mut small">A választott nap a program kezdete előtt van.</p>
+        <button class="btn pri" data-a="jumpStart">Ugrás a kezdőnapra</button>
+      </section>`;
+  } else {
+    const key = p.lift.key, ss = setsFor(key, p.week), hasTm = !!state.tm[key];
+    const groupWod = state.dailyWods[date] || '';
+
+    body += `
+    <!-- 1. KÁRTYA: 5/3/1 ERŐEMELÉS (VAGY DAY 5 POWER CLEAN) -->
     <section class="card">
       <div class="row">
         <div class="tags">
-          <span class="tag em">5/3/1 Erőemelés</span>
-          <span class="tag">${p.week}. hét${p.week===4?' · Deload':''}</span>
+          <span class="tag">${p.dayInWeek}. Nap · ${p.week}. hét${p.isDeload ? ' · Deload' : ''}</span>
           <span class="tag">${p.lift.short}</span>
         </div>
+        <span class="tiny dim">TM: ${hasTm ? kgFmt(state.tm[key]) + ' kg' : 'nincs megadva'}</span>
       </div>
+
       <div>
         <h3>${LIFT[key].name}</h3>
-        <span class="tiny dim">TM: ${kgFmt(state.tm[key])} kg</span>
       </div>
 
-      <div style="display:grid;gap:6px;background:var(--card-sub);padding:12px;border-radius:15px;border:1px solid var(--line)">
-        ${ss.map((s,k)=>`
-          <div class="setrow">
-            <div>
-              <span class="tiny dim uppercase">${k+1}. Munkasorozat (${Math.round(s.pct*100)}%)</span><br>
-              <b>${kgFmt(s.kg)} kg × ${s.reps}</b>
+      ${hasTm ? `
+        <div style="display:grid;gap:6px;background:var(--card-sub);padding:12px;border-radius:15px;border:1px solid var(--line)">
+          ${ss.map((s, idx) => `
+            <div class="setrow">
+              <div>
+                <span class="tiny dim uppercase">${idx + 1}. Munkasorozat (${Math.round(s.pct * 100)}%)</span><br>
+                <b>${kgFmt(s.kg)} kg × ${s.reps}</b>
+              </div>
+              ${String(s.reps).includes('+') ? '<span class="tag">AMRAP</span>' : ''}
             </div>
-            ${String(s.reps).includes('+')?'<span class="tag amb">AMRAP 🔥</span>':''}
+          `).join('')}
+        </div>
+        ${!p.isDeload ? `
+          <div class="notice">
+            <h4>Bemelegítés (Warm-up)</h4>
+            <p class="small mono">${WARMUP.map(([pc, r]) => `${kgFmt(round25(state.tm[key] * pc))} kg × ${r}`).join(' &bull; ')}</p>
           </div>
-        `).join('')}
-      </div>
-
-      ${p.week<4?`
+          <div style="background:var(--card-sub);padding:12px;border-radius:14px;border:1px solid var(--line)">
+            <div class="row">
+              <label class="lbl" style="margin:0">AMRAP elért ismétlések</label>
+              <span id="amrap-est" class="tiny ok font-bold"></span>
+            </div>
+            <input class="field" id="amrap" type="number" inputmode="numeric" min="0" max="40" placeholder="Pl. 8" style="margin-top:6px">
+          </div>
+        ` : ''}
+      ` : `
         <div class="notice">
-          <h4>Bemelegítés (Warm-up)</h4>
-          <p class="small mono">${WARMUP.map(([pc,r])=>`${kgFmt(round25(state.tm[key]*pc))} kg × ${r}`).join(' &bull; ')}</p>
+          <h4>Hiányzó Training Max!</h4>
+          <p>Add meg a Profil fülön a súlyodat a pontos munkasorozatokhoz.</p>
+          <button class="btn pri" data-a="tab" data-t="profile">TM beállítása</button>
         </div>
-        <div style="background:var(--card-sub);padding:12px;border-radius:14px;border:1px solid var(--line)">
-          <div class="row">
-            <label class="lbl" style="margin:0">AMRAP elért ismétlések</label>
-            <span id="amrap-est" class="tiny ok font-bold"></span>
-          </div>
-          <input class="field" id="amrap" type="number" inputmode="numeric" min="0" max="40" placeholder="Pl. 8" style="margin-top:6px">
-        </div>
-      `:''}
+      `}
 
-      <button class="btn pri" data-a="logPart" data-p="wendler">Erőedzés Mentése</button>
+      <details>
+        <summary>▸ Technikai tippek és kiegészítő munka</summary>
+        <div style="display:grid;gap:8px;margin-top:8px">
+          <div class="notice"><h4>Technika</h4><p>${esc(p.lift.tip)}</p></div>
+          <div class="notice"><h4>Kiegészítő munka</h4><p>${esc(p.lift.accessory)}</p></div>
+        </div>
+      </details>
+
+      <button class="btn pri" data-a="logStrength">Erőedzés Mentése a Naplóba</button>
     </section>
 
+    <!-- 2. KÁRTYA: CSOPORTOS EDZÉS METCON BEÍRÓ / MEGJELENÍTŐ -->
     <section class="card">
       <div class="row">
         <div class="tags">
-          <span class="tag amb">Kondíció</span>
-          <span class="tag">${esc(w.duration)}</span>
+          <span class="tag">Csoportos edzés</span>
+          <span class="tag">${fmtDate(date)}</span>
         </div>
-        <span class="tiny mut">${esc(w.format)}</span>
+        <button class="btn sm" data-a="editGroupWod">WOD Beírása ✏️</button>
       </div>
+
       <div>
-        <h3>${esc(w.title)}</h3>
-        <p class="tiny dim uppercase font-bold">Célidő: ${esc(w.target)}</p>
+        <h3>Napi Csoportos Metcon</h3>
       </div>
 
       <div style="background:var(--card-sub);padding:14px;border-radius:16px;border:1px solid var(--line)">
-        <div class="h em">Feladatsor</div>
-        ${w.items.map(it=>`<div class="item"><i>•</i><span>${esc(it)}</span></div>`).join('')}
+        ${groupWod ? `
+          <pre style="margin:0;white-space:pre-wrap;font:inherit;font-size:13px;color:#fff">${esc(groupWod)}</pre>
+        ` : `
+          <p class="mut small" style="text-align:center;padding:12px 0">Nincs még csoportos WOD rögzítve mára.<br>Kattints a fenti <b>WOD Beírása</b> gombra a megadásához.</p>
+        `}
       </div>
 
-      <button class="btn sky" data-a="openMetcon" data-id="${w.id}">
-        Stratégia & Interaktív Edzésóra
-      </button>
-
-      <button class="btn pri" data-a="logPart" data-p="metcon">Kondíció Mentése</button>
-    </section>
-    `;
-  } else {
-    const r=p.run,P=runProfile(),tg=runTarget(r,P);
-    body+=`
-    <section class="card">
-      <div class="row">
-        <div class="tags">
-          <span class="tag sky">Futás</span>
-          <span class="tag">${esc(r.dist)}</span>
-        </div>
-      </div>
-      <h3>${esc(r.title)}</h3>
-
-      ${P?`
-        <div class="notice sky">
-          <h4>Személyes céltempó</h4>
-          <p style="font-size:15px;font-weight:900;color:#fff">${esc(tg)}</p>
-        </div>
-      `:''}
-
+      <!-- Eredmény naplózása a csoportos edzéshez -->
       <div style="background:var(--card-sub);padding:14px;border-radius:16px;border:1px solid var(--line);display:grid;gap:8px">
-        ${r.steps.map(([a,b])=>`
-          <div style="border-bottom:1px solid var(--line);padding:6px 0">
-            <b style="color:var(--sky);font-size:11px;text-transform:uppercase">${a}</b>
-            <p class="small" style="color:#d4d4d8;margin-top:2px">${esc(b)}</p>
-          </div>
-        `).join('')}
+        <label class="lbl">Saját WOD eredmény rögzítése</label>
+        <input class="field" id="gwod-score" placeholder="Elért idő / körök (pl. 14:22 RX)">
+        <input class="field" id="gwod-load" placeholder="Használt súlyok / skálázás (pl. 42.5 kg)">
+        <textarea class="field" id="gwod-notes" rows="2" placeholder="Megjegyzések, érzet..."></textarea>
+        <button class="btn pri" data-a="logGroupWodResult">WOD Eredmény Naplózása</button>
       </div>
 
+      <!-- Shortcut a pótló edzésekhez -->
       <div class="notice">
-        <h4>Tipp</h4>
-        <p>${esc(r.tip)}</p>
+        <h4>Nem tudsz eljönni a terembe?</h4>
+        <p>Válassz ki egy otthon vagy egyénileg elvégezhető edzést a Metcon könyvtárból:</p>
+        <button class="btn white sm" data-a="tab" data-t="metcon" style="margin-top:4px">Metcon Könyvtár Megnyitása ›</button>
       </div>
-
-      <button class="btn sky" data-a="logPart" data-p="run">Futóedzés Mentése</button>
     </section>
     `;
+
+    // Napi naplózott bejegyzések listája
+    const logs = state.logs.filter(l => l.date === date);
+    if (logs.length){
+      body += `<section class="card"><div class="h">Naplózva ezen a napon</div>${logs.map(logCard).join('')}</section>`;
+    }
   }
 
-  const logs=logsOn(date);
-  if(logs.length){
-    body+=`<section class="card"><div class="h">Naplózva ezen a napon</div>${logs.map(logCard).join('')}</section>`;
-  }
-
-  return`
+  return `
     <div class="strip">${strip}</div>
     <div class="row" style="margin-top:2px">
       <div>
-        <div class="h em">${esc(fmtDate(date))}</div>
+        <div class="h">${esc(fmtDate(date))}</div>
         <h2>${esc(name)}</h2>
       </div>
       <button class="btn sm white" data-a="jumpToday">Ma</button>
@@ -520,19 +620,26 @@ function vProgram(){
   `;
 }
 
-/* METCON KÖNYVTÁR */
+/* 2. NÉZET: METCON KÖNYVTÁR (15 PÓTLÓ / OTTHONI EDZÉS + TIMER) */
 function vMetcon(){
-  return`
+  return `
   <section class="card">
-    <div class="h em">STRNG Workout Library</div>
+    <div class="h">STRNG Workout Library</div>
     <h2>Metcon Könyvtár</h2>
-    <p class="small mut">15 kondíciós edzés beépített időmérővel és stratégiával.</p>
+    <p class="small mut">15 otthon vagy egyénileg elvégezhető edzés a csoportos edzések pótlására, beépített időmérővel és technikával.</p>
+    <div class="grid2">
+      <input class="field" id="metcon-search" type="search" placeholder="Keresés: burpee, thruster..." autocomplete="off">
+      <select class="field" id="metcon-filter">
+        <option value="all">Minden kategória</option>
+        ${[...new Set(METCONS.map(w => w.category))].sort().map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('')}
+      </select>
+    </div>
   </section>
-  <div style="display:grid;gap:12px">
-    ${METCONS.map(w=>`
-      <button class="card" style="text-align:left" data-a="openMetcon" data-id="${w.id}">
+  <div id="metcon-list" style="display:grid;gap:12px">
+    ${METCONS.map(w => `
+      <button class="card metcon-item" style="text-align:left" data-a="openMetcon" data-id="${w.id}" data-search="${esc([w.title, w.category, ...w.items].join(' ').toLowerCase())}" data-category="${esc(w.category)}">
         <div class="row">
-          <span class="tag ${w.category==='Chipper'?'amb':w.category==='Intervallum'?'sky':'em'}">${esc(w.category)}</span>
+          <span class="tag">${esc(w.category)}</span>
           <span class="tiny ok font-bold">Megnyitás ›</span>
         </div>
         <h3 style="margin-top:2px">${esc(w.title)}</h3>
@@ -543,24 +650,107 @@ function vMetcon(){
       </button>
     `).join('')}
   </div>
+  <p id="metcon-empty" class="card small mut hidden" style="text-align:center">Nincs találat a keresésre.</p>
   `;
 }
 
-/* PROFIL NÉZET */
+function filterMetcons(){
+  const q = ($('#metcon-search')?.value || '').trim().toLocaleLowerCase('hu-HU');
+  const cat = $('#metcon-filter')?.value || 'all';
+  let visible = 0;
+  document.querySelectorAll('.metcon-item').forEach(el => {
+    const ok = (cat === 'all' || el.dataset.category === cat) && (!q || (el.dataset.search || '').includes(q));
+    el.classList.toggle('hidden', !ok);
+    if (ok) visible++;
+  });
+  $('#metcon-empty')?.classList.toggle('hidden', visible > 0);
+}
+
+/* 3. NÉZET: FUTÁS (CHRIS HINSHAW 5K AEROBIC CAPACITY TERV) */
+function vRun(){
+  const P = getHinshawPaces();
+  return `
+  <section class="card">
+    <div class="h">Chris Hinshaw Aerobic Capacity</div>
+    <h2>5K Futóteljesítmény Növelő Program</h2>
+    <p class="small mut">Strukturált, energiarendszerekre épülő 6 hetes futóterv. Add meg a felmérő időidet, és a program automatikusan kiszámolja a másodpercre pontos tempóidat.</p>
+    
+    <div class="grid2">
+      <div>
+        <label class="lbl">5 km Cél / PB (MM:SS)</label>
+        <input class="field time" id="run-5k" type="text" value="${esc(state.runTimes.t5)}" placeholder="24:00" maxlength="5">
+      </div>
+      <div>
+        <label class="lbl">2 km vagy 1 mérföld (MM:SS)</label>
+        <input class="field time" id="run-2k" type="text" value="${esc(state.runTimes.t2)}" placeholder="08:30" maxlength="5">
+      </div>
+    </div>
+    <button class="btn white" data-a="saveRunTimes">Tempók és Teljes Terv Frissítése</button>
+
+    <div class="h" style="margin-top:6px">Kiszámolt Zónatempók</div>
+    <div class="grid2">
+      <div style="background:var(--card-sub);padding:10px;border-radius:12px">
+        <span class="tiny dim uppercase">@Speed (Anaerob)</span>
+        <b class="mono" style="display:block;font-size:15px;color:#fff">${P.speed} /km</b>
+      </div>
+      <div style="background:var(--card-sub);padding:10px;border-radius:12px">
+        <span class="tiny dim uppercase">@5K (VO2 Max)</span>
+        <b class="mono" style="display:block;font-size:15px;color:#fff">${P.p5k} /km</b>
+      </div>
+      <div style="background:var(--card-sub);padding:10px;border-radius:12px">
+        <span class="tiny dim uppercase">@Tempo (Küszöb)</span>
+        <b class="mono" style="display:block;font-size:15px;color:#fff">${P.tempo} /km</b>
+      </div>
+      <div style="background:var(--card-sub);padding:10px;border-radius:12px">
+        <span class="tiny dim uppercase">@Easy (Z2 Bázis)</span>
+        <b class="mono" style="display:block;font-size:15px;color:#fff">${P.easy} /km</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 HETES HINSHAW EDZÉSTERV -->
+  <div style="display:grid;gap:14px">
+    ${HINSHAW_PROGRAM.map(w => `
+      <section class="card">
+        <div class="row">
+          <span class="tag">${w.week}. Hét</span>
+          <span class="tiny dim">3 edzés / hét</span>
+        </div>
+        <h3>${esc(w.title)}</h3>
+
+        <div style="display:grid;gap:10px">
+          ${w.sessions.map((ses, sIdx) => `
+            <div style="background:var(--card-sub);padding:12px;border-radius:14px;border:1px solid var(--line);display:grid;gap:4px">
+              <div class="row">
+                <b style="font-size:13px;color:#fff">${ses.type}</b>
+                <button class="btn sm" data-a="logRunSession" data-w="${w.week}" data-s="${sIdx}">Naplózás</button>
+              </div>
+              <p class="small" style="color:#d4d4d8;line-height:1.5">${applyHinshawPaces(ses.desc)}</p>
+              <p class="tiny dim">Fókusz: ${esc(ses.focus)}</p>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+    `).join('')}
+  </div>
+  `;
+}
+
+/* 4. NÉZET: PROFIL & NAPLÓ */
 function vProfile(){
-  const P=runProfile(),t=state.runTimes;
-  return`
+  return `
   <section class="card">
     <div class="row">
-      <div class="h em">5/3/1 Training Max (TM)</div>
-      <button class="btn sm amb" data-a="applyCycle">+ Ciklus Léptetés</button>
+      <div class="h">5/3/1 Training Max (TM)</div>
+      <button class="btn sm" data-a="applyCycle">+ Ciklus Léptetés</button>
     </div>
-    <p class="small mut">A munkasúlyok a Training Maxból (TM) számolódnak.</p>
+    <p class="small mut">A munkasúlyok a Training Maxból (TM) számolódnak (1RM 90%-a).</p>
     <div class="grid2">
-      ${LIFTS.map(l=>`
+      ${LIFTS.map(l => `
         <div style="background:var(--card-sub);padding:12px;border-radius:15px;border:1px solid var(--line)">
           <label class="lbl">${l.name}</label>
-          <input class="field" id="tm-${l.key}" type="number" inputmode="decimal" step="2.5" placeholder="TM (kg)" value="${state.tm[l.key]??''}">
+          <input class="field" id="orm-${l.key}" type="number" inputmode="decimal" step="2.5" placeholder="1RM (kg)" style="margin-bottom:6px">
+          <input class="field" id="tm-${l.key}" type="number" inputmode="decimal" step="2.5" placeholder="TM (kg)" value="${state.tm[l.key] ?? ''}">
         </div>
       `).join('')}
     </div>
@@ -568,111 +758,91 @@ function vProfile(){
   </section>
 
   <section class="card">
-    <div class="h sky">Futás · Idők & Zónák</div>
-    <div class="grid2">
-      <div>
-        <label class="lbl" for="rt2">Legjobb 2 km (MM:SS)</label>
-        <input class="field time" id="rt2" type="text" value="${esc(t.t2)}" placeholder="08:30" maxlength="5">
-      </div>
-      <div>
-        <label class="lbl" for="rt5">Legjobb 5 km (MM:SS)</label>
-        <input class="field time" id="rt5" type="text" value="${esc(t.t5)}" placeholder="24:00" maxlength="5">
-      </div>
+    <div class="h">Program Beállítás</div>
+    <div>
+      <label class="lbl">Program indulási dátuma</label>
+      <input class="field" id="pstart" type="date" value="${esc(state.programStart)}">
     </div>
-    <button class="btn sky" data-a="saveRun">Futóidők Mentése</button>
-
-    ${P?`
-      <div style="display:grid;gap:6px;margin-top:6px">
-        ${['easy','tempo','interval','recovery'].map(z=>`
-          <div class="row" style="background:var(--card-sub);padding:9px 12px;border-radius:12px;border:1px solid var(--line)">
-            <span class="small font-bold">${ZONES[z].name}</span>
-            <span class="mono ok font-bold">${rng(z,P)}</span>
-          </div>
-        `).join('')}
-      </div>
-    `:''}
+    <button class="btn white" data-a="saveStart">Kezdődátum Mentése</button>
   </section>
 
   <section class="card">
-    <div class="h em">Adatkezelés</div>
-    <button class="btn white" data-a="share">Biztonsági mentés letöltése (.json)</button>
-    <button class="btn danger" data-a="wipe">Alaphelyzetbe állítás</button>
+    <div class="row">
+      <div class="h">Összes Rögzített Edzés</div>
+      <span class="tiny dim">${state.logs.length} bejegyzés</span>
+    </div>
+    <div style="display:grid;gap:8px">
+      ${state.logs.length ? state.logs.map(logCard).join('') : '<p class="small mut" style="text-align:center;padding:12px">Még nincs naplózott edzésed.</p>'}
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="h">Biztonsági Mentés & Export</div>
+    <button class="btn white" data-a="shareBackup">Mentés Letöltése (.json)</button>
+    <button class="btn danger" data-a="wipe">Minden adat törlése ezen az eszközön</button>
   </section>
   `;
 }
 
-/* NAPLÓ NÉZET */
 function logCard(l){
-  return`
+  return `
   <article class="card" style="background:var(--card-sub);padding:12px">
     <div class="row" style="align-items:flex-start">
       <div>
-        <span class="tag ${l.type==='Futás'?'sky':'em'}">${esc(l.type)}</span>
+        <span class="tag">${esc(l.type)}</span>
         <h4 style="margin:4px 0 0;font-size:14px;font-weight:800">${esc(l.title)}</h4>
+        <span class="tiny dim">${esc(fmtDate(l.date))}</span>
       </div>
       <button class="btn sm danger" data-a="delLog" data-id="${esc(l.id)}">✕</button>
     </div>
-    ${l.details?`<pre style="margin-top:6px;white-space:pre-wrap;font:inherit;font-size:12px;color:#d4d4d8">${esc(l.details)}</pre>`:''}
+    ${l.details ? `<pre style="margin-top:6px;white-space:pre-wrap;font:inherit;font-size:12px;color:#d4d4d8">${esc(l.details)}</pre>` : ''}
   </article>`;
 }
 
-function vLog(){
-  const logs=[...state.logs].sort((a,b)=>b.date.localeCompare(a.date));
-  return`
-  <section class="card">
-    <div class="row">
-      <div>
-        <b style="font-size:22px;display:block">${state.logs.length}</b>
-        <span class="tiny dim uppercase">Rögzített edzés</span>
-      </div>
-      <span class="pill">${state.cycleApplied||1}. CIKLUS</span>
-    </div>
-  </section>
-  <div style="display:grid;gap:10px">
-    ${logs.length?logs.map(logCard).join(''):'<div class="card small mut" style="text-align:center">Még nincs rögzített edzésed.</div>'}
-  </div>
-  `;
-}
-
-/* METCON MODAL & TIMER */
-let timerState={id:null,sec:900,running:false};
-const timerFmt=n=>`${Math.floor(n/60)}:${pad(n%60)}`;
+/* METCON POPUP & TIMER */
+let timerState = { id: null, sec: 900, running: false };
+const timerFmt = n => `${Math.floor(n / 60)}:${pad(n % 60)}`;
 
 function timerTick(){
-  const d=$('#timer-display');
-  if(timerState.sec>0){
+  const d = $('#timer-display');
+  if (timerState.sec > 0){
     timerState.sec--;
-    if(d)d.textContent=timerFmt(timerState.sec);
+    if (d) d.textContent = timerFmt(timerState.sec);
   } else {
     clearInterval(timerState.id);
-    timerState.running=false;
-    const b=$('#timer-btn');if(b)b.textContent='Start';
+    timerState.running = false;
+    const b = $('#timer-btn'); if (b) b.textContent = 'Start';
     toast('Lejárt az idő!');
   }
 }
 
 function openMetcon(id){
-  const w=METCONS.find(x=>x.id===id);if(!w)return;
+  const w = METCONS.find(x => x.id === id); if (!w) return;
   clearInterval(timerState.id);
-  timerState={id:null,sec:900,running:false};
+  timerState = { id: null, sec: 900, running: false };
   modal(`
   <div class="row">
     <div>
-      <span class="tag em">${esc(w.category)}</span>
+      <span class="tag">${esc(w.category)}</span>
       <h2 style="margin-top:4px">${esc(w.title)}</h2>
     </div>
     <button class="btn sm white" data-a="closeModal">✕</button>
   </div>
 
   <div class="timerbox">
-    <div class="h em">Edzésóra (15 perc)</div>
+    <div class="h">Edzésóra (15 perc)</div>
     <div id="timer-display" class="timerdisplay">${timerFmt(timerState.sec)}</div>
     <button class="btn pri" id="timer-btn" data-a="toggleTimer">Indítás</button>
   </div>
 
   <div style="background:var(--card-sub);padding:12px;border-radius:15px;border:1px solid var(--line)">
-    <div class="h em" style="margin-bottom:6px">Feladatsor</div>
-    ${w.items.map(it=>`<div class="item"><i>•</i><span>${esc(it)}</span></div>`).join('')}
+    <div class="h" style="margin-bottom:6px">Feladatsor (Koppints ha kész)</div>
+    ${w.items.map(it => `
+      <label class="movement-check">
+        <input type="checkbox">
+        <span>${esc(it)}</span>
+      </label>
+    `).join('')}
   </div>
 
   <div class="notice">
@@ -681,7 +851,7 @@ function openMetcon(id){
   </div>
 
   <div style="display:grid;gap:6px">
-    ${w.tips.map(([a,b])=>`
+    ${w.tips.map(([a, b]) => `
       <div style="background:var(--card-sub);padding:8px 12px;border-radius:12px">
         <b style="font-size:12px">${esc(a)}</b>
         <p class="small mut">${esc(b)}</p>
@@ -693,108 +863,177 @@ function openMetcon(id){
   `);
 }
 
-const modal=html=>{const m=$('#modal');m.innerHTML=`<div class="panel">${html}</div>`;m.classList.remove('hidden')};
-const closeModal=()=>{clearInterval(timerState.id);$('#modal').classList.add('hidden');$('#modal').innerHTML=''};
+const modal = html => { const m = $('#modal'); m.innerHTML = `<div class="panel">${html}</div>`; m.classList.remove('hidden'); };
+const closeModal = () => { clearInterval(timerState.id); $('#modal').classList.add('hidden'); $('#modal').innerHTML = ''; };
 
 /* MŰVELETEK */
-function addLog(o){state.logs.unshift({id:uid(),...o});save()}
+function addLog(o){ state.logs.unshift({ id: uid(), ...o }); save(); }
 
-const A={
- tab(d){tab=d.t;closeModal();render();window.scrollTo(0,0)},
- date(d){selectedDate=d.d;render()},
- jumpToday(){selectedDate=today();render()},
- jumpStart(){selectedDate=state.programStart;render()},
- closeModal,
- openMetcon(d){openMetcon(d.id)},
- toggleTimer(){
-   const b=$('#timer-btn');
-   if(timerState.running){
-     clearInterval(timerState.id);
-     timerState.running=false;
-     if(b)b.textContent='Folytatás';
-   } else {
-     timerState.running=true;
-     timerState.id=setInterval(timerTick,1000);
-     if(b)b.textContent='Szünet';
-   }
- },
- logLibrary(d){
-   const w=METCONS.find(x=>x.id===d.id);if(!w)return;
-   addLog({date:selectedDate,type:'Metcon',title:w.title,details:`${w.format} · ${w.duration}\n${w.items.join('\n')}`});
-   closeModal();render();toast('Metcon elmentve!');
- },
- logPart(d){
-   const date=selectedDate,p=planFor(date);
-   if(d.p==='wendler'){
-     const key=p.lift.key,ss=sets(key,p.week),reps=Number($('#amrap')?.value)||0,top=ss[2];
-     const amrap=reps>0&&top.kg?`\nAMRAP: ${kgFmt(top.kg)} kg × ${reps} rep → Becsült 1RM: ${Math.round(top.kg*(1+reps/30))} kg`:'';
-     addLog({date,type:'Súlyemelés',title:`5/3/1 ${LIFT[key].name}`,
-       details:`${p.week}. hét · TM: ${kgFmt(state.tm[key])} kg\n${ss.map((s,k)=>`${k+1}. sorozat:${Math.round(s.pct*100)}% = ${kgFmt(s.kg)} kg × ${s.reps}`).join('\n')}${amrap}`});
-     toast('Erőedzés mentve!');
-   } else if(d.p==='metcon'){
-     const w=p.metcon;
-     addLog({date,type:'Metcon',title:w.title,details:`${w.format} · ${w.duration}\n${w.items.join('\n')}`});
-     toast('Kondíció mentve!');
-   } else {
-     const r=p.run,P=runProfile(),tg=runTarget(r,P);
-     addLog({date,type:'Futás',title:r.title,details:`${r.dist}${tg?'\nCéltempó: '+tg:''}`});
-     toast('Futóedzés mentve!');
-   }
-   render();
- },
- delLog(d){
-   if(!confirm('Törlöd ezt az edzést?'))return;
-   state.logs=state.logs.filter(x=>x.id!==d.id);save();render();toast('Törölve.');
- },
- saveTm(){
-   for(const l of LIFTS){
-     const v=$('#tm-'+l.key).value.trim(),n=Number(v);
-     state.tm[l.key]=v===''?null:round25(n);
-   }
-   save();render();toast('Súlyok mentve!');
- },
- applyCycle(){
-   if(!confirm('Lépteted a ciklust? Felsőtest: +2.5kg, Alsótest: +5kg.'))return;
-   for(const l of LIFTS)state.tm[l.key]=round25(state.tm[l.key]+(l.upper?2.5:5));
-   state.cycleApplied=(state.cycleApplied||1)+1;
-   save();render();toast(`${state.cycleApplied}. ciklus aktiválva!`);
- },
- saveRun(){
-   const a=normalizeTime($('#rt2').value),b=normalizeTime($('#rt5').value);
-   if(!a||!b)return toast('Add meg mindkét időt!',true);
-   state.runTimes={t2:a,t5:b};save();render();toast('Futóidők mentve!');
- },
- share(){
-   const json=JSON.stringify({app:'strng-training',state},null,2);
-   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([json],{type:'application/json'}));
-   a.download=`strng_mentes_${today()}.json`;a.click();toast('Fájl letöltve!');
- },
- wipe(){
-   if(!confirm('FIGYELEM: Minden mentett adat törlődik. Folytatod?'))return;
-   localStorage.clear();state=baseState();render();toast('Alaphelyzetbe állítva.');
- }
+const A = {
+  tab(d){ tab = d.t; closeModal(); render(); window.scrollTo(0, 0); },
+  date(d){ selectedDate = d.d; render(); },
+  jumpToday(){ selectedDate = today(); render(); },
+  jumpStart(){ selectedDate = state.programStart; render(); },
+  closeModal,
+  openMetcon(d){ openMetcon(d.id); },
+  toggleTimer(){
+    const b = $('#timer-btn');
+    if (timerState.running){
+      clearInterval(timerState.id);
+      timerState.running = false;
+      if (b) b.textContent = 'Folytatás';
+    } else {
+      timerState.running = true;
+      timerState.id = setInterval(timerTick, 1000);
+      if (b) b.textContent = 'Szünet';
+    }
+  },
+  logLibrary(d){
+    const w = METCONS.find(x => x.id === d.id); if (!w) return;
+    addLog({ date: selectedDate, type: 'Metcon', title: w.title, details: `${w.format} · ${w.duration}\n${w.items.join('\n')}` });
+    closeModal(); render(); toast('Metcon elmentve!');
+  },
+  logStrength(){
+    const p = planFor(selectedDate);
+    if (p.kind !== 'strength') return;
+    const key = p.lift.key, ss = setsFor(key, p.week), reps = Number($('#amrap')?.value) || 0, top = ss[2];
+    const amrap = reps > 0 && top.kg ? `\nAMRAP: ${kgFmt(top.kg)} kg × ${reps} rep → Becsült 1RM: ${Math.round(top.kg * (1 + reps / 30))} kg` : '';
+    addLog({
+      date: selectedDate, type: 'Súlyemelés', title: `5/3/1 ${LIFT[key].name}`,
+      details: `${p.week}. hét · TM: ${kgFmt(state.tm[key])} kg\n${ss.map((s, idx) => `${idx + 1}. sorozat:${Math.round(s.pct * 100)}% = ${kgFmt(s.kg)} kg × ${s.reps}`).join('\n')}${amrap}`
+    });
+    render(); toast('Erőedzés mentve!');
+  },
+  editGroupWod(){
+    const current = state.dailyWods[selectedDate] || '';
+    modal(`
+      <div class="row">
+        <h3>Csoportos WOD Beírása</h3>
+        <button class="btn sm white" data-a="closeModal">✕</button>
+      </div>
+      <p class="small mut">Erre a napra (${fmtDate(selectedDate)}) írd be a teremben elvégzett csoportos edzést:</p>
+      <textarea class="field" id="wod-input" rows="6" placeholder="Pl.\n5 kör időre:\n• 400 m futás\n• 15 burpee over bar\n• 15 toes to bar">${esc(current)}</textarea>
+      <button class="btn pri" data-a="saveGroupWod">WOD Mentése</button>
+    `);
+  },
+  saveGroupWod(){
+    const val = ($('#wod-input')?.value || '').trim();
+    if (val) { state.dailyWods[selectedDate] = val; }
+    else { delete state.dailyWods[selectedDate]; }
+    save(); closeModal(); render(); toast('Csoportos WOD frissítve!');
+  },
+  logGroupWodResult(){
+    const score = ($('#gwod-score')?.value || '').trim();
+    const load = ($('#gwod-load')?.value || '').trim();
+    const notes = ($('#gwod-notes')?.value || '').trim();
+    const currentWod = state.dailyWods[selectedDate] || 'Csoportos edzés';
+
+    if (!score && !load && !notes) return toast('Írj be legalább egy eredményt!', true);
+
+    const res = [
+      score ? 'Eredmény: ' + score : '',
+      load ? 'Súly/Skálázás: ' + load : '',
+      notes ? 'Megjegyzés: ' + notes : ''
+    ].filter(Boolean).join('\n');
+
+    addLog({
+      date: selectedDate, type: 'Metcon', title: 'Csoportos Edzés Metcon',
+      details: `${currentWod}\n\n${res}`
+    });
+    render(); toast('WOD eredmény naplózva!');
+  },
+  logRunSession(d){
+    const w = HINSHAW_PROGRAM.find(x => x.week === Number(d.w));
+    if (!w) return;
+    const s = w.sessions[Number(d.s)];
+    addLog({
+      date: selectedDate, type: 'Futás', title: `${w.week}. Hét · ${s.type}`,
+      details: `${s.desc}\n\nFókusz: ${s.focus}`
+    });
+    render(); toast('Futóedzés naplózva!');
+  },
+  saveRunTimes(){
+    const a = normalizeTime($('#run-2k').value), b = normalizeTime($('#run-5k').value);
+    if (!b) return toast('Add meg legalább az 5K idődet!', true);
+    state.runTimes = { t2: a || '08:30', t5: b };
+    save(); render(); toast('Hinshaw tempók és edzésterv frissítve!');
+  },
+  delLog(d){
+    if (!confirm('Törlöd ezt az edzést?')) return;
+    state.logs = state.logs.filter(x => x.id !== d.id);
+    save(); render(); toast('Törölve.');
+  },
+  saveTm(){
+    for (const l of LIFTS){
+      const v = $('#tm-' + l.key).value.trim(), n = Number(v);
+      state.tm[l.key] = v === '' ? null : round25(n);
+    }
+    save(); render(); toast('Súlyok mentve!');
+  },
+  saveStart(){
+    state.programStart = $('#pstart').value;
+    save(); render(); toast('Kezdődátum mentve!');
+  },
+  applyCycle(){
+    if (!confirm('Lépteted a ciklust? Felsőtest & Clean: +2.5kg, Alsótest: +5kg.')) return;
+    for (const l of LIFTS) state.tm[l.key] = round25(state.tm[l.key] + (l.upper ? 2.5 : 5));
+    state.cycleApplied = (state.cycleApplied || 1) + 1;
+    save(); render(); toast(`${state.cycleApplied}. ciklus aktiválva!`);
+  },
+  shareBackup(){
+    const json = JSON.stringify({ app: 'strng-training', state }, null, 2);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+    a.download = `strng_mentes_${today()}.json`;
+    a.click();
+    toast('Fájl letöltve!');
+  },
+  wipe(){
+    if (!confirm('FIGYELEM: Minden mentett adat törlődik. Folytatod?')) return;
+    localStorage.clear();
+    state = baseState();
+    render();
+    toast('Alaphelyzetbe állítva.');
+  }
 };
 
-document.addEventListener('click',e=>{
-  if(e.target.id==='modal'){closeModal();return}
-  const el=e.target.closest('[data-a]');if(el&&A[el.dataset.a])A[el.dataset.a](el.dataset,el);
+document.addEventListener('click', e => {
+  if (e.target.id === 'modal') { closeModal(); return; }
+  const el = e.target.closest('[data-a]');
+  if (el && A[el.dataset.a]) A[el.dataset.a](el.dataset, el);
 });
 
-document.addEventListener('input',e=>{
-  const t=e.target;
-  if(t.id==='rt2'||t.id==='rt5'){const v=liveTime(t.value);if(t.value!==v)t.value=v;}
-  if(t.id==='amrap'){
-    const val=Number(t.value),p=planFor(selectedDate);
-    if(val>0&&p.lift){
-      const ss=sets(p.lift.key,p.week),top=ss[2];
-      if(top.kg)$('#amrap-est').textContent=`Becsült 1RM: ${Math.round(top.kg*(1+val/30))} kg`;
-    }else if($('#amrap-est')){$('#amrap-est').textContent='';}
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.id === 'run-2k' || t.id === 'run-5k') {
+    const v = liveTime(t.value);
+    if (t.value !== v) t.value = v;
+  }
+  if (t.id === 'metcon-search') filterMetcons();
+  if (t.id === 'amrap'){
+    const val = Number(t.value), p = planFor(selectedDate);
+    if (val > 0 && p.lift){
+      const ss = setsFor(p.lift.key, p.week), top = ss[2];
+      if (top.kg) $('#amrap-est').textContent = `Becsült 1RM: ${Math.round(top.kg * (1 + val / 30))} kg`;
+    } else if ($('#amrap-est')) { $('#amrap-est').textContent = ''; }
+  }
+  const m = /^orm-(\w+)$/.exec(t.id || '');
+  if (m){
+    const n = Number(t.value), tm = $('#tm-' + m[1]);
+    if (tm) tm.value = n > 0 ? round25(n * 0.9) : '';
   }
 });
 
-document.addEventListener('focusout',e=>{const t=e.target;if(t.id==='rt2'||t.id==='rt5')t.value=normalizeTime(t.value)});
+document.addEventListener('focusout', e => {
+  const t = e.target;
+  if (t.id === 'run-2k' || t.id === 'run-5k') t.value = normalizeTime(t.value);
+});
 
-selectedDate=today();
+document.addEventListener('change', e => {
+  if (e.target.id === 'metcon-filter') filterMetcons();
+});
+
+selectedDate = today();
 render();
 })();
 </script>
